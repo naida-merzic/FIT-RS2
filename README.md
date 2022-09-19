@@ -1,7 +1,7 @@
 # FIT-RS2
 Oftamoloski centar
 
-
+# Credentials
 Desktop user:
   username: admin
   password: test
