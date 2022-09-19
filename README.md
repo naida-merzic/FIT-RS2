@@ -3,6 +3,7 @@ Oftamoloski centar
 
 # Credentials
 Desktop user:
+
   username: admin
   
   password: test
