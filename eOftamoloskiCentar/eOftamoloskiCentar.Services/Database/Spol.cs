@@ -7,12 +7,14 @@ namespace eOftamoloskiCentar.Services.Database
     {
         public Spol()
         {
-            Osobas = new HashSet<Osoba>();
+            Klijents = new HashSet<Klijent>();
+            Uposleniks = new HashSet<Uposlenik>();
         }
 
         public int SpolId { get; set; }
         public string? Naziv { get; set; }
 
-        public virtual ICollection<Osoba> Osobas { get; set; }
+        public virtual ICollection<Klijent> Klijents { get; set; }
+        public virtual ICollection<Uposlenik> Uposleniks { get; set; }
     }
 }

@@ -15,7 +15,8 @@ namespace eOftamoloskiCentar.Services.Database
         public string? Opis { get; set; }
         public decimal? Cijena { get; set; }
         public int? VrstaArtiklaId { get; set; }
-        public string StateMachine { get; set; }
+        public string? Sifra { get; set; }
+        public string? StateMachine { get; set; }
 
         public virtual VrstaArtikla? VrstaArtikla { get; set; }
         public virtual ICollection<StavkaRacuna> StavkaRacunas { get; set; }

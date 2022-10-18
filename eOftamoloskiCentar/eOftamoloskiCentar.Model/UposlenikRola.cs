@@ -11,6 +11,5 @@ namespace eOftamoloskiCentar.Model
         public DateTime? DatumIzmjene { get; set; }
 
         public virtual Rola Rola { get; set; }
-        //public virtual Uposlenik? Uposlenik { get; set; }
     }
 }

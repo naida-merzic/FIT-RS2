@@ -12,21 +12,32 @@ namespace eOftamoloskiCentar.Services
     {
         public MappingProfile()
         {
-            CreateMap<Database.Osoba, Model.Osoba>();
             CreateMap<Database.Artikal, Model.Artikal>();
             CreateMap<Database.Dijagnoza, Model.Dijagnoza>();
             CreateMap<Database.VrstaArtikla, Model.VrstaArtikla>();
             CreateMap<Database.Uposlenik, Model.Uposlenik>();
+            CreateMap<Database.Uposlenik, Model.Uposlenik>();
+            CreateMap<Database.Rola, Model.Rola>();
+            CreateMap<Database.UposlenikRola, Model.UposlenikRola>();
+            CreateMap<Database.Klijent, Model.Klijent>();
+            CreateMap<Database.Spol, Model.Spol>();
+            CreateMap<Database.Termin, Model.Termin>();
+            CreateMap<Database.Novost, Model.Novost>();
 
 
 
             CreateMap<ArtikalInsertRequest, Database.Artikal>();
             CreateMap<ArtikalUpdateRequest, Database.Artikal>();
-            CreateMap<OsobaUpsertRequest, Database.Osoba>();
             CreateMap<DijagnozaUpsertRequest, Database.Dijagnoza>();
             CreateMap<VrstaArtiklaUpsertRequest, Database.VrstaArtikla>();
             CreateMap<UposlenikInsertRequest, Database.Uposlenik>();
             CreateMap<UposlenikUpdateRequest, Database.Uposlenik>();
+            CreateMap<KlijentInsertRequest, Database.Klijent>();
+            CreateMap<KlijentUpdateRequest, Database.Klijent>();
+            CreateMap<SpolUpsertRequest, Database.Spol>();
+            CreateMap<TerminInsertRequest, Database.Termin>();
+            CreateMap<TerminUpdateRequest, Database.Termin>();
+            CreateMap<NovostUpsertRequest, Database.Novost>();
 
         }
     }

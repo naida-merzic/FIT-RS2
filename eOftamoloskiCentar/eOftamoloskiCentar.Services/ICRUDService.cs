@@ -11,5 +11,7 @@ namespace eOftamoloskiCentar.Services
         T Insert(TInsert insert);
 
         T Update(int id, TUpdate update);
+        T Delete(int id);
+
     }
 }

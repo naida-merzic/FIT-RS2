@@ -8,12 +8,14 @@ namespace eOftamoloskiCentar.Model
         public int ArtikalId { get; set; }
         public string Naziv { get; set; }
         public string Opis { get; set; }
-        public decimal? Cijena { get; set; }
+        public decimal Cijena { get; set; }
         public int? VrstaArtiklaId { get; set; }
         public string StateMachine { get; set; }
+        public string Sifra { get; set; }
+        public string NazivArtikla { get; set; }
 
+        public VrstaArtikla VrstaArtikla { get; set; } 
 
-        //public virtual VrstaArtikla VrstaArtikla { get; set; }
         //public virtual ICollection<StavkaRacuna> StavkaRacunas { get; set; }
     }
 }

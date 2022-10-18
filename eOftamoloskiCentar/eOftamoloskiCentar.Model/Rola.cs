@@ -9,6 +9,5 @@ namespace eOftamoloskiCentar.Model
         public int RolaId { get; set; }
         public string Naziv { get; set; }
 
-        //public virtual ICollection<UposlenikRola> UposlenikRolas { get; set; }
     }
 }

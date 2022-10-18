@@ -13,12 +13,16 @@ namespace eOftamoloskiCentar.Services.Database
         }
 
         public int UposlenikId { get; set; }
-        public int? OsobaId { get; set; }
         public string LozinkaHash { get; set; } = null!;
         public string LozinkaSalt { get; set; } = null!;
-        public string? Zvanje { get; set; }
+        public int? SpolId { get; set; }
+        public string? Ime { get; set; }
+        public string? Prezime { get; set; }
+        public string? KorisnickoIme { get; set; }
+        public string? Email { get; set; }
+        public bool? Status { get; set; }
 
-        public virtual Osoba? Osoba { get; set; }
+        public virtual Spol? Spol { get; set; }
         public virtual ICollection<DijagnozaUposlenik> DijagnozaUposleniks { get; set; }
         public virtual ICollection<Novost> Novosts { get; set; }
         public virtual ICollection<UposlenikRola> UposlenikRolas { get; set; }

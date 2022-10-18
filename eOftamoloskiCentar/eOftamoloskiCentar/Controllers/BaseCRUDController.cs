@@ -25,6 +25,14 @@ namespace eOftamoloskiCentar.Controllers
 
             return result;
         }
+        //[Authorize(Roles = "Admin")]
+        [HttpDelete("{id}")]
+        public virtual T Delete(int id)
+        {
+            var result = ((ICRUDService<T, TSearch, TInsert, TUpdate>)this._service).Delete(id);
+
+            return result;
+        }
 
     }
 }

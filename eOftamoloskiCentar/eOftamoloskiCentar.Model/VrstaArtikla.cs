@@ -9,6 +9,10 @@ namespace eOftamoloskiCentar.Model
         public int VrstaArtiklaId { get; set; }
         public string NazivArtikla { get; set; }
 
-       //public virtual ICollection<Artikal> Artikals { get; set; }
+        //public virtual ICollection<Artikal> Artikals { get; set; }
+        public override string ToString()
+        {
+            return NazivArtikla;
+        }
     }
 }

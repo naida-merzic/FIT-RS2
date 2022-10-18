@@ -2,6 +2,7 @@
 using eOftamoloskiCentar.Model.Requests;
 using eOftamoloskiCentar.Model.SearchObjects;
 using eOftamoloskiCentar.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eOftamoloskiCentar.Controllers
@@ -26,6 +27,15 @@ namespace eOftamoloskiCentar.Controllers
         public List<string> AllowedActions(int id)
         {
             var result = ArtikliService.AllowedActions(id);
+
+            return result;
+        }
+
+        [HttpGet("{id}/Recommend")]
+        [AllowAnonymous]
+        public List<Artikal> Recommend(int id)
+        {
+            var result = ArtikliService.Recommend(id);
 
             return result;
         }

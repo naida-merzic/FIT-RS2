@@ -21,7 +21,6 @@ namespace eOftamoloskiCentar.Services.Database
         public virtual DbSet<DijagnozaUposlenik> DijagnozaUposleniks { get; set; } = null!;
         public virtual DbSet<Klijent> Klijents { get; set; } = null!;
         public virtual DbSet<Novost> Novosts { get; set; } = null!;
-        public virtual DbSet<Osoba> Osobas { get; set; } = null!;
         public virtual DbSet<Racun> Racuns { get; set; } = null!;
         public virtual DbSet<Rola> Rolas { get; set; } = null!;
         public virtual DbSet<Spol> Spols { get; set; } = null!;
@@ -85,10 +84,10 @@ namespace eOftamoloskiCentar.Services.Database
             {
                 entity.ToTable("Klijent");
 
-                entity.HasOne(d => d.Osoba)
+                entity.HasOne(d => d.Spol)
                     .WithMany(p => p.Klijents)
-                    .HasForeignKey(d => d.OsobaId)
-                    .HasConstraintName("FK_Klijent_Osoba");
+                    .HasForeignKey(d => d.SpolId)
+                    .HasConstraintName("FK_Klijent_Spol");
             });
 
             modelBuilder.Entity<Novost>(entity =>
@@ -101,18 +100,6 @@ namespace eOftamoloskiCentar.Services.Database
                     .WithMany(p => p.Novosts)
                     .HasForeignKey(d => d.UposlenikId)
                     .HasConstraintName("FK_Novost_Uposlenik");
-            });
-
-            modelBuilder.Entity<Osoba>(entity =>
-            {
-                entity.ToTable("Osoba");
-
-                entity.Property(e => e.DatumRodjenja).HasColumnType("datetime");
-
-                entity.HasOne(d => d.Spol)
-                    .WithMany(p => p.Osobas)
-                    .HasForeignKey(d => d.SpolId)
-                    .HasConstraintName("FK_Osoba_Spol");
             });
 
             modelBuilder.Entity<Racun>(entity =>
@@ -174,10 +161,12 @@ namespace eOftamoloskiCentar.Services.Database
             {
                 entity.ToTable("Uposlenik");
 
-                entity.HasOne(d => d.Osoba)
+                entity.Property(e => e.Status).HasDefaultValueSql("('FALSE')");
+
+                entity.HasOne(d => d.Spol)
                     .WithMany(p => p.Uposleniks)
-                    .HasForeignKey(d => d.OsobaId)
-                    .HasConstraintName("FK_Uposlenik_Osoba");
+                    .HasForeignKey(d => d.SpolId)
+                    .HasConstraintName("FK_Uposlenik_Spol");
             });
 
             modelBuilder.Entity<UposlenikRola>(entity =>

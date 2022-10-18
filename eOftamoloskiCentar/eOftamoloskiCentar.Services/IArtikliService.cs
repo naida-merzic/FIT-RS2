@@ -13,5 +13,6 @@ namespace eOftamoloskiCentar.Services
     {
         Model.Artikal Activate(int id);
         List<string> AllowedActions(int id);
+        List<Model.Artikal> Recommend(int id);
     }
 }

@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 
 namespace eOftamoloskiCentar.Services
 {
-    public interface IUposlenikService : ICRUDService <Uposlenik, UposlenikSearchObject, UposlenikInsertRequest, UposlenikUpdateRequest>
+    public interface IUposlenikService : ICRUDService<Uposlenik, UposlenikSearchObject, UposlenikInsertRequest, UposlenikUpdateRequest>
     {
+        Model.Uposlenik Login(string username, string password);
     }
 }

@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using eOftamoloskiCentar.Model;
 using eOftamoloskiCentar.Model.Requests;
 using eOftamoloskiCentar.Model.SearchObjects;
 using eOftamoloskiCentar.Services.Database;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +21,12 @@ namespace eOftamoloskiCentar.Services
         }
         public override Model.Uposlenik Insert(UposlenikInsertRequest insert)
         {
+            if (insert.Password != insert.PasswordPotvrda)
+            {
+                throw new UserException("Password and confirmation must be the same");
+            }
+            
+
             var entity = base.Insert(insert);
 
 
@@ -35,6 +43,30 @@ namespace eOftamoloskiCentar.Services
             Context.SaveChanges();
 
             return entity;
+        }
+        public override Model.Uposlenik Delete(int id)
+        {
+            foreach (var item in Context.UposlenikRolas)
+            {
+                if (id == item.UposlenikId)
+                {
+                    Context.UposlenikRolas.Remove(item);
+                }
+            }
+            foreach (var item in Context.Novosts)
+            {
+                if (id == item.UposlenikId)
+                {
+                    Context.Novosts.Remove(item);
+                }
+            }
+            var entity = Context.Uposleniks.Find(id);
+            if (entity == null)
+                throw new ArgumentNullException();
+            var x = entity;
+            Context.Uposleniks.Remove(entity);
+            Context.SaveChanges();
+            return Mapper.Map<Model.Uposlenik>(x);
         }
 
         public override void BeforeInsert(UposlenikInsertRequest insert, Database.Uposlenik entity)
@@ -66,6 +98,49 @@ namespace eOftamoloskiCentar.Services
             HashAlgorithm algorithm = HashAlgorithm.Create("SHA1");
             byte[] inArray = algorithm.ComputeHash(dst);
             return Convert.ToBase64String(inArray);
+        }
+        public override IQueryable<Database.Uposlenik> AddFilter(IQueryable<Database.Uposlenik> query, UposlenikSearchObject search = null)
+        {
+            var filteredQuery = base.AddFilter(query, search);
+
+            if (!string.IsNullOrWhiteSpace(search?.Ime))
+            {
+                filteredQuery = filteredQuery.Where(x => x.Ime.Contains(search.Ime));
+            }
+
+            if (!string.IsNullOrWhiteSpace(search?.Prezime))
+            {
+                filteredQuery = filteredQuery.Where(x => x.Prezime.Contains(search.Prezime)
+                    || x.Ime.Contains(search.Prezime)
+                    || x.Prezime.Contains(search.Prezime));
+            }
+
+            return filteredQuery;
+        }
+        public override IQueryable<Database.Uposlenik> AddInclude(IQueryable<Database.Uposlenik> query, UposlenikSearchObject search = null)
+        {
+            if (search?.IncludeRoles == true)
+            {
+                query = query.Include("UposlenikRolas.Rola");
+            }
+            return query;
+        }
+        public Model.Uposlenik Login(string username, string password)
+        {
+            var entity = Context.Uposleniks.Include("UposlenikRolas.Rola").FirstOrDefault(x => x.KorisnickoIme == username);
+            if (entity == null)
+            {
+                return null;
+            }
+
+            var hash = GenerateHash(entity.LozinkaSalt, password);
+
+            if (hash != entity.LozinkaHash)
+            {
+                return null;
+            }
+
+            return Mapper.Map<Model.Uposlenik>(entity);
         }
     }
 }

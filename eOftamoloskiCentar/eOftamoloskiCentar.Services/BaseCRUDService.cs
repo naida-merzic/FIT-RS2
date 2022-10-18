@@ -48,5 +48,15 @@ namespace eOftamoloskiCentar.Services
 
             return Mapper.Map<T>(entity);
         }
+        public virtual T Delete(int id)
+        {
+            var entity = Context.Set<TDb>().Find(id);
+            if (entity == null)
+                throw new ArgumentNullException();
+            var x = entity;
+            Context.Set<TDb>().Remove(entity);
+            Context.SaveChanges();
+            return Mapper.Map<T>(x);
+        }
     }
 }

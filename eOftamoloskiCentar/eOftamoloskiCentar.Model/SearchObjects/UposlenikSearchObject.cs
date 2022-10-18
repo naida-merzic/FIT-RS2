@@ -8,6 +8,6 @@ namespace eOftamoloskiCentar.Model.SearchObjects
     {
         public string Ime { get; set; }
         public string Prezime { get; set; }
-
+        public bool IncludeRoles { get; set; }
     }
 }
