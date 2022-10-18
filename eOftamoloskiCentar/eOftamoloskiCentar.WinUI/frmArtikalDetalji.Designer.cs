@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblNaziv = new System.Windows.Forms.Label();
             this.txtNaziv = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -47,30 +45,14 @@
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.errorProvider2 = new System.Windows.Forms.ErrorProvider(this.components);
             this.errorProvider3 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.coverPhoto = new System.Windows.Forms.OpenFileDialog();
+            this.pbSlika = new System.Windows.Forms.PictureBox();
+            this.btnDodajSliku = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbSlika)).BeginInit();
             this.SuspendLayout();
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.pictureBox1);
-            this.groupBox1.Location = new System.Drawing.Point(293, 37);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(257, 268);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "slika";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(61, 53);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(125, 174);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
             // 
             // lblNaziv
             // 
@@ -197,11 +179,35 @@
             // 
             this.errorProvider3.ContainerControl = this;
             // 
+            // coverPhoto
+            // 
+            this.coverPhoto.FileName = "coverPhoto";
+            // 
+            // pbSlika
+            // 
+            this.pbSlika.Location = new System.Drawing.Point(324, 77);
+            this.pbSlika.Name = "pbSlika";
+            this.pbSlika.Size = new System.Drawing.Size(206, 198);
+            this.pbSlika.TabIndex = 15;
+            this.pbSlika.TabStop = false;
+            // 
+            // btnDodajSliku
+            // 
+            this.btnDodajSliku.Location = new System.Drawing.Point(355, 42);
+            this.btnDodajSliku.Name = "btnDodajSliku";
+            this.btnDodajSliku.Size = new System.Drawing.Size(123, 29);
+            this.btnDodajSliku.TabIndex = 16;
+            this.btnDodajSliku.Text = "Dodaj sliku";
+            this.btnDodajSliku.UseVisualStyleBackColor = true;
+            this.btnDodajSliku.Click += new System.EventHandler(this.btnDodajSliku_Click_1);
+            // 
             // frmArtikalDetalji
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(598, 378);
+            this.Controls.Add(this.btnDodajSliku);
+            this.Controls.Add(this.pbSlika);
             this.Controls.Add(this.btnObrisi);
             this.Controls.Add(this.cmbVrsta);
             this.Controls.Add(this.txtSifra);
@@ -215,24 +221,19 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtNaziv);
             this.Controls.Add(this.lblNaziv);
-            this.Controls.Add(this.groupBox1);
             this.Name = "frmArtikalDetalji";
             this.Text = "frmArtikalDetalji";
             this.Load += new System.EventHandler(this.frmArtikalDetalji_Load);
-            this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbSlika)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private GroupBox groupBox1;
-        private PictureBox pictureBox1;
         private Label lblNaziv;
         private TextBox txtNaziv;
         private Label label1;
@@ -249,5 +250,8 @@
         private ErrorProvider errorProvider1;
         private ErrorProvider errorProvider2;
         private ErrorProvider errorProvider3;
+        private Button btnDodajSliku;
+        private PictureBox pbSlika;
+        private OpenFileDialog coverPhoto;
     }
 }

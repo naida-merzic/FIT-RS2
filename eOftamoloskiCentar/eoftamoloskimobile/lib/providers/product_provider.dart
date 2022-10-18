@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:async';
+import 'package:eoftamoloskimobile/model/product.dart';
+//import 'package:eoftamoloskimobile/providers/base_provider.dart';
 import 'package:http/http.dart';
 import 'package:http/io_client.dart';
 import 'package:flutter/foundation.dart';
-
-import 'package:flutter/cupertino.dart';
 
 class ProductProvider with ChangeNotifier {
   HttpClient client = new HttpClient();
@@ -17,12 +17,12 @@ class ProductProvider with ChangeNotifier {
     http = IOClient(client);
   }
 
-  Future<dynamic> get(dynamic searchObject) async {
+  Future<List<Product>> get(dynamic searchObject) async {
     print("called provider.GET METHOD");
     var url = Uri.parse("https://10.0.2.2:7031/Artikli");
 
     String username = "admin";
-    String password = "admin";
+    String password = "test";
 
     String basicAuth =
         "Basic ${base64Encode(utf8.encode('$username:$password'))}";
@@ -36,7 +36,9 @@ class ProductProvider with ChangeNotifier {
 
     if (response.statusCode < 400) {
       var data = jsonDecode(response.body);
-      return data;
+      List<Product> list =
+          data.map((x) => Product.fromJson(x)).cast<Product>().toList();
+      return list;
     } else {
       throw Exception("User not allowed!");
     }

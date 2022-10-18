@@ -18,6 +18,7 @@ namespace eOftamoloskiCentar.WinUI
         public APIService VrstaArtikla { get; set; } = new APIService("VrstaArtikla");
 
         private Artikal _model = null;
+        System.Byte[] file;
         public frmArtikalDetalji(Artikal model = null)
         {
             InitializeComponent();
@@ -42,6 +43,11 @@ namespace eOftamoloskiCentar.WinUI
                 cmbVrsta.SelectedValue = _model.VrstaArtiklaId.Value;
                 txtOpis.Text = _model.Opis;
                 txtCijena.Text = _model.Cijena.ToString("#,0.00");
+                if (_model.Slika != null && _model.Slika.Length > 15)
+                {
+                    pbSlika.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pbSlika.Image = Helper.ImageConverterFunction.FromByteToImage(_model.Slika);
+                }
             }
         }
 
@@ -60,7 +66,8 @@ namespace eOftamoloskiCentar.WinUI
                         VrstaArtiklaId = Convert.ToInt32(cmbVrsta.SelectedValue), 
                         Opis = txtOpis.Text,
                         Sifra = txtSifra.Text,
-                        Cijena = Convert.ToDecimal(txtCijena.Text)
+                        Cijena = Convert.ToDecimal(txtCijena.Text),
+                        Slika = file
                     };
 
                     var user = await ArtikliService.Post<Artikal>(insertRequest);
@@ -74,7 +81,8 @@ namespace eOftamoloskiCentar.WinUI
                         VrstaArtiklaId = Convert.ToInt32(cmbVrsta.SelectedValue),
                         Opis = txtOpis.Text,
                         Sifra = txtSifra.Text,
-                        Cijena = Convert.ToDecimal(txtCijena.Text)
+                        Cijena = Convert.ToDecimal(txtCijena.Text),
+                        Slika = file
                     };
 
                     _model = await ArtikliService.Put<Artikal>(_model.ArtikalId, updateRequest);
@@ -143,6 +151,23 @@ namespace eOftamoloskiCentar.WinUI
             else
             {
                 e.Cancel = false;
+            }
+        }
+
+        
+
+        private void btnDodajSliku_Click_1(object sender, EventArgs e)
+        {   
+            var result = coverPhoto.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                var fileName = coverPhoto.FileName;
+                file = File.ReadAllBytes(fileName);
+
+                Image img = Image.FromFile(fileName);
+                pbSlika.Image = img;
+                pbSlika.SizeMode = PictureBoxSizeMode.StretchImage;
             }
         }
     }

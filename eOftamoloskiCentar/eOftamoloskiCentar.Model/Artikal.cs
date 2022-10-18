@@ -13,6 +13,8 @@ namespace eOftamoloskiCentar.Model
         public string StateMachine { get; set; }
         public string Sifra { get; set; }
         public string NazivArtikla { get; set; }
+        public byte[] Slika { get; set; }
+
 
         public VrstaArtikla VrstaArtikla { get; set; } 
 

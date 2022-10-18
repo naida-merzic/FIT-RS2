@@ -12,5 +12,7 @@ namespace eOftamoloskiCentar.Model.Requests
         public int? VrstaArtiklaId { get; set; }
         public string StateMachine { get; set; }
         public string Sifra { get; set; }
+        public byte[] Slika { get; set; }
+
     }
 }
