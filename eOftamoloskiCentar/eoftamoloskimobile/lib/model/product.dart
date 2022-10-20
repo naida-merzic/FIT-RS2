@@ -1,5 +1,7 @@
 //import 'package:json_serializable/json_serializable.dart';
 
+import 'dart:ffi';
+
 import 'package:json_annotation/json_annotation.dart';
 
 part 'product.g.dart';
@@ -9,6 +11,7 @@ class Product {
   int? artikalId;
   String? naziv;
   String? slika;
+  double? cijena;
 
   Product() {}
 

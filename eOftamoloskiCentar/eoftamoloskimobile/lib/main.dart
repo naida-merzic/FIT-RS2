@@ -1,28 +1,75 @@
 //import 'dart:html';
 
+import 'package:eoftamoloskimobile/providers/cart_provider.dart';
+import 'package:eoftamoloskimobile/providers/checkOrder_provider.dart';
 import 'package:eoftamoloskimobile/providers/product_provider.dart';
+import 'package:eoftamoloskimobile/providers/user_provider.dart';
+import 'package:eoftamoloskimobile/screens/cart/cart_screen.dart';
+import 'package:eoftamoloskimobile/screens/products/product_details_screen.dart';
 import 'package:eoftamoloskimobile/screens/products/product_list_screen.dart';
+import 'package:eoftamoloskimobile/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'providers/user_provider.dart';
 
 void main() => runApp(MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => ProductProvider()),
+          ChangeNotifierProvider(create: (_) => UserProvider()),
+          ChangeNotifierProvider(create: (_) => CartProvider()),
+          ChangeNotifierProvider(create: (_) => CheckOrderProvider()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: true,
+          theme: ThemeData(
+            // Define the default brightness and colors.
+            brightness: Brightness.light,
+            primaryColor: Colors.deepPurple,
+            textButtonTheme: TextButtonThemeData(
+                style: TextButton.styleFrom(
+                    foregroundColor: Colors.deepPurple,
+                    textStyle: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        fontStyle: FontStyle.italic))),
+
+            // Define the default `TextTheme`. Use this to specify the default
+            // text styling for headlines, titles, bodies of text, and more.
+            textTheme: const TextTheme(
+              headline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
+              headline6: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
+            ),
+          ),
           home: HomePage(),
           onGenerateRoute: (settings) {
             if (settings.name == ProductListScreen.routeName) {
               return MaterialPageRoute(
                   builder: ((context) => ProductListScreen()));
+            } else if (settings.name == CartScreen.routeName) {
+              return MaterialPageRoute(builder: ((context) => CartScreen()));
+            }
+
+            var uri = Uri.parse(settings.name!);
+            if (uri.pathSegments.length == 2 &&
+                "/${uri.pathSegments.first}" ==
+                    ProductDetailsScreen.routeName) {
+              var id = uri.pathSegments[1];
+              return MaterialPageRoute(
+                  builder: (context) => ProductDetailsScreen(id));
             }
           },
         )));
 
 class HomePage extends StatelessWidget {
+  TextEditingController _usernameController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  late UserProvider _userProvider;
+
   @override
   Widget build(BuildContext context) {
+    _userProvider = Provider.of<UserProvider>(context, listen: false);
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Flutter RoxExample"),
@@ -81,6 +128,7 @@ class HomePage extends StatelessWidget {
                     decoration: BoxDecoration(
                         border: Border(bottom: BorderSide(color: Colors.grey))),
                     child: TextField(
+                      controller: _usernameController,
                       decoration: InputDecoration(
                           border: InputBorder.none, hintText: "Email or phone"),
                     ),
@@ -88,13 +136,14 @@ class HomePage extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.all(8),
                     child: TextField(
+                      controller: _passwordController,
                       decoration: InputDecoration(
                           border: InputBorder.none, hintText: "Password"),
                     ),
                   ),
                 ]),
               )),
-          SizedBox(height: 30),
+          SizedBox(height: 2),
           Container(
             height: 50,
             //padding: EdgeInsets.all(8),
@@ -106,14 +155,35 @@ class HomePage extends StatelessWidget {
                   Color.fromRGBO(143, 148, 251, 6)
                 ])),
             child: InkWell(
-              onTap: () {
-                Navigator.pushNamed(context, ProductListScreen.routeName);
+              onTap: () async {
+                try {
+                  Authorization.username = _usernameController.text;
+                  Authorization.password = _passwordController.text;
+
+                  await _userProvider.get();
+
+                  Navigator.pushNamed(context, ProductListScreen.routeName);
+                } catch (e) {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                            title: Text("Error"),
+                            content: Text(e.toString()),
+                            actions: [
+                              TextButton(
+                                child: Text("Ok"),
+                                onPressed: () => Navigator.pop(context),
+                              )
+                            ],
+                          ));
+                }
               },
               child: Center(child: Text("Login")),
             ),
           ),
-          SizedBox(height: 50),
-          Text("Forgot password?")
+          SizedBox(height: 40),
+          Text("Forgot password?"),
+          SizedBox(height: 40),
         ],
       )),
     );

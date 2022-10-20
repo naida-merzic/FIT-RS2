@@ -23,7 +23,8 @@ namespace eOftamoloskiCentar.Services
             CreateMap<Database.Spol, Model.Spol>();
             CreateMap<Database.Termin, Model.Termin>();
             CreateMap<Database.Novost, Model.Novost>();
-
+            CreateMap<Database.Racun, Model.Racun>();
+            CreateMap<Database.StavkaRacuna, Model.StavkaRacuna>();
 
 
             CreateMap<ArtikalInsertRequest, Database.Artikal>();
@@ -38,7 +39,8 @@ namespace eOftamoloskiCentar.Services
             CreateMap<TerminInsertRequest, Database.Termin>();
             CreateMap<TerminUpdateRequest, Database.Termin>();
             CreateMap<NovostUpsertRequest, Database.Novost>();
-
+            CreateMap<RacunInsertRequest, Database.Racun>();
+            CreateMap<RacunUpdateRequest, Database.Racun>();
         }
     }
 }

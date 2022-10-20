@@ -54,6 +54,7 @@ namespace eOftamoloskiCentar.Services
                   Context.StavkaRacunas.Remove(item);
                 }
             }
+            
             var entity = Context.Artikals.Find(id);
             if (entity == null)
                 throw new ArgumentNullException();

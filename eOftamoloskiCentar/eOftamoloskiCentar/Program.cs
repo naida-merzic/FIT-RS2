@@ -46,7 +46,7 @@ builder.Services.AddTransient<IKlijentService, KlijentService>();
 builder.Services.AddTransient<ISpolService, SpolService>();
 builder.Services.AddTransient<ITerminService, TerminService>();
 builder.Services.AddTransient<INovostService, NovostService>();
-
+builder.Services.AddTransient<IRacunService, RacunService>();
 
 
 
