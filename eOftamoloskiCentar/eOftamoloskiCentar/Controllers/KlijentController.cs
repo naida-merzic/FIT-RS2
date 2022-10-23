@@ -7,11 +7,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace eOftamoloskiCentar.Controllers
 {
+    [Authorize]
     public class KlijentController : BaseCRUDController<Model.Klijent, KlijentSearchObject, KlijentInsertRequest, KlijentUpdateRequest>
     {
+        private readonly IKlijentService service;
         public KlijentController(IKlijentService service)
             : base(service)
         {
+            this.service = service;
         }
         //[Authorize("Admin")]
         public override Klijent Insert([FromBody] KlijentInsertRequest insert)
@@ -22,6 +25,13 @@ namespace eOftamoloskiCentar.Controllers
         public override Klijent Update(int id, [FromBody] KlijentUpdateRequest update)
         {
             return base.Update(id, update);
+        }
+        //[Authorize(Roles = "Klijent")]
+        [Consumes("application/json")]
+        [HttpPost("Login")]
+        public Klijent Login([FromBody] AuthenticationRequest request)
+        {
+            return  service.Login(request);
         }
     }
 }

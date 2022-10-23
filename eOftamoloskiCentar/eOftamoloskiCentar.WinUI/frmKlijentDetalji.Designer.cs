@@ -38,6 +38,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.errorProvider2 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.txtUsername = new System.Windows.Forms.TextBox();
+            this.txtPass = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider2)).BeginInit();
             this.SuspendLayout();
@@ -111,11 +113,27 @@
             // 
             this.errorProvider2.ContainerControl = this;
             // 
+            // txtUsername
+            // 
+            this.txtUsername.Location = new System.Drawing.Point(207, 141);
+            this.txtUsername.Name = "txtUsername";
+            this.txtUsername.Size = new System.Drawing.Size(145, 27);
+            this.txtUsername.TabIndex = 9;
+            // 
+            // txtPass
+            // 
+            this.txtPass.Location = new System.Drawing.Point(358, 141);
+            this.txtPass.Name = "txtPass";
+            this.txtPass.Size = new System.Drawing.Size(145, 27);
+            this.txtPass.TabIndex = 10;
+            // 
             // frmKlijentDetalji
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(630, 368);
+            this.Controls.Add(this.txtPass);
+            this.Controls.Add(this.txtUsername);
             this.Controls.Add(this.btnSacuvaj);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.cmbSpol);
@@ -144,5 +162,7 @@
         private Label label2;
         private ErrorProvider errorProvider1;
         private ErrorProvider errorProvider2;
+        private TextBox txtPass;
+        private TextBox txtUsername;
     }
 }

@@ -42,7 +42,7 @@ namespace eOftamoloskiCentar.WinUI
                 txtSifra.Text = _model.Sifra;
                 cmbVrsta.SelectedValue = _model.VrstaArtiklaId.Value;
                 txtOpis.Text = _model.Opis;
-                txtCijena.Text = _model.Cijena.ToString("#,0.00");
+                txtCijena.Text = _model.Cijena.ToString();
                 if (_model.Slika != null && _model.Slika.Length > 15)
                 {
                     pbSlika.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -60,6 +60,8 @@ namespace eOftamoloskiCentar.WinUI
 
                 if (_model == null)
                 {
+                    if (txtCijena.Text.Contains(','))
+                        txtCijena.Text = txtCijena.Text.Replace(',', '.');
                     ArtikalInsertRequest insertRequest = new ArtikalInsertRequest()
                     {
                         Naziv = txtNaziv.Text,

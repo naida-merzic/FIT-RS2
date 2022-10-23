@@ -11,5 +11,6 @@ namespace eOftamoloskiCentar.Services
 {
     public interface IKlijentService : ICRUDService<Klijent, KlijentSearchObject, KlijentInsertRequest, KlijentUpdateRequest>
     {
+        public Klijent Login(AuthenticationRequest request);
     }
 }

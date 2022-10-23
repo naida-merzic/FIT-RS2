@@ -11,6 +11,7 @@ import 'package:eoftamoloskimobile/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'model/user.dart';
 import 'providers/user_provider.dart';
 
 void main() => runApp(MultiProvider(
@@ -160,7 +161,8 @@ class HomePage extends StatelessWidget {
                   Authorization.username = _usernameController.text;
                   Authorization.password = _passwordController.text;
 
-                  await _userProvider.get();
+                  List<User> loggedUser = await _userProvider.get();
+                  Authorization.loggedUser = loggedUser.first;
 
                   Navigator.pushNamed(context, ProductListScreen.routeName);
                 } catch (e) {

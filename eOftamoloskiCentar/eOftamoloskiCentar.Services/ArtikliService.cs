@@ -110,7 +110,7 @@ namespace eOftamoloskiCentar.Services
         static object isLocked = new object();
         static MLContext mlContext = null;
         static ITransformer model = null;
-
+        
         public List<Model.Artikal> Recommend(int id)
         {
             lock (isLocked)

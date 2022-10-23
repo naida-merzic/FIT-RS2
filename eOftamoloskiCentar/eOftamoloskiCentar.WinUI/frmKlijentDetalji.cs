@@ -40,7 +40,7 @@ namespace eOftamoloskiCentar.WinUI
             {
                 txtIme.Text = _model.Ime;
                 txtPrezime.Text = _model.Prezime;
-                cmbSpol.SelectedValue = _model.SpolId.Value;
+                //cmbSpol.SelectedValue = _model.SpolId.Value;
                 //potrebno termin ucitat
             }
         }
@@ -55,8 +55,10 @@ namespace eOftamoloskiCentar.WinUI
                     {
                         Ime = txtIme.Text,
                         Prezime = txtPrezime.Text,
-                        SpolId = Convert.ToInt32(cmbSpol.SelectedValue),
+                        //SpolId = Convert.ToInt32(cmbSpol.SelectedValue),
                         //termine dodati
+                        KorisnickoIme = txtUsername.Text,
+                        Lozinka = txtPass.Text,
                     };
 
                     var user = await KlijentService.Post<Klijent>(insertRequest);
@@ -68,7 +70,7 @@ namespace eOftamoloskiCentar.WinUI
                     {
                         Ime = txtIme.Text,
                         Prezime = txtPrezime.Text,
-                        SpolId = Convert.ToInt32(cmbSpol.SelectedValue),
+                        //SpolId = Convert.ToInt32(cmbSpol.SelectedValue),
                         //termine dodati
                     };
 

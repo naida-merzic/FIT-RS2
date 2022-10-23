@@ -21,7 +21,9 @@ namespace eOftamoloskiCentar.Services.Database
         public string? KorisnickoIme { get; set; }
         public string? Email { get; set; }
         public bool? Status { get; set; }
+        public int? KorisnickiRacunId { get; set; }
 
+        public virtual KorisnickiRacun? KorisnickiRacun { get; set; }
         public virtual Spol? Spol { get; set; }
         public virtual ICollection<DijagnozaUposlenik> DijagnozaUposleniks { get; set; }
         public virtual ICollection<Novost> Novosts { get; set; }

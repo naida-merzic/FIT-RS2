@@ -1,11 +1,13 @@
 import 'dart:convert';
 import 'dart:typed_data';
+import 'package:eoftamoloskimobile/model/user.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 
 class Authorization {
   static String? username;
   static String? password;
+  static User? loggedUser;
 }
 
 Image imageFromBase64String(String base64String) {

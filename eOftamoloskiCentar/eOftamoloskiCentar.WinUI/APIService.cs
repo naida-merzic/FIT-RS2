@@ -20,6 +20,9 @@ namespace eOftamoloskiCentar.WinUI
         {
             _resource = resource;
         }
+
+
+
         public async Task<T> Get<T>(object search = null)
         {
             var query = "";
