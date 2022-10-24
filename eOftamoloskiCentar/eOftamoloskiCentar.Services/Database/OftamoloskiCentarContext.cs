@@ -88,7 +88,7 @@ namespace eOftamoloskiCentar.Services.Database
                 entity.HasOne(d => d.KorisnickiRacun)
                     .WithMany(p => p.Klijents)
                     .HasForeignKey(d => d.KorisnickiRacunId)
-                    .HasConstraintName("FK__Klijent__Korisni__29221CFB");
+                    .HasConstraintName("FK__Klijent__Korisni__2BFE89A6");
 
                 entity.HasOne(d => d.Spol)
                     .WithMany(p => p.Klijents)
@@ -99,8 +99,6 @@ namespace eOftamoloskiCentar.Services.Database
             modelBuilder.Entity<KorisnickiRacun>(entity =>
             {
                 entity.ToTable("KorisnickiRacun");
-
-                entity.Property(e => e.KorisnickiRacunId).ValueGeneratedNever();
 
                 entity.Property(e => e.DatumRodjenja).HasColumnType("datetime");
             });
@@ -181,7 +179,7 @@ namespace eOftamoloskiCentar.Services.Database
                 entity.HasOne(d => d.KorisnickiRacun)
                     .WithMany(p => p.Uposleniks)
                     .HasForeignKey(d => d.KorisnickiRacunId)
-                    .HasConstraintName("FK__Uposlenik__Koris__2A164134");
+                    .HasConstraintName("FK__Uposlenik__Koris__2CF2ADDF");
 
                 entity.HasOne(d => d.Spol)
                     .WithMany(p => p.Uposleniks)

@@ -50,13 +50,13 @@ namespace eOftamoloskiCentar.Services
                 filteredQuery = filteredQuery.Where(x => x.VrstaPregleda == search.VrstaPregleda);
             }
 
-            if (!string.IsNullOrWhiteSpace(search?.Ime))
-            {
-                filteredQuery = filteredQuery.Where(x => x.Klijent.Ime.Contains(search.Ime)
-                    || x.Klijent.Prezime.Contains(search.Ime)
-                    || x.VrstaPregleda.Contains(search.Ime)
-                    || x.Klijent.Ime.Contains(search.Ime));
-            }
+            //if (!string.IsNullOrWhiteSpace(search?.Ime))
+            //{
+            //    filteredQuery = filteredQuery.Where(x => x.Klijent.Ime.Contains(search.Ime)
+            //        || x.Klijent.Prezime.Contains(search.Ime)
+            //        || x.VrstaPregleda.Contains(search.Ime)
+            //        || x.Klijent.Ime.Contains(search.Ime));
+            //}
 
             return filteredQuery;
         }

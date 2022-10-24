@@ -1,10 +1,17 @@
 //import 'dart:html';
 
+import 'package:eoftamoloskimobile/model/klijent.dart';
+import 'package:eoftamoloskimobile/model/korisnickiRacun.dart';
+import 'package:eoftamoloskimobile/model/novost.dart';
 import 'package:eoftamoloskimobile/providers/cart_provider.dart';
 import 'package:eoftamoloskimobile/providers/checkOrder_provider.dart';
+import 'package:eoftamoloskimobile/providers/korisnickiRacun_provider.dart';
+import 'package:eoftamoloskimobile/providers/novost_provider.dart';
 import 'package:eoftamoloskimobile/providers/product_provider.dart';
 import 'package:eoftamoloskimobile/providers/user_provider.dart';
 import 'package:eoftamoloskimobile/screens/cart/cart_screen.dart';
+import 'package:eoftamoloskimobile/screens/krosicnickiRacun/korisnickiRacunScreen.dart';
+import 'package:eoftamoloskimobile/screens/news/news_list_screen.dart';
 import 'package:eoftamoloskimobile/screens/products/product_details_screen.dart';
 import 'package:eoftamoloskimobile/screens/products/product_list_screen.dart';
 import 'package:eoftamoloskimobile/utils/utils.dart';
@@ -20,6 +27,8 @@ void main() => runApp(MultiProvider(
           ChangeNotifierProvider(create: (_) => UserProvider()),
           ChangeNotifierProvider(create: (_) => CartProvider()),
           ChangeNotifierProvider(create: (_) => CheckOrderProvider()),
+          ChangeNotifierProvider(create: (_) => NovostProvider()),
+          ChangeNotifierProvider(create: (_) => KorisnickiRacunProvider()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: true,
@@ -49,6 +58,13 @@ void main() => runApp(MultiProvider(
                   builder: ((context) => ProductListScreen()));
             } else if (settings.name == CartScreen.routeName) {
               return MaterialPageRoute(builder: ((context) => CartScreen()));
+            } else if (settings.name == NovostScreen.routeName) {
+              return MaterialPageRoute(builder: ((context) => NovostScreen()));
+            } else if (settings.name == NovostScreen.routeName) {
+              return MaterialPageRoute(builder: ((context) => NovostScreen()));
+            } else if (settings.name == KorisnickiRacunScreen.routeName) {
+              return MaterialPageRoute(
+                  builder: ((context) => KorisnickiRacunScreen()));
             }
 
             var uri = Uri.parse(settings.name!);
@@ -66,10 +82,13 @@ class HomePage extends StatelessWidget {
   TextEditingController _usernameController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   late UserProvider _userProvider;
+  late KorisnickiRacunProvider _korisnickiProvider;
 
   @override
   Widget build(BuildContext context) {
     _userProvider = Provider.of<UserProvider>(context, listen: false);
+    _korisnickiProvider =
+        Provider.of<KorisnickiRacunProvider>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(
@@ -162,7 +181,12 @@ class HomePage extends StatelessWidget {
                   Authorization.password = _passwordController.text;
 
                   List<User> loggedUser = await _userProvider.get();
+                  List<Klijent> loggedUser11 = await _korisnickiProvider.get();
                   Authorization.loggedUser = loggedUser.first;
+                  Authorization.loggedUser11 = loggedUser11.first;
+
+                  print("Auth1" +
+                      loggedUser11.first!.korisnickiRacun!.ime.toString());
 
                   Navigator.pushNamed(context, ProductListScreen.routeName);
                 } catch (e) {

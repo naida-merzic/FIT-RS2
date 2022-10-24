@@ -27,12 +27,12 @@ namespace eOftamoloskiCentar.Model.Requests
         public string KorisnickoIme { get; set; }
         public string Lozinka { get; set; }
         public string LozinkaPotvrda { get; set; }
-        [Required]
-        public int GradId { get; set; }
+        //[Required]
+        //public int GradId { get; set; }
         [Required]
         public string Adresa { get; set; }
-        public string SlikaPutanja { get; set; }
-        public byte[] Slika { get; set; }
+        //public string SlikaPutanja { get; set; }
+        //public byte[] Slika { get; set; }
         public bool? Status { get; set; }
     }
 }

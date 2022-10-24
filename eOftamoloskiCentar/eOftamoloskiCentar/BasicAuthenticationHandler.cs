@@ -1,4 +1,5 @@
-﻿using eOftamoloskiCentar.Services;
+﻿using eOftamoloskiCentar.Model.Requests;
+using eOftamoloskiCentar.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Options;
 using System.Net.Http.Headers;
@@ -8,8 +9,8 @@ using System.Text.Encodings.Web;
 
 public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
 {
-    public IUposlenikService UposlenikService { get; set; }
-    public BasicAuthenticationHandler(IUposlenikService uposlenikService, IOptionsMonitor<AuthenticationSchemeOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock)
+    public IKorisnickiRacun UposlenikService { get; set; }
+    public BasicAuthenticationHandler(IKorisnickiRacun uposlenikService, IOptionsMonitor<AuthenticationSchemeOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock)
         : base(options, logger, encoder, clock)
     {
         UposlenikService = uposlenikService;
@@ -29,7 +30,13 @@ public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSc
         var username = credentials[0];
         var password = credentials[1];
 
-        var user = UposlenikService.Login(username, password);
+        var reguest = new AuthenticationRequest()
+        {
+            KorisnickoIme = username,
+            Lozinka = password
+        };
+
+        var user = UposlenikService.Login(reguest);
 
         if (user == null)
         {
@@ -42,10 +49,18 @@ public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSc
             new Claim(ClaimTypes.Name, user.Ime)
         };
 
-        foreach (var role in user.UposlenikRolas)
-        {
-            claims.Add(new Claim(ClaimTypes.Role, role.Rola.Naziv));
-        }
+        //if (user.Uposlenik != null)
+        //{
+        //    foreach (var role in user.Uposlenik.UposlenikRolas)
+        //    {
+        //        claims.Add(new Claim(ClaimTypes.Role, role.Rola.Naziv));
+        //    }
+        //}
+
+        //if (user.Klijent != null)
+        //{
+        //    claims.Add(new Claim(ClaimTypes.Role, "Klijent"));
+        //}
 
         var identity = new ClaimsIdentity(claims, Scheme.Name);
         var principal = new ClaimsPrincipal(identity);

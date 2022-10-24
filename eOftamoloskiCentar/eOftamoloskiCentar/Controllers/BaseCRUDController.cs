@@ -1,4 +1,5 @@
 ﻿using eOftamoloskiCentar.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eOftamoloskiCentar.Controllers
@@ -9,7 +10,7 @@ namespace eOftamoloskiCentar.Controllers
         public BaseCRUDController(ICRUDService<T, TSearch, TInsert, TUpdate> service) : base(service)
         {
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public virtual T Insert([FromBody] TInsert insert)
         {
@@ -17,7 +18,7 @@ namespace eOftamoloskiCentar.Controllers
 
             return result;
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public virtual T Update(int id, [FromBody] TUpdate update)
         {
@@ -25,7 +26,7 @@ namespace eOftamoloskiCentar.Controllers
 
             return result;
         }
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public virtual T Delete(int id)
         {

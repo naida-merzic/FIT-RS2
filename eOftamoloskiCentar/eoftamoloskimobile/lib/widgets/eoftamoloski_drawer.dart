@@ -1,5 +1,7 @@
 import 'package:eoftamoloskimobile/model/product.dart';
 import 'package:eoftamoloskimobile/providers/cart_provider.dart';
+import 'package:eoftamoloskimobile/screens/krosicnickiRacun/korisnickiRacunScreen.dart';
+import 'package:eoftamoloskimobile/screens/news/news_list_screen.dart';
 import 'package:eoftamoloskimobile/screens/products/product_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -28,6 +30,18 @@ class eOftamoloskiDrawer extends StatelessWidget {
             title: Text('Cart ${_cartProvider?.cart.items.length}'),
             onTap: () {
               Navigator.pushNamed(context, CartScreen.routeName);
+            },
+          ),
+          ListTile(
+            title: Text('News'),
+            onTap: () {
+              Navigator.pushNamed(context, NovostScreen.routeName);
+            },
+          ),
+          ListTile(
+            title: Text('Profile'),
+            onTap: () {
+              Navigator.pushNamed(context, KorisnickiRacunScreen.routeName);
             },
           ),
         ],

@@ -4,10 +4,14 @@ import 'package:eoftamoloskimobile/model/user.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 
+import '../model/klijent.dart';
+import '../model/korisnickiRacun.dart';
+
 class Authorization {
   static String? username;
   static String? password;
   static User? loggedUser;
+  static Klijent? loggedUser11;
 }
 
 Image imageFromBase64String(String base64String) {

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using eOftamoloskiCentar.Model;
 using eOftamoloskiCentar.Model.Requests;
 using eOftamoloskiCentar.Services.Database;
 using System;
@@ -27,7 +28,7 @@ namespace eOftamoloskiCentar.Services
             CreateMap<Database.Racun, Model.Racun>();
             CreateMap<Database.StavkaRacuna, Model.StavkaRacuna>();
             CreateMap<Database.KorisnickiRacun, Model.KorisnickiRacun>();
-            CreateMap<KorisnickiRacun, Model.AuthKorisnickiRacun>().ReverseMap();
+            CreateMap<Database.KorisnickiRacun, Model.AuthKorisnickiRacun>().ReverseMap();
             
 
 
@@ -47,16 +48,17 @@ namespace eOftamoloskiCentar.Services
             CreateMap<RacunUpdateRequest, Database.Racun>();
 
 
-            CreateMap<KorisnickiRacun, KlijentInsertRequest>().ReverseMap();
-            CreateMap<KorisnickiRacun, KlijentUpdateRequest>().ReverseMap();
+            CreateMap<Database.KorisnickiRacun, KlijentInsertRequest>().ReverseMap();
+            CreateMap<Database.KorisnickiRacun, KlijentUpdateRequest>().ReverseMap();
+            CreateMap<Database.KorisnickiRacun, AuthKorisnickiRacun>().ReverseMap();
 
 
-            CreateMap<Klijent, Model.Klijent>()
-               .ForMember(s => s.Ime, x => x.MapFrom(y => y.KorisnickiRacun.Ime))
-               .ForMember(s => s.Prezime, x => x.MapFrom(y => y.KorisnickiRacun.Prezime))
-               /*.ForMember(s => s.Email, x => x.MapFrom(y => y.KorisnickiRacun.Email))
-               .ForMember(s => s.Telefon, x => x.MapFrom(y => y.KorisnickiRacun.Telefon))*/
-               .ForMember(s => s.KorisnickoIme, x => x.MapFrom(y => y.KorisnickiRacun.KorisnickoIme))
+            CreateMap<Database.Klijent, Model.Klijent>()
+               //.ForMember(s => s.Ime, x => x.MapFrom(y => y.KorisnickiRacun.Ime))
+               //.ForMember(s => s.Prezime, x => x.MapFrom(y => y.KorisnickiRacun.Prezime))
+               ///*.ForMember(s => s.Email, x => x.MapFrom(y => y.KorisnickiRacun.Email))
+               //.ForMember(s => s.Telefon, x => x.MapFrom(y => y.KorisnickiRacun.Telefon))*/
+               //.ForMember(s => s.KorisnickoIme, x => x.MapFrom(y => y.KorisnickiRacun.KorisnickoIme))
                /*.ForMember(s => s.Adresa, x => x.MapFrom(y => y.KorisnickiRacun.Adresa))
                .ForMember(s => s.DatumRodjenja, x => x.MapFrom(y => y.KorisnickiRacun.DatumRodjenja))*/
                .ReverseMap();

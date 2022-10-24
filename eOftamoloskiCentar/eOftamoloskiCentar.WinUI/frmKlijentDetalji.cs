@@ -38,8 +38,8 @@ namespace eOftamoloskiCentar.WinUI
 
             if (_model != null)
             {
-                txtIme.Text = _model.Ime;
-                txtPrezime.Text = _model.Prezime;
+                txtIme.Text = _model.KorisnickiRacun.Ime;
+                txtPrezime.Text = _model.KorisnickiRacun.Prezime;
                 //cmbSpol.SelectedValue = _model.SpolId.Value;
                 //potrebno termin ucitat
             }

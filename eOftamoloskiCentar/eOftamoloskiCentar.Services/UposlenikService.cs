@@ -21,7 +21,7 @@ namespace eOftamoloskiCentar.Services
         }
         public override Model.Uposlenik Insert(UposlenikInsertRequest insert)
         {
-            if (insert.Password != insert.PasswordPotvrda)
+            if (insert.Lozinka != insert.LozinkaPotvrda)
             {
                 throw new UserException("Password and confirmation must be the same");
             }
@@ -73,7 +73,7 @@ namespace eOftamoloskiCentar.Services
         {
             var salt = GenerateSalt();
             entity.LozinkaSalt = salt;
-            entity.LozinkaHash = GenerateHash(salt, insert.Password);
+            entity.LozinkaHash = GenerateHash(salt, insert.Lozinka);
             base.BeforeInsert(insert, entity);
         }
 

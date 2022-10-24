@@ -14,8 +14,6 @@ namespace eOftamoloskiCentar.Services.Database
 
         public int KlijentId { get; set; }
         public int? SpolId { get; set; }
-        public string? Ime { get; set; }
-        public string? Prezime { get; set; }
         public int? KorisnickiRacunId { get; set; }
 
         public virtual KorisnickiRacun? KorisnickiRacun { get; set; }

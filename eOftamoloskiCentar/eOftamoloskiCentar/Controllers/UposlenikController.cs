@@ -14,12 +14,12 @@ namespace eOftamoloskiCentar.Controllers
             : base(service)
         {
         }
-        //[Authorize("Admin")]
+        [Authorize("Admin")]
         public override Uposlenik Insert([FromBody] UposlenikInsertRequest insert)
         {
             return base.Insert(insert);
         }
-        //[Authorize("Admin")]
+        [Authorize("Admin")]
         public override Uposlenik Update(int id, [FromBody] UposlenikUpdateRequest update)
         {
             return base.Update(id, update);

@@ -99,17 +99,17 @@ namespace eOftamoloskiCentar.Services
         {
             var filteredQuery = base.AddFilter(query, search);
 
-            if (!string.IsNullOrWhiteSpace(search?.Ime))
-            {
-                filteredQuery = filteredQuery.Where(x => x.Ime == search.Ime);
-            }
+            //if (!string.IsNullOrWhiteSpace(search?.Ime))
+            //{
+            //    filteredQuery = filteredQuery.Where(x => x.Ime == search.Ime);
+            //}
 
-            if (!string.IsNullOrWhiteSpace(search?.Prezime))
-            {
-                filteredQuery = filteredQuery.Where(x => x.Prezime.Contains(search.Prezime)
-                    || x.Ime.Contains(search.Prezime)
-                    || x.Prezime.Contains(search.Prezime));
-            }
+            //if (!string.IsNullOrWhiteSpace(search?.Prezime))
+            //{
+            //    filteredQuery = filteredQuery.Where(x => x.Prezime.Contains(search.Prezime)
+            //        || x.Ime.Contains(search.Prezime)
+            //        || x.Prezime.Contains(search.Prezime));
+            //}
 
             return filteredQuery;
         }
@@ -130,7 +130,7 @@ namespace eOftamoloskiCentar.Services
 
             if (user == null)
             {
-                throw new UserException("Pogrešno korisničko ime ili lozinka");
+                throw new UnauthorizedAccessException("Pogrešno korisničko ime ili lozinka");
             }
 
             /*if (user.KorisnickiRacun.Status == false)
@@ -143,7 +143,7 @@ namespace eOftamoloskiCentar.Services
 
             if (newHash != user.KorisnickiRacun.LozinkaHash)
             {
-                throw new UserException("Pogrešno korisničko ime ili lozinka");
+                throw new UnauthorizedAccessException("Pogrešno korisničko ime ili lozinka");
 
             }
 
