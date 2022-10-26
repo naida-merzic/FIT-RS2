@@ -51,14 +51,19 @@ namespace eOftamoloskiCentar.WinUI
             {
                 if (_model == null)
                 {
-                    KlijentInsertRequest insertRequest = new KlijentInsertRequest()
+                    KorisnickiRacunInsertRequest insertRequest = new KorisnickiRacunInsertRequest()
                     {
                         Ime = txtIme.Text,
                         Prezime = txtPrezime.Text,
-                        //SpolId = Convert.ToInt32(cmbSpol.SelectedValue),
+                        SpolId = Convert.ToInt32(cmbSpol.SelectedValue),
                         //termine dodati
                         KorisnickoIme = txtUsername.Text,
                         Lozinka = txtPass.Text,
+                        Adresa = "mostar",
+                        Email = "mmmmm",
+                        LozinkaPotvrda=txtPass.Text,
+                        DatumRodjenja=DateTime.Now,
+                        BrojTelefona=45678.ToString()
                     };
 
                     var user = await KlijentService.Post<Klijent>(insertRequest);
@@ -66,7 +71,7 @@ namespace eOftamoloskiCentar.WinUI
                 }
                 else
                 {
-                    KlijentUpdateRequest updateRequest = new KlijentUpdateRequest()
+                    KorisnickiRacunInsertRequest updateRequest = new KorisnickiRacunInsertRequest()
                     {
                         Ime = txtIme.Text,
                         Prezime = txtPrezime.Text,

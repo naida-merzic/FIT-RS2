@@ -15,6 +15,7 @@ namespace eOftamoloskiCentar.WinUI
     public partial class frmUposlenikDetalji : Form
     {
         public APIService UposlenikService { get; set; } = new APIService("Uposlenik");
+        public APIService KorService { get; set; } = new APIService("KorisnickiRacun");
         public APIService RoleService { get; set; } = new APIService("Rola");
 
         private Uposlenik _model = null;
@@ -35,7 +36,7 @@ namespace eOftamoloskiCentar.WinUI
                 txtPrezime.Text = _model.Prezime;
                 txtEmail.Text = _model.Email;
                 txtUsername.Text = _model.KorisnickoIme;
-                chkStatus.Checked = _model.Status;//GetValueOrDefault(false);
+                chkStatus.Checked = (bool)_model.Status;//GetValueOrDefault(false);
 
             }
         }
@@ -55,16 +56,20 @@ namespace eOftamoloskiCentar.WinUI
 
                 if (_model == null)
                 {
-                    UposlenikInsertRequest insertRequest = new UposlenikInsertRequest()
+                    KorisnickiRacunInsertRequest insertRequest = new KorisnickiRacunInsertRequest()
                     {
                         Ime = txtIme.Text,
                         Prezime = txtPrezime.Text,
                         Email = txtEmail.Text,
                         KorisnickoIme = txtUsername.Text,
-                        Password = txtPassword.Text,
-                        PasswordPotvrda = txtPasswordPotvrda.Text,
+                        Lozinka = txtPassword.Text,
+                        LozinkaPotvrda = txtPasswordPotvrda.Text,
                         Status = chkStatus.Checked,
                         RoleList = roleIdList,
+                        Adresa="mostar",
+                        BrojTelefona=23432.ToString(),
+                        DatumRodjenja=DateTime.Now,
+                        SpolId=1
                     };
 
                     var user = await UposlenikService.Post<Uposlenik>(insertRequest);
@@ -74,14 +79,20 @@ namespace eOftamoloskiCentar.WinUI
                 {
                     MessageBox.Show("Role list cannot be changed through edit mode!" +
                         "If you want to change the role list please delete the user and make new one with new roles!" + "Press OK and continue editing...");
-                    UposlenikUpdateRequest updateRequest = new UposlenikUpdateRequest()
+                    KorisnickiRacunInsertRequest updateRequest = new KorisnickiRacunInsertRequest()
                     {
                         Ime = txtIme.Text,
                         Prezime = txtPrezime.Text,
                         Email = txtEmail.Text,
-                        Password = txtPassword.Text,
-                        PasswordPotvrda = txtPasswordPotvrda.Text,
+                        Lozinka = txtPassword.Text,
+                        LozinkaPotvrda = txtPasswordPotvrda.Text,
                         Status = chkStatus.Checked,
+                        Adresa="ghjk",
+                        DatumRodjenja=DateTime.Now,
+                        BrojTelefona=1234.ToString(),
+                        KorisnickoIme="hjkkll",
+                        SpolId=1,
+                        RoleList=roleIdList
                     };
                     if (txtPassword.Text != txtPasswordPotvrda.Text)
                     {

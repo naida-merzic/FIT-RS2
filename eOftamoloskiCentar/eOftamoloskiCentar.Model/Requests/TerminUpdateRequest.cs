@@ -13,6 +13,6 @@ namespace eOftamoloskiCentar.Model.Requests
         public string Ime { get; set; }
         public string Prezime { get; set; }
 
-        // public Klijent Klijent { get; set; }
+        public Klijent Klijent { get; set; }
     }
 }

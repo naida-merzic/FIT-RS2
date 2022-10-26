@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace eOftamoloskiCentar.Services
 {
-    public interface IKlijentService : ICRUDService<Klijent, KlijentSearchObject, KlijentInsertRequest, KlijentUpdateRequest>
+    public interface IKlijentService : ICRUDService<Klijent, KlijentSearchObject, KorisnickiRacunInsertRequest, KorisnickiRacunInsertRequest>
     {
-        public Klijent Login(AuthenticationRequest request);
+        //public Klijent Login(AuthenticationRequest request);
     }
 }

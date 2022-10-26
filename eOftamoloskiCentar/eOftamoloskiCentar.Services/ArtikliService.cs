@@ -131,7 +131,7 @@ namespace eOftamoloskiCentar.Services
 
                             distinctItemId.ForEach(y =>
                             {
-                                var relatedItems = x.StavkaRacunas.Where(z => z.ArtikalId != y);
+                                var relatedItems = x.StavkaRacunas.Where(z => z.ArtikalId != y).ToList();
 
                                 foreach (var z in relatedItems)
                                 {
@@ -159,7 +159,6 @@ namespace eOftamoloskiCentar.Services
                     options.C = 0.00001;
 
                     var est = mlContext.Recommendation().Trainers.MatrixFactorization(options);
-
                     model = est.Fit(traindata);
                 }
             }

@@ -9,11 +9,11 @@ using System.Text.Encodings.Web;
 
 public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
 {
-    public IKorisnickiRacun UposlenikService { get; set; }
-    public BasicAuthenticationHandler(IKorisnickiRacun uposlenikService, IOptionsMonitor<AuthenticationSchemeOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock)
+    public IKorisnickiRacun _KorisnikService { get; set; }
+    public BasicAuthenticationHandler(IKorisnickiRacun _korisnikService, IOptionsMonitor<AuthenticationSchemeOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock)
         : base(options, logger, encoder, clock)
     {
-        UposlenikService = uposlenikService;
+        _KorisnikService = _korisnikService;
     }
 
     protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
@@ -36,7 +36,7 @@ public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSc
             Lozinka = password
         };
 
-        var user = UposlenikService.Login(reguest);
+        var user = _KorisnikService.Login(reguest);
 
         if (user == null)
         {
@@ -49,18 +49,18 @@ public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSc
             new Claim(ClaimTypes.Name, user.Ime)
         };
 
-        //if (user.Uposlenik != null)
-        //{
-        //    foreach (var role in user.Uposlenik.UposlenikRolas)
-        //    {
-        //        claims.Add(new Claim(ClaimTypes.Role, role.Rola.Naziv));
-        //    }
-        //}
+        if (user.Uposleniks != null && user.Uposleniks.Count != 0)
+        {
+            foreach (var role in user.Uposleniks.FirstOrDefault().UposlenikRolas)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role.Rola.Naziv));
+            }
+        }
 
-        //if (user.Klijent != null)
-        //{
-        //    claims.Add(new Claim(ClaimTypes.Role, "Klijent"));
-        //}
+        if (user.Klijents != null && user.Klijents.Count != 0)
+        {
+            claims.Add(new Claim(ClaimTypes.Role, "Klijent"));
+        }
 
         var identity = new ClaimsIdentity(claims, Scheme.Name);
         var principal = new ClaimsPrincipal(identity);

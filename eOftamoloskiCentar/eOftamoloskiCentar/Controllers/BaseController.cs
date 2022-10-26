@@ -16,7 +16,7 @@ namespace eOftamoloskiCentar.Controllers
         {
             _service = service;
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public virtual IEnumerable<T> Get([FromQuery]TSearch search = null)
         {

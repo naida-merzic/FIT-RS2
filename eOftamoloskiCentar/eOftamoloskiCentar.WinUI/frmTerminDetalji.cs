@@ -86,10 +86,12 @@ namespace eOftamoloskiCentar.WinUI
                 }
                 else
                 {
+                    var klijentID = Convert.ToInt32(cmbKlijenti.SelectedValue);
                     TerminUpdateRequest updateRequest = new TerminUpdateRequest()
                     {
-                        DatumTermina=dtpDatum.Value,//Convert.ToDateTime("txtDatum.Text"),
+                        DatumTermina = dtpDatum.Value,//Convert.ToDateTime("txtDatum.Text"),
                         VrstaPregleda = txtVrsta.Text,
+                        KlijentId = klijentID,//klijent.KlijentId,
                         //Ime = txtIme.Text,
                         //Prezime = txtPrezime.Text,
                     };

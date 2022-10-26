@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace eOftamoloskiCentar.Controllers
 {
     [Authorize]
-    public class KlijentController : BaseCRUDController<Model.Klijent, KlijentSearchObject, KlijentInsertRequest, KlijentUpdateRequest>
+    public class KlijentController : BaseCRUDController<Model.Klijent, KlijentSearchObject, Model.Requests.KorisnickiRacunInsertRequest, KorisnickiRacunInsertRequest>
     {
         private readonly IKlijentService service;
         public KlijentController(IKlijentService service)
@@ -17,21 +17,21 @@ namespace eOftamoloskiCentar.Controllers
             this.service = service;
         }
         //[Authorize("Admin")]
-        public override Klijent Insert([FromBody] KlijentInsertRequest insert)
+        public override Klijent Insert([FromBody] KorisnickiRacunInsertRequest insert)
         {
             return base.Insert(insert);
         }
         //[Authorize("Admin")]
-        public override Klijent Update(int id, [FromBody] KlijentUpdateRequest update)
+        public override Klijent Update(int id, [FromBody] KorisnickiRacunInsertRequest update)
         {
             return base.Update(id, update);
         }
         //[Authorize(Roles = "Klijent")]
-        [Consumes("application/json")]
-        [HttpPost("Login")]
-        public Klijent Login([FromBody] AuthenticationRequest request)
-        {
-            return  service.Login(request);
-        }
+        //[Consumes("application/json")]
+        //[HttpPost("Login")]
+        //public Klijent Login([FromBody] AuthenticationRequest request)
+        //{
+        //    return  service.Login(request);
+        //}
     }
 }

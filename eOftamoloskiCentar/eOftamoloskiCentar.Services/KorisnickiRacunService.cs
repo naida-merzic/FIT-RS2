@@ -26,9 +26,6 @@ namespace eOftamoloskiCentar.Services
         public AuthKorisnickiRacun Login(AuthenticationRequest request)
         {
             var user = _context.KorisnickiRacuns.Include("Uposleniks.UposlenikRolas.Rola").Include("Klijents").FirstOrDefault(x => x.KorisnickoIme == request.KorisnickoIme);
-            //var u33333er = _context.KorisnickiRacuns.Include(y=>y.Uposleniks);
-            //var u333er = _context.KorisnickiRacuns.Include(y=>y.Uposleniks).ThenInclude(c=>c.UposlenikRolas).ThenInclude(v=>v.Rola);
-            var user1 = _context.KorisnickiRacuns.Include(y=>y.Uposleniks).ThenInclude(c=>c.UposlenikRolas).Include(x=>x.Klijents).FirstOrDefault(x => x.KorisnickoIme == request.KorisnickoIme);
 
             if (user == null)
             {

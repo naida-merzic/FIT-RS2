@@ -12,6 +12,12 @@ namespace eOftamoloskiCentar.Model
         public int KlijentId { get; set; }
 
         public string FullName { get; set; }
+        //public string FullName
+        //{
+        //    get { return Klijent.FullName; }
+        //}
+
+
 
         public Klijent Klijent { get; set; }
        

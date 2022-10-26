@@ -13,13 +13,7 @@ namespace eOftamoloskiCentar.Services.Database
         }
 
         public int UposlenikId { get; set; }
-        public string LozinkaHash { get; set; } = null!;
-        public string LozinkaSalt { get; set; } = null!;
         public int? SpolId { get; set; }
-        public string? Ime { get; set; }
-        public string? Prezime { get; set; }
-        public string? KorisnickoIme { get; set; }
-        public string? Email { get; set; }
         public bool? Status { get; set; }
         public int? KorisnickiRacunId { get; set; }
 

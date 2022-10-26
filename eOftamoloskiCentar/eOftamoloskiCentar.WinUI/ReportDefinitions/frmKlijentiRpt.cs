@@ -52,7 +52,7 @@ namespace eOftamoloskiCentar.WinUI.ReportDefinitions
             var temp = _klijenti;
             foreach (var item in temp)
             {
-                item.Naziv = item.Spol.Naziv;
+                item.Spol.Naziv = item.Spol.Naziv;
             }
             rds.Value = temp;
 

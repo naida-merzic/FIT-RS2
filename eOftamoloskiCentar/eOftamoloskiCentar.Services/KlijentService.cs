@@ -14,23 +14,14 @@ using System.Threading.Tasks;
 
 namespace eOftamoloskiCentar.Services
 {
-    public class KlijentService : BaseCRUDService<Model.Klijent, Database.Klijent, KlijentSearchObject, KlijentInsertRequest, KlijentUpdateRequest>, IKlijentService
+    public class KlijentService : BaseCRUDService<Model.Klijent, Database.Klijent, KlijentSearchObject, KorisnickiRacunInsertRequest, KorisnickiRacunInsertRequest>, IKlijentService
     {
         public KlijentService(OftamoloskiCentarContext context, IMapper mapper)
             : base(context, mapper)
         {
         }
-        public override Model.Klijent Insert(KlijentInsertRequest insert)
+        public override Model.Klijent Insert(KorisnickiRacunInsertRequest insert)
         {
-            //if (insert.Password != insert.PasswordPotvrda)
-            //{
-            //    throw new UserException("Password and confirmation must be the same");
-            //}
-
-
-            //var entity = base.Insert(insert);
-
-            //return entity;
 
             var salt = HashGenerator.GenerateSalt();
             var hash = HashGenerator.GenerateHash(salt, insert.Lozinka);
@@ -43,20 +34,42 @@ namespace eOftamoloskiCentar.Services
             Context.KorisnickiRacuns.Add(racun);
             Context.SaveChanges();
 
-            /*if (request.Slika != null && request.SlikaPutanja != null)
+            var klijentNew = new KlijentInsertRequest()
             {
-                racun.SlikaPutanja = await imageHelper.InsertImage("KorisnickiRacun", racun.KorisnickiRacunId, request.SlikaPutanja, request.Slika);
-            }*/
-
-            var klijent = Mapper.Map<Database.Klijent>(insert);
-            klijent.KorisnickiRacunId = racun.KorisnickiRacunId;
-            //klijent.Status = true;
+                SpolId = insert.SpolId,
+                KorisnickiRacunId = racun.KorisnickiRacunId
+            };
+            var klijent = Mapper.Map<Database.Klijent>(klijentNew);
 
             Context.Klijents.Add(klijent);
             Context.SaveChanges();
 
 
             return Mapper.Map<Model.Klijent>(klijent);
+        }
+        public override Model.Klijent Update(int id, KorisnickiRacunInsertRequest update)
+        {
+            var entity2 = Context.Klijents.Find(id);
+
+            var korRacId = entity2.KorisnickiRacunId;
+            var entity = Context.KorisnickiRacuns.Find(korRacId);
+            var racun = Mapper.Map<Database.KorisnickiRacun>(update);
+
+            if (entity != null)
+            {
+                Mapper.Map(update, entity);
+                Context.SaveChanges();
+            }
+            var klijentNew = new KlijentInsertRequest()
+            {
+                SpolId = update.SpolId,
+                KorisnickiRacunId = racun.KorisnickiRacunId
+            };
+            var klijent = Mapper.Map<Database.Klijent>(klijentNew);
+            Mapper.Map(klijentNew, klijent);
+
+            Context.SaveChanges();
+            return Mapper.Map<Model.Klijent>(klijentNew);
         }
         public override Model.Klijent Delete(int id)
         {
@@ -86,30 +99,46 @@ namespace eOftamoloskiCentar.Services
                     Context.Racuns.Remove(item);
                 }
             }
-            var entity = Context.Klijents.Find(id);
-            if (entity == null)
-                throw new ArgumentNullException();
-            var x = entity;
-            Context.Klijents.Remove(entity);
-            Context.SaveChanges();
-            return Mapper.Map<Model.Klijent>(x);
+
+            var entity2 = Context.Klijents.Find(id);
+
+            var korRacId = entity2.KorisnickiRacunId;
+            var entity = Context.KorisnickiRacuns.Find(korRacId);
+            if (entity != null)
+            {
+                Context.KorisnickiRacuns.Remove(entity);
+                Context.SaveChanges();
+            }
+
+            if (entity2 != null)
+            {
+                Context.Klijents.Remove(entity2);
+                Context.SaveChanges();
+            }
+
+            var returnObj = new Model.Klijent()
+            {
+                SpolId = (int)entity2.SpolId,
+                KlijentId = entity2.KlijentId
+            };
+            return Mapper.Map<Model.Klijent>(returnObj);
         }
 
         public override IQueryable<Database.Klijent> AddFilter(IQueryable<Database.Klijent> query, KlijentSearchObject search = null)
         {
             var filteredQuery = base.AddFilter(query, search);
 
-            //if (!string.IsNullOrWhiteSpace(search?.Ime))
-            //{
-            //    filteredQuery = filteredQuery.Where(x => x.Ime == search.Ime);
-            //}
+            if (!string.IsNullOrWhiteSpace(search?.Ime))
+            {
+                filteredQuery = filteredQuery.Where(x => x.KorisnickiRacun.Ime == search.Ime);
+            }
 
-            //if (!string.IsNullOrWhiteSpace(search?.Prezime))
-            //{
-            //    filteredQuery = filteredQuery.Where(x => x.Prezime.Contains(search.Prezime)
-            //        || x.Ime.Contains(search.Prezime)
-            //        || x.Prezime.Contains(search.Prezime));
-            //}
+            if (!string.IsNullOrWhiteSpace(search?.Prezime))
+            {
+                filteredQuery = filteredQuery.Where(x => x.KorisnickiRacun.Prezime.Contains(search.Prezime)
+                    || x.KorisnickiRacun.Prezime.Contains(search.Prezime)
+                    || x.KorisnickiRacun.Prezime.Contains(search.Prezime));
+            }
 
             return filteredQuery;
         }
@@ -119,41 +148,41 @@ namespace eOftamoloskiCentar.Services
             //{
             //    query = query.Include("UposlenikRolas.Rola");
             //}
-            query = query.Include(x => x.Spol).Include(x=>x.KorisnickiRacun).AsQueryable();
+            query = query.Include(x => x.Spol).Include(x => x.KorisnickiRacun).AsQueryable();
 
             return query;
         }
-        //[HttpPost]
-        public Model.Klijent Login(/*[FromBody]*/ AuthenticationRequest request)
-        {
-            var user =  Context.Klijents.Include("KorisnickiRacun").FirstOrDefault(s => s.KorisnickiRacun.KorisnickoIme == request.KorisnickoIme);
+        ////[HttpPost]
+        //public Model.Klijent Login(/*[FromBody]*/ AuthenticationRequest request)
+        //{
+        //    var user =  Context.Klijents.Include("KorisnickiRacun").FirstOrDefault(s => s.KorisnickiRacun.KorisnickoIme == request.KorisnickoIme);
 
-            if (user == null)
-            {
-                throw new UnauthorizedAccessException("Pogrešno korisničko ime ili lozinka");
-            }
+        //    if (user == null)
+        //    {
+        //        throw new UnauthorizedAccessException("Pogrešno korisničko ime ili lozinka");
+        //    }
 
-            /*if (user.KorisnickiRacun.Status == false)
-            {
-                throw new UserException("Korisnički račun je deaktiviran.");
+        //    /*if (user.KorisnickiRacun.Status == false)
+        //    {
+        //        throw new UserException("Korisnički račun je deaktiviran.");
 
-            }*/
+        //    }*/
 
-            var newHash = HashGenerator.GenerateHash(user.KorisnickiRacun.LozinkaSalt, request.Lozinka);
+        //    var newHash = HashGenerator.GenerateHash(user.KorisnickiRacun.LozinkaSalt, request.Lozinka);
 
-            if (newHash != user.KorisnickiRacun.LozinkaHash)
-            {
-                throw new UnauthorizedAccessException("Pogrešno korisničko ime ili lozinka");
+        //    if (newHash != user.KorisnickiRacun.LozinkaHash)
+        //    {
+        //        throw new UnauthorizedAccessException("Pogrešno korisničko ime ili lozinka");
 
-            }
+        //    }
 
-            var result = Mapper.Map<Model.Klijent>(user);
+        //    var result = Mapper.Map<Model.Klijent>(user);
 
-            /*var directory = Path.Combine(Directory.GetCurrentDirectory(), "Images", "KorisnickiRacun", $"{result.SlikaPutanja}");
-            result.Slika =  imageHelper.FindImage(directory);*/
+        //    /*var directory = Path.Combine(Directory.GetCurrentDirectory(), "Images", "KorisnickiRacun", $"{result.SlikaPutanja}");
+        //    result.Slika =  imageHelper.FindImage(directory);*/
 
-            return result;
-        }
+        //    return result;
+        //}
 
     }
 }

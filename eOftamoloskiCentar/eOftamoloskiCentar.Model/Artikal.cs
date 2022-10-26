@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.ML.Data;
+using System;
 using System.Collections.Generic;
 
 namespace eOftamoloskiCentar.Model
@@ -8,6 +9,8 @@ namespace eOftamoloskiCentar.Model
         public int ArtikalId { get; set; }
         public string Naziv { get; set; }
         public string Opis { get; set; }
+        
+        [ColumnName("Label")]
         public decimal Cijena { get; set; }
         public int? VrstaArtiklaId { get; set; }
         public string StateMachine { get; set; }

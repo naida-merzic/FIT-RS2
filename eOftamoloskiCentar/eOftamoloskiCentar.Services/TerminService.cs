@@ -50,19 +50,17 @@ namespace eOftamoloskiCentar.Services
                 filteredQuery = filteredQuery.Where(x => x.VrstaPregleda == search.VrstaPregleda);
             }
 
-            //if (!string.IsNullOrWhiteSpace(search?.Ime))
-            //{
-            //    filteredQuery = filteredQuery.Where(x => x.Klijent.Ime.Contains(search.Ime)
-            //        || x.Klijent.Prezime.Contains(search.Ime)
-            //        || x.VrstaPregleda.Contains(search.Ime)
-            //        || x.Klijent.Ime.Contains(search.Ime));
-            //}
+            if (!string.IsNullOrWhiteSpace(search?.Ime))
+            {
+                filteredQuery = filteredQuery.Where(x => x.Klijent.KorisnickiRacun.Ime.Contains(search.Ime)
+                    || x.Klijent.KorisnickiRacun.Prezime.Contains(search.Ime));
+            }
 
             return filteredQuery;
         }
         public override IQueryable<Database.Termin> AddInclude(IQueryable<Database.Termin> query, TerminSearchObject search = null)
         {
-            query = query.Include(x => x.Klijent).AsQueryable();
+            query = query.Include(x => x.Klijent).ThenInclude(x=>x.KorisnickiRacun).AsQueryable();
 
             return query;
         }

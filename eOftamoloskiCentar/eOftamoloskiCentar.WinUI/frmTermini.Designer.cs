@@ -29,15 +29,15 @@
         private void InitializeComponent()
         {
             this.dgvTermini = new System.Windows.Forms.DataGridView();
-            this.FullName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Datum = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Akcija = new System.Windows.Forms.DataGridViewButtonColumn();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtIme = new System.Windows.Forms.TextBox();
             this.txtVrsta = new System.Windows.Forms.TextBox();
             this.btnTrazi = new System.Windows.Forms.Button();
+            this.FullName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Datum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Akcija = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTermini)).BeginInit();
             this.SuspendLayout();
             // 
@@ -58,40 +58,6 @@
             this.dgvTermini.Size = new System.Drawing.Size(730, 263);
             this.dgvTermini.TabIndex = 0;
             this.dgvTermini.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTermini_CellContentClick);
-            // 
-            // FullName
-            // 
-            this.FullName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.FullName.DataPropertyName = "Klijent";
-            this.FullName.HeaderText = "Ime i prezime";
-            this.FullName.MinimumWidth = 6;
-            this.FullName.Name = "FullName";
-            // 
-            // Datum
-            // 
-            this.Datum.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Datum.DataPropertyName = "DatumTermina";
-            this.Datum.HeaderText = "Datum";
-            this.Datum.MinimumWidth = 6;
-            this.Datum.Name = "Datum";
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "VrstaPregleda";
-            this.dataGridViewTextBoxColumn1.HeaderText = "Vrsta pregleda";
-            this.dataGridViewTextBoxColumn1.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            // 
-            // Akcija
-            // 
-            this.Akcija.HeaderText = "Akcija";
-            this.Akcija.MinimumWidth = 6;
-            this.Akcija.Name = "Akcija";
-            this.Akcija.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Akcija.Text = "Brisi";
-            this.Akcija.UseColumnTextForButtonValue = true;
-            this.Akcija.Width = 125;
             // 
             // label1
             // 
@@ -134,6 +100,40 @@
             this.btnTrazi.Text = "Trazi";
             this.btnTrazi.UseVisualStyleBackColor = true;
             this.btnTrazi.Click += new System.EventHandler(this.btnTrazi_Click);
+            // 
+            // FullName
+            // 
+            this.FullName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.FullName.DataPropertyName = "FullName";
+            this.FullName.HeaderText = "Ime i prezime";
+            this.FullName.MinimumWidth = 6;
+            this.FullName.Name = "FullName";
+            // 
+            // Datum
+            // 
+            this.Datum.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Datum.DataPropertyName = "DatumTermina";
+            this.Datum.HeaderText = "Datum";
+            this.Datum.MinimumWidth = 6;
+            this.Datum.Name = "Datum";
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "VrstaPregleda";
+            this.dataGridViewTextBoxColumn1.HeaderText = "Vrsta pregleda";
+            this.dataGridViewTextBoxColumn1.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            // 
+            // Akcija
+            // 
+            this.Akcija.HeaderText = "Akcija";
+            this.Akcija.MinimumWidth = 6;
+            this.Akcija.Name = "Akcija";
+            this.Akcija.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Akcija.Text = "Brisi";
+            this.Akcija.UseColumnTextForButtonValue = true;
+            this.Akcija.Width = 125;
             // 
             // frmTermini
             // 

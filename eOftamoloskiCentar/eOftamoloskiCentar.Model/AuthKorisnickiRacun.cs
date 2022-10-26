@@ -11,17 +11,16 @@ namespace eOftamoloskiCentar.Model
         public string Ime { get; set; }
         public string Prezime { get; set; }
         public string Email { get; set; }
-        public string Telefon { get; set; }
+        public string BrojTelefona { get; set; }
         public string Adresa { get; set; }
         public DateTime DatumRodjenja { get; set; }
         public string KorisnickoIme { get; set; }
         public string LozinkaHash { get; set; }
         public string LozinkaSalt { get; set; }
         public bool? Status { get; set; }
-        public byte[] Slika { get; set; }
 
-        public virtual Uposlenik Uposlenik { get; set; }
-        public virtual Klijent Klijent { get; set; }
+        public virtual ICollection<Klijent> Klijents { get; set; }
+        public virtual ICollection<Uposlenik> Uposleniks { get; set; }
 
         [JsonIgnore]
         public string ImePrezime

@@ -18,7 +18,7 @@ namespace eOftamoloskiCentar.WinUI
         public APIService VrstaArtikla { get; set; } = new APIService("VrstaArtikla");
 
         private Artikal _model = null;
-        System.Byte[] file;
+        static System.Byte[] file;
         public frmArtikalDetalji(Artikal model = null)
         {
             InitializeComponent();
@@ -77,6 +77,7 @@ namespace eOftamoloskiCentar.WinUI
                 }
                 else
                 {
+                    byte[] bytes = (byte[])(new ImageConverter()).ConvertTo(pbSlika.Image, typeof(byte[]));
                     ArtikalUpdateRequest updateRequest = new ArtikalUpdateRequest()
                     {
                         Naziv = txtNaziv.Text,
@@ -84,7 +85,7 @@ namespace eOftamoloskiCentar.WinUI
                         Opis = txtOpis.Text,
                         Sifra = txtSifra.Text,
                         Cijena = Convert.ToDecimal(txtCijena.Text),
-                        Slika = file
+                        Slika = bytes
                     };
 
                     _model = await ArtikliService.Put<Artikal>(_model.ArtikalId, updateRequest);
