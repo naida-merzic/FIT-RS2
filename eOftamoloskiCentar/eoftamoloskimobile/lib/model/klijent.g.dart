@@ -8,7 +8,7 @@ part of 'klijent.dart';
 
 Klijent _$KlijentFromJson(Map<String, dynamic> json) => Klijent()
   ..klijentId = json['klijentId'] as int?
-  ..spolId = json['spolId'] as String?
+  ..spolId = json['spolId'] as int?
   ..korisnickiRacun = json['korisnickiRacun'] == null
       ? null
       : KorisnickiRacun.fromJson(

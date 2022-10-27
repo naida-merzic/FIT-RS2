@@ -7,5 +7,6 @@ namespace eOftamoloskiCentar.Model.Requests
     public class RacunInsertRequest
     {
         public List<StavkaRacunInsertRequest> Items { get; set; } = new List<StavkaRacunInsertRequest>();
+        public int? KlijentId { get; set; }
     }
 }

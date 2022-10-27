@@ -10,7 +10,7 @@ part 'klijent.g.dart';
 @JsonSerializable()
 class Klijent {
   int? klijentId;
-  String? spolId;
+  int? spolId;
   KorisnickiRacun? korisnickiRacun;
 
   Klijent() {}

@@ -155,7 +155,9 @@ class _ProductListScreenState extends State<ProductListScreen> {
                     child: Container(
                       height: 100,
                       width: 100,
-                      child: imageFromBase64String(x.slika!),
+                      child: x.slika == null
+                          ? Text("No image")
+                          : imageFromBase64String(x.slika!),
                     ),
                   ),
                   Text(x.naziv ?? ""),

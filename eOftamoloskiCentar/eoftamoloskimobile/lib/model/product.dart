@@ -11,6 +11,7 @@ class Product {
   int? artikalId;
   String? naziv;
   String? slika;
+  String? opis;
   double? cijena;
 
   Product() {}

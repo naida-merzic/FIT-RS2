@@ -1,8 +1,10 @@
 import 'package:eoftamoloskimobile/model/product.dart';
+import 'package:eoftamoloskimobile/model/termin.dart';
 import 'package:eoftamoloskimobile/providers/cart_provider.dart';
 import 'package:eoftamoloskimobile/screens/krosicnickiRacun/korisnickiRacunScreen.dart';
 import 'package:eoftamoloskimobile/screens/news/news_list_screen.dart';
 import 'package:eoftamoloskimobile/screens/products/product_list_screen.dart';
+import 'package:eoftamoloskimobile/screens/termini/termin_Screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -42,6 +44,12 @@ class eOftamoloskiDrawer extends StatelessWidget {
             title: Text('Profile'),
             onTap: () {
               Navigator.pushNamed(context, KorisnickiRacunScreen.routeName);
+            },
+          ),
+          ListTile(
+            title: Text('Appointments'),
+            onTap: () {
+              Navigator.pushNamed(context, TerminScreen.routeName);
             },
           ),
         ],

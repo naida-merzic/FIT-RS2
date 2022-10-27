@@ -8,12 +8,14 @@ import 'package:eoftamoloskimobile/providers/checkOrder_provider.dart';
 import 'package:eoftamoloskimobile/providers/korisnickiRacun_provider.dart';
 import 'package:eoftamoloskimobile/providers/novost_provider.dart';
 import 'package:eoftamoloskimobile/providers/product_provider.dart';
+import 'package:eoftamoloskimobile/providers/termin_provider.dart';
 import 'package:eoftamoloskimobile/providers/user_provider.dart';
 import 'package:eoftamoloskimobile/screens/cart/cart_screen.dart';
 import 'package:eoftamoloskimobile/screens/krosicnickiRacun/korisnickiRacunScreen.dart';
 import 'package:eoftamoloskimobile/screens/news/news_list_screen.dart';
 import 'package:eoftamoloskimobile/screens/products/product_details_screen.dart';
 import 'package:eoftamoloskimobile/screens/products/product_list_screen.dart';
+import 'package:eoftamoloskimobile/screens/termini/termin_Screen.dart';
 import 'package:eoftamoloskimobile/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -29,6 +31,7 @@ void main() => runApp(MultiProvider(
           ChangeNotifierProvider(create: (_) => CheckOrderProvider()),
           ChangeNotifierProvider(create: (_) => NovostProvider()),
           ChangeNotifierProvider(create: (_) => KorisnickiRacunProvider()),
+          ChangeNotifierProvider(create: (_) => TerminProvider()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: true,
@@ -65,6 +68,8 @@ void main() => runApp(MultiProvider(
             } else if (settings.name == KorisnickiRacunScreen.routeName) {
               return MaterialPageRoute(
                   builder: ((context) => KorisnickiRacunScreen()));
+            } else if (settings.name == TerminScreen.routeName) {
+              return MaterialPageRoute(builder: ((context) => TerminScreen()));
             }
 
             var uri = Uri.parse(settings.name!);
@@ -180,13 +185,8 @@ class HomePage extends StatelessWidget {
                   Authorization.username = _usernameController.text;
                   Authorization.password = _passwordController.text;
 
-                  List<User> loggedUser = await _userProvider.get();
-                  List<Klijent> loggedUser11 = await _korisnickiProvider.get();
+                  List<Klijent> loggedUser = await _korisnickiProvider.get();
                   Authorization.loggedUser = loggedUser.first;
-                  Authorization.loggedUser11 = loggedUser11.first;
-
-                  print("Auth1" +
-                      loggedUser11.first!.korisnickiRacun!.ime.toString());
 
                   Navigator.pushNamed(context, ProductListScreen.routeName);
                 } catch (e) {

@@ -75,7 +75,7 @@ class _NovostScreenState extends State<NovostScreen> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Text(
-        Authorization.loggedUser11!.korisnickiRacun!.ime.toString(),
+        "Novosti",
         style: TextStyle(
             color: Colors.blueGrey, fontSize: 40, fontWeight: FontWeight.w600),
       ),

@@ -10,8 +10,7 @@ import '../model/korisnickiRacun.dart';
 class Authorization {
   static String? username;
   static String? password;
-  static User? loggedUser;
-  static Klijent? loggedUser11;
+  static Klijent? loggedUser;
 }
 
 Image imageFromBase64String(String base64String) {

@@ -2,6 +2,7 @@ import 'package:eoftamoloskimobile/model/product.dart';
 
 class Cart {
   List<CartItem> items = [];
+  int? klijentId;
 }
 
 class CartItem {

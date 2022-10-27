@@ -56,6 +56,11 @@ namespace eOftamoloskiCentar.Services
                     || x.Klijent.KorisnickiRacun.Prezime.Contains(search.Ime));
             }
 
+            if (search?.KlijentId != 0)
+            {
+                filteredQuery = filteredQuery.Where(x => x.Klijent.KlijentId == search.KlijentId);
+            }
+
             return filteredQuery;
         }
         public override IQueryable<Database.Termin> AddInclude(IQueryable<Database.Termin> query, TerminSearchObject search = null)

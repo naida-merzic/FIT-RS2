@@ -78,13 +78,16 @@ class _CartScreenState extends State<CartScreen> {
       onPressed: () async {
         List<Map> items = [];
         _cartProvider.cart.items.forEach((item) {
-          items.add({
-            "artikalId": item.product.artikalId,
-            "kolicina": item.count,
-          });
+          items.add(
+            {
+              "artikalId": item.product.artikalId,
+              "kolicina": item.count,
+            },
+          );
         });
         Map order = {
           "items": items,
+          "klijentId": Authorization.loggedUser!.klijentId
         };
 
         await _orderProvider.insert(order);

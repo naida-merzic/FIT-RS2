@@ -17,11 +17,20 @@ namespace eOftamoloskiCentar.Services
             : base(context, mapper)
         {
         }
-        public override void BeforeInsert(RacunInsertRequest insert, Racun entity)
+        public override async void BeforeInsert(RacunInsertRequest insert, Racun entity)
         {
-            entity.KlijentId = 3; //todo get from session
+            decimal _iznos = 0;
+            foreach (var item in insert.Items)
+            {
+                var _artikal = Context.Artikals.Where(x => x.ArtikalId == item.ArtikalId).FirstOrDefault();
+                var x = _artikal.Cijena * item.Kolicina;
+                decimal y = (decimal)x;
+                _iznos += y;
+            }
+            entity.KlijentId = insert.KlijentId; //todo get from session
             entity.Datum = DateTime.Now;
             entity.BrojRacuna = (Context.Racuns.Count() + 1);
+            entity.Iznos = _iznos;
             base.BeforeInsert(insert, entity);
         }
 

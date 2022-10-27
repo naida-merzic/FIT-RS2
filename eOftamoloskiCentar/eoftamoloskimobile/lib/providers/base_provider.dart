@@ -48,11 +48,14 @@ abstract class BaseProvider<T> with ChangeNotifier {
     var url = "$_baseUrl$_endpoint";
 
     if (search != null) {
+      print("search: " + search.toString());
+
       String queryString = getQueryString(search);
       url = url + "?" + queryString;
     }
 
     var uri = Uri.parse(url);
+    print("igrrd: " + uri.toString());
 
     Map<String, String> headers = createHeaders();
     print("get me");
