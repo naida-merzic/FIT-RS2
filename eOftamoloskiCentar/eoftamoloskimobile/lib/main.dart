@@ -13,6 +13,7 @@ import 'package:eoftamoloskimobile/providers/termin_provider.dart';
 import 'package:eoftamoloskimobile/providers/user_provider.dart';
 import 'package:eoftamoloskimobile/screens/cart/cart_screen.dart';
 import 'package:eoftamoloskimobile/screens/krosicnickiRacun/korisnickiRacunScreen.dart';
+import 'package:eoftamoloskimobile/screens/krosicnickiRacun/registracija.dart';
 import 'package:eoftamoloskimobile/screens/news/news_list_screen.dart';
 import 'package:eoftamoloskimobile/screens/products/product_details_screen.dart';
 import 'package:eoftamoloskimobile/screens/products/product_list_screen.dart';
@@ -76,6 +77,9 @@ void main() => runApp(MultiProvider(
             } else if (settings.name == TerminInsertScreen.routeName) {
               return MaterialPageRoute(
                   builder: ((context) => TerminInsertScreen()));
+            } else if (settings.name == RegistracijaScreen.routeName) {
+              return MaterialPageRoute(
+                  builder: ((context) => RegistracijaScreen()));
             }
 
             var uri = Uri.parse(settings.name!);
@@ -138,7 +142,7 @@ class HomePage extends StatelessWidget {
               Container(
                 child: Center(
                     child: Text(
-                  "Login",
+                  "Welcome",
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 45,
@@ -148,7 +152,7 @@ class HomePage extends StatelessWidget {
             ]),
           ),
           Padding(
-              padding: EdgeInsets.all(40),
+              padding: EdgeInsets.fromLTRB(40, 0, 40, 10),
               child: Container(
                 decoration: BoxDecoration(
                     color: Colors.white,
@@ -211,6 +215,24 @@ class HomePage extends StatelessWidget {
                 }
               },
               child: Center(child: Text("Login")),
+            ),
+          ),
+          SizedBox(height: 20),
+          Container(
+            height: 50,
+            //padding: EdgeInsets.all(8),
+            margin: EdgeInsets.fromLTRB(40, 0, 40, 0),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                gradient: LinearGradient(colors: [
+                  Color.fromARGB(255, 106, 112, 236),
+                  Color.fromRGBO(143, 148, 251, 6)
+                ])),
+            child: InkWell(
+              onTap: () async {
+                Navigator.pushNamed(context, RegistracijaScreen.routeName);
+              },
+              child: Center(child: Text("Sign in")),
             ),
           ),
           SizedBox(height: 40),

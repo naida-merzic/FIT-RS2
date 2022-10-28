@@ -1,3 +1,4 @@
+import 'package:eoftamoloskimobile/model/dojam.dart';
 import 'package:eoftamoloskimobile/providers/product_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 
 import '../../model/product.dart';
+import '../../providers/dojam_provider.dart';
 import '../../utils/utils.dart';
 import '../../widgets/master_screen.dart';
 
@@ -20,6 +22,9 @@ class ProductDetailsScreen extends StatefulWidget {
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   ProductProvider? _productProvider = null;
+  DojamProvider? _dojamProvider = null;
+  List<Dojam> _dojmoviLiked = [];
+  List<Dojam> _dojmoviDisliked = [];
   Product? _product;
 
   @override
@@ -27,6 +32,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     // TODO: implement initState
     super.initState();
     _productProvider = context.read<ProductProvider>();
+    _dojamProvider = context.read<DojamProvider>();
     loadData();
   }
 
@@ -34,6 +40,14 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     var tempData = await _productProvider?.getById(int.parse(widget.id));
     setState(() {
       _product = tempData!;
+    });
+    var dojmoviLiked = await _dojamProvider
+        ?.get({'isLiked': true, 'artikalId': _product!.artikalId});
+    var dojmoviDisliked = await _dojamProvider
+        ?.get({'isLiked': false, 'artikalId': _product!.artikalId});
+    setState(() {
+      _dojmoviLiked = dojmoviLiked!;
+      _dojmoviDisliked = dojmoviDisliked!;
     });
   }
 
@@ -78,6 +92,24 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           _product!.opis.toString(),
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
+        Row(
+          children: [
+            IconButton(
+              icon: Icon(Icons.star),
+              onPressed: () {},
+            ),
+            Text(_dojmoviLiked.length.toString())
+          ],
+        ),
+        Row(
+          children: [
+            IconButton(
+              icon: Icon(Icons.heart_broken),
+              onPressed: () {},
+            ),
+            Text(_dojmoviDisliked.length.toString())
+          ],
+        )
       ],
     );
   }

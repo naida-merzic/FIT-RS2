@@ -12,6 +12,8 @@ class KorisnickiRacun {
   String? email;
   String? brojTelefona;
   String? adresa;
+  String? lozinkaHash;
+  String? lozinkaSalt;
   String? korisnickoIme;
   DateTime? datumRodjenja;
 

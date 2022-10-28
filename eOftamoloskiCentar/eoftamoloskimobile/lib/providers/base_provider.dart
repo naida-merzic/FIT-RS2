@@ -80,7 +80,7 @@ abstract class BaseProvider<T> with ChangeNotifier {
     print("jsonrequest: " + jsonRequest.toString());
 
     var response = await http!.post(uri, headers: headers, body: jsonRequest);
-    print("response: " + response.toString());
+    print("valid: " + isValidResponseCode(response).toString());
 
     if (isValidResponseCode(response)) {
       var data = jsonDecode(response.body);

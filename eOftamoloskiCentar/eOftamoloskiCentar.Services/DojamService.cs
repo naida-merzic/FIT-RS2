@@ -24,11 +24,11 @@ namespace eOftamoloskiCentar.Services
                 filteredQuery = filteredQuery.Where(x => x.KlijentId == search.KlijentId);
             }
 
-            if (search.KlijentId != null && search.ArtikalId != 0)
+            if (search.ArtikalId != null && search.ArtikalId != 0)
             {
                 filteredQuery = filteredQuery.Where(x => x.ArtikalId == search.ArtikalId);
             }
-            if (search.KlijentId != null && search.IsLiked != null)
+            if (search.IsLiked != null && search.IsLiked != null)
             {
                 filteredQuery = filteredQuery.Where(x => x.IsLiked == search.IsLiked);
             }
