@@ -19,6 +19,7 @@ namespace eOftamoloskiCentar.Services.Database
         public virtual DbSet<Artikal> Artikals { get; set; } = null!;
         public virtual DbSet<Dijagnoza> Dijagnozas { get; set; } = null!;
         public virtual DbSet<DijagnozaUposlenik> DijagnozaUposleniks { get; set; } = null!;
+        public virtual DbSet<Dojam> Dojams { get; set; } = null!;
         public virtual DbSet<Klijent> Klijents { get; set; } = null!;
         public virtual DbSet<KorisnickiRacun> KorisnickiRacuns { get; set; } = null!;
         public virtual DbSet<Novost> Novosts { get; set; } = null!;
@@ -79,6 +80,21 @@ namespace eOftamoloskiCentar.Services.Database
                     .WithMany(p => p.DijagnozaUposleniks)
                     .HasForeignKey(d => d.UposlenikId)
                     .HasConstraintName("FK_Dijagnoza_Uposlenik_Uposlenik");
+            });
+
+            modelBuilder.Entity<Dojam>(entity =>
+            {
+                entity.ToTable("Dojam");
+
+                entity.HasOne(d => d.Artikal)
+                    .WithMany(p => p.Dojams)
+                    .HasForeignKey(d => d.ArtikalId)
+                    .HasConstraintName("FK_Dojam_Artikal");
+
+                entity.HasOne(d => d.Klijent)
+                    .WithMany(p => p.Dojams)
+                    .HasForeignKey(d => d.KlijentId)
+                    .HasConstraintName("FK_Dojam_Klijent");
             });
 
             modelBuilder.Entity<Klijent>(entity =>

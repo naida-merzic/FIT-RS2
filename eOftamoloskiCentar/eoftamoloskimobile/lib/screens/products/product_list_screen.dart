@@ -1,3 +1,4 @@
+import 'package:eoftamoloskimobile/providers/dojam_provider.dart';
 import 'package:eoftamoloskimobile/providers/product_provider.dart';
 import 'package:eoftamoloskimobile/screens/products/product_details_screen.dart';
 import 'package:eoftamoloskimobile/utils/utils.dart';
@@ -26,6 +27,7 @@ class ProductListScreen extends StatefulWidget {
 
 class _ProductListScreenState extends State<ProductListScreen> {
   ProductProvider? _productProvider = null;
+  DojamProvider? _dojamProvider = null;
   List<Product> data = [];
   TextEditingController _searchController = TextEditingController();
   CartProvider? _cartProvider = null;
@@ -36,6 +38,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
     super.initState();
     _productProvider = context.read<ProductProvider>();
     _cartProvider = context.read<CartProvider>();
+    _dojamProvider = context.read<DojamProvider>();
     print("called initState");
     loadData();
   }
@@ -162,12 +165,38 @@ class _ProductListScreenState extends State<ProductListScreen> {
                   ),
                   Text(x.naziv ?? ""),
                   Text(formatNumber(x.cijena)),
-                  IconButton(
-                    icon: Icon(Icons.shopping_cart),
-                    onPressed: () {
-                      _cartProvider?.addToCart(x);
-                    },
-                  )
+                  Row(
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.shopping_cart),
+                        onPressed: () {
+                          _cartProvider?.addToCart(x);
+                        },
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.star),
+                        onPressed: () {
+                          Map order = {
+                            "isLiked": true,
+                            "artikalId": x.artikalId,
+                            "klijentId": Authorization.loggedUser!.klijentId
+                          };
+                          _dojamProvider?.insert(order);
+                        },
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.heart_broken),
+                        onPressed: () {
+                          Map order = {
+                            "isLiked": false,
+                            "artikalId": x.artikalId,
+                            "klijentId": Authorization.loggedUser!.klijentId
+                          };
+                          _dojamProvider?.insert(order);
+                        },
+                      )
+                    ],
+                  ),
                 ],
               ),
             ))

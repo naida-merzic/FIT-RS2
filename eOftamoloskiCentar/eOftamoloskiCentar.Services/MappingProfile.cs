@@ -30,6 +30,7 @@ namespace eOftamoloskiCentar.Services
             CreateMap<Database.StavkaRacuna, Model.StavkaRacuna>();
             CreateMap<Database.KorisnickiRacun, Model.KorisnickiRacun>();
             CreateMap<Database.KorisnickiRacun, Model.AuthKorisnickiRacun>().ReverseMap();
+            CreateMap<Database.Dojam, Model.Dojam>().ReverseMap();
 
 
 

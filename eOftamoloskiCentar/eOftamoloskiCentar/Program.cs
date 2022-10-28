@@ -48,6 +48,7 @@ builder.Services.AddTransient<ITerminService, TerminService>();
 builder.Services.AddTransient<INovostService, NovostService>();
 builder.Services.AddTransient<IRacunService, RacunService>();
 builder.Services.AddTransient<IKorisnickiRacun, KorisnickiRacunService>();
+builder.Services.AddTransient<IDojamService, DojamService>();
 
 
 

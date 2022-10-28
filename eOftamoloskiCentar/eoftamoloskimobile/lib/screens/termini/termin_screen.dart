@@ -4,6 +4,7 @@ import 'package:eoftamoloskimobile/model/termin.dart';
 import 'package:eoftamoloskimobile/providers/cart_provider.dart';
 import 'package:eoftamoloskimobile/providers/checkOrder_provider.dart';
 import 'package:eoftamoloskimobile/providers/termin_provider.dart';
+import 'package:eoftamoloskimobile/screens/termini/terminInsert_screen.dart';
 import 'package:eoftamoloskimobile/widgets/eoftamoloski_drawer.dart';
 import 'package:eoftamoloskimobile/widgets/master_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -49,21 +50,14 @@ class _TerminScreenState extends State<TerminScreen> {
       child: Column(
         children: [
           _buildHeader(),
-          Expanded(child: _tablica()),
+          Expanded(
+            child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal, child: _tablica()),
+          ),
+          _buildAppointmentButton()
         ],
       ),
     );
-  }
-
-  Widget _tablica() {
-    return Container(
-        // child: ListView.builder(
-        //   itemCount: _terminProvider.cart.items.length,
-        //   itemBuilder: (context, index) {
-        //     return _buildProductCard(_cartProvider.cart.items[index]);
-        //   },
-        // ),
-        );
   }
 
   Widget _buildHeader() {
@@ -74,6 +68,41 @@ class _TerminScreenState extends State<TerminScreen> {
         style: TextStyle(
             color: Colors.blueGrey, fontSize: 40, fontWeight: FontWeight.w600),
       ),
+    );
+  }
+
+  Widget _tablica() {
+    return DataTable(
+        columns: [
+          DataColumn(label: Text("Vrsta pregleda")),
+          DataColumn(label: Text("Datum")),
+          DataColumn(label: Text("Vrijeme")),
+        ],
+        rows: data
+            .map((e) => DataRow(cells: [
+                  DataCell(Text(e.vrstaPregleda.toString())),
+                  DataCell(Text(e.datumTermina!.day.toString() +
+                      '.' +
+                      e.datumTermina!.month.toString() +
+                      '.' +
+                      e.datumTermina!.year.toString())),
+                  DataCell(Text(e.datumTermina!.hour.toString() +
+                      ':' +
+                      e.datumTermina!.minute.toString())),
+                ]))
+            .toList());
+  }
+
+  Widget _buildAppointmentButton() {
+    return TextButton(
+      child: Text("Add new appointment"),
+      onPressed: () async {
+        Navigator.pushNamed(
+          context,
+          "${TerminInsertScreen.routeName}",
+        );
+        setState(() {});
+      },
     );
   }
 }

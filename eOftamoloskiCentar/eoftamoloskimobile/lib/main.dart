@@ -5,6 +5,7 @@ import 'package:eoftamoloskimobile/model/korisnickiRacun.dart';
 import 'package:eoftamoloskimobile/model/novost.dart';
 import 'package:eoftamoloskimobile/providers/cart_provider.dart';
 import 'package:eoftamoloskimobile/providers/checkOrder_provider.dart';
+import 'package:eoftamoloskimobile/providers/dojam_provider.dart';
 import 'package:eoftamoloskimobile/providers/korisnickiRacun_provider.dart';
 import 'package:eoftamoloskimobile/providers/novost_provider.dart';
 import 'package:eoftamoloskimobile/providers/product_provider.dart';
@@ -15,6 +16,7 @@ import 'package:eoftamoloskimobile/screens/krosicnickiRacun/korisnickiRacunScree
 import 'package:eoftamoloskimobile/screens/news/news_list_screen.dart';
 import 'package:eoftamoloskimobile/screens/products/product_details_screen.dart';
 import 'package:eoftamoloskimobile/screens/products/product_list_screen.dart';
+import 'package:eoftamoloskimobile/screens/termini/terminInsert_screen.dart';
 import 'package:eoftamoloskimobile/screens/termini/termin_Screen.dart';
 import 'package:eoftamoloskimobile/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +34,7 @@ void main() => runApp(MultiProvider(
           ChangeNotifierProvider(create: (_) => NovostProvider()),
           ChangeNotifierProvider(create: (_) => KorisnickiRacunProvider()),
           ChangeNotifierProvider(create: (_) => TerminProvider()),
+          ChangeNotifierProvider(create: (_) => DojamProvider()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: true,
@@ -70,6 +73,9 @@ void main() => runApp(MultiProvider(
                   builder: ((context) => KorisnickiRacunScreen()));
             } else if (settings.name == TerminScreen.routeName) {
               return MaterialPageRoute(builder: ((context) => TerminScreen()));
+            } else if (settings.name == TerminInsertScreen.routeName) {
+              return MaterialPageRoute(
+                  builder: ((context) => TerminInsertScreen()));
             }
 
             var uri = Uri.parse(settings.name!);

@@ -7,6 +7,7 @@ namespace eOftamoloskiCentar.Services.Database
     {
         public Artikal()
         {
+            Dojams = new HashSet<Dojam>();
             StavkaRacunas = new HashSet<StavkaRacuna>();
         }
 
@@ -20,6 +21,7 @@ namespace eOftamoloskiCentar.Services.Database
         public byte[]? Slika { get; set; }
 
         public virtual VrstaArtikla? VrstaArtikla { get; set; }
+        public virtual ICollection<Dojam> Dojams { get; set; }
         public virtual ICollection<StavkaRacuna> StavkaRacunas { get; set; }
     }
 }
