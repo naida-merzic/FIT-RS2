@@ -159,11 +159,13 @@ namespace eOftamoloskiCentar.Services
                     options.C = 0.00001;
 
                     var est = mlContext.Recommendation().Trainers.MatrixFactorization(options);
-                    model = est.Fit(traindata);
+                    IDataView  _traindata = traindata;
+                    model = est.Fit(_traindata);
                 }
             }
 
             var allItems = Context.Artikals.Where(x => x.ArtikalId != id);
+
 
             var predictionResult = new List<Tuple<Database.Artikal, float>>();
 
@@ -182,6 +184,8 @@ namespace eOftamoloskiCentar.Services
 
             return Mapper.Map<List<Model.Artikal>>(finalResult);
         }
+
+
     }
     public class Copurchase_prediction
     {

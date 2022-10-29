@@ -27,7 +27,6 @@ class _NovostScreenState extends State<NovostScreen> {
     // TODO: implement initState
     super.initState();
     novostiProvider = context.read<NovostProvider>();
-    print("called initState");
     loadData();
   }
 
@@ -36,13 +35,10 @@ class _NovostScreenState extends State<NovostScreen> {
     setState(() {
       data = tempData!;
     });
-
-    print("data : " + data[0].naslov.toString());
   }
 
   @override
   Widget build(BuildContext context) {
-    print("called build $data");
     return MasterScreenWidget(
       child: SingleChildScrollView(
         child: Container(

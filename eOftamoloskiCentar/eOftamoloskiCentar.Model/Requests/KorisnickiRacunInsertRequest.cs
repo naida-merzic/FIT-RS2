@@ -21,7 +21,7 @@ namespace eOftamoloskiCentar.Model.Requests
         public string BrojTelefona { get; set; }
         //[Required]
         public DateTime DatumRodjenja { get; set; }
-        public int SpolId { get; set; }
+        public int? SpolId { get; set; }
 
         [Required]
         public string KorisnickoIme { get; set; }
@@ -33,7 +33,7 @@ namespace eOftamoloskiCentar.Model.Requests
         //public int GradId { get; set; }
         [Required]
         public string Adresa { get; set; }
-        public bool Status { get; set; }
+        public bool? Status { get; set; }
         //public byte[] Slika { get; set; }
         public List<int> RoleList { get; set; } = new List<int> { };
 

@@ -29,6 +29,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
   ProductProvider? _productProvider = null;
   DojamProvider? _dojamProvider = null;
   List<Product> data = [];
+  List<Product> dataRecomm = [];
   TextEditingController _searchController = TextEditingController();
   CartProvider? _cartProvider = null;
 
@@ -39,20 +40,20 @@ class _ProductListScreenState extends State<ProductListScreen> {
     _productProvider = context.read<ProductProvider>();
     _cartProvider = context.read<CartProvider>();
     _dojamProvider = context.read<DojamProvider>();
-    print("called initState");
     loadData();
   }
 
   Future loadData() async {
-    var tempData = await _productProvider?.get(null);
+    var tempData = await _productProvider?.get();
+    var tempDataRecom = await _productProvider?.get();
     setState(() {
       data = tempData!;
+      dataRecomm = tempDataRecom!;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    print("called build $data");
     return MasterScreenWidget(
       child: SingleChildScrollView(
         child: Container(
@@ -71,7 +72,19 @@ class _ProductListScreenState extends State<ProductListScreen> {
                       crossAxisSpacing: 20,
                       mainAxisSpacing: 30),
                   scrollDirection: Axis.horizontal,
-                  children: _buildProductCardList(),
+                  children: _buildProductCardList(data),
+                ),
+              ),
+              Container(
+                height: 200,
+                child: GridView(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 1,
+                      childAspectRatio: 4 / 3,
+                      crossAxisSpacing: 20,
+                      mainAxisSpacing: 30),
+                  scrollDirection: Axis.horizontal,
+                  children: _buildProductCardList(dataRecomm),
                 ),
               )
             ],
@@ -138,11 +151,11 @@ class _ProductListScreenState extends State<ProductListScreen> {
     );
   }
 
-  List<Widget> _buildProductCardList() {
+  List<Widget> _buildProductCardList(dataX) {
     if (data.length == 0) {
       return [Text("Loading...")];
     }
-    List<Widget> list = data
+    List<Widget> list = dataX
         .map((x) => Container(
               //height: 200,
               //width: 200,

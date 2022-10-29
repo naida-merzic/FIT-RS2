@@ -17,7 +17,6 @@ abstract class BaseProvider<T> with ChangeNotifier {
   BaseProvider(String endpoint) {
     _baseUrl = const String.fromEnvironment("baseUrl",
         defaultValue: "https://10.0.2.2:7031/");
-    print("baseurl: $_baseUrl");
 
     if (_baseUrl!.endsWith("/") == false) {
       _baseUrl = _baseUrl! + "/";
@@ -37,10 +36,25 @@ abstract class BaseProvider<T> with ChangeNotifier {
 
     if (isValidResponseCode(response)) {
       var data = jsonDecode(response.body);
-      print("data: " + data.toString());
       return fromJson(data) as T;
     } else {
       throw Exception("Exception... handle this gracefully");
+    }
+  }
+
+  Future<dynamic> SignIn(dynamic body) async {
+    var url = "$_baseUrl$_endpoint";
+    var uri = Uri.parse(url);
+    var jsonRequest = jsonEncode(body);
+
+    var response = await http!.post(uri,
+        headers: {'Content-type': 'application/json'}, body: jsonRequest);
+
+    if (isValidResponseCode(response)) {
+      var data = jsonDecode(response.body);
+      return fromJson(data) as T;
+    } else {
+      return null;
     }
   }
 
@@ -48,21 +62,16 @@ abstract class BaseProvider<T> with ChangeNotifier {
     var url = "$_baseUrl$_endpoint";
 
     if (search != null) {
-      print("search: " + search.toString());
-
       String queryString = getQueryString(search);
       url = url + "?" + queryString;
     }
 
     var uri = Uri.parse(url);
-    print("igrrd: " + uri.toString());
 
     Map<String, String> headers = createHeaders();
-    print("get me");
     var response = await http!.get(uri, headers: headers);
     if (isValidResponseCode(response)) {
       var data = jsonDecode(response.body);
-      print("done " + data.toString());
       return data.map((x) => fromJson(x)).cast<T>().toList();
     } else {
       throw Exception("Exception... handle this gracefully");
@@ -70,17 +79,13 @@ abstract class BaseProvider<T> with ChangeNotifier {
   }
 
   Future<T?> insert(dynamic request) async {
-    print("request: " + request.toString());
     var url = "$_baseUrl$_endpoint";
     var uri = Uri.parse(url);
-    print("request uri: " + uri.toString());
 
     Map<String, String> headers = createHeaders();
     var jsonRequest = jsonEncode(request);
-    print("jsonrequest: " + jsonRequest.toString());
 
     var response = await http!.post(uri, headers: headers, body: jsonRequest);
-    print("valid: " + isValidResponseCode(response).toString());
 
     if (isValidResponseCode(response)) {
       var data = jsonDecode(response.body);

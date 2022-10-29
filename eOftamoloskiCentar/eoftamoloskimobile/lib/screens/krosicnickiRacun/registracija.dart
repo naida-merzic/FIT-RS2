@@ -7,6 +7,7 @@ import 'package:eoftamoloskimobile/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/user_provider.dart';
@@ -32,12 +33,30 @@ class _RegistracijaScreenState extends State<RegistracijaScreen> {
   TextEditingController _phoneController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _adressController = TextEditingController();
-  late UserProvider _userProvider;
+  int spol = 3;
+  DateTime selectedDate = DateTime.now();
+  DateTime dateTime = DateTime.now();
+  bool showDate = false;
   late KorisnickiRacunProvider _korisnickiProvider;
+
+  // Select for Date
+  Future<DateTime> _selectDate(BuildContext context) async {
+    final selected = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2025),
+    );
+    if (selected != null && selected != selectedDate) {
+      setState(() {
+        selectedDate = selected;
+      });
+    }
+    return selectedDate;
+  }
 
   @override
   Widget build(BuildContext context) {
-    _userProvider = Provider.of<UserProvider>(context, listen: false);
     _korisnickiProvider =
         Provider.of<KorisnickiRacunProvider>(context, listen: false);
 
@@ -166,15 +185,17 @@ class _RegistracijaScreenState extends State<RegistracijaScreen> {
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        border: Border(bottom: BorderSide(color: Colors.grey))),
-                    child: TextField(
-                      controller: _birthController,
-                      decoration: InputDecoration(
-                          border: InputBorder.none, hintText: "Date of birth"),
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        _selectDate(context);
+                        showDate = true;
+                      },
+                      child: const Text('Birth date'),
                     ),
                   ),
+                  showDate ? Center(child: Text(getDate())) : const SizedBox(),
                   Container(
                     padding: EdgeInsets.all(8),
                     decoration: BoxDecoration(
@@ -185,6 +206,30 @@ class _RegistracijaScreenState extends State<RegistracijaScreen> {
                           border: InputBorder.none, hintText: "Phone"),
                     ),
                   ),
+                  Row(
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.male),
+                        onPressed: () {
+                          spol = 1;
+                        },
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.female),
+                        onPressed: () {
+                          spol = 2;
+                        },
+                      ),
+                      TextButton(
+                          onPressed: () {
+                            spol = 3;
+                          },
+                          child: Text(
+                            "Other",
+                            style: TextStyle(fontSize: 16, color: Colors.black),
+                          ))
+                    ],
+                  )
                 ]),
               )),
           SizedBox(height: 2),
@@ -208,34 +253,20 @@ class _RegistracijaScreenState extends State<RegistracijaScreen> {
                   "brojTelefona": _phoneController.text,
                   "adresa": _adressController.text,
                   "korisnickoIme": _usernameController.text,
-                  "datumRodjenja": DateTime.now().toIso8601String(),
-                  "lozinkaHash": _passwordController.text,
-                  "lozinkaSalt": _passwordConfirmController.text,
+                  "datumRodjenja": selectedDate.toIso8601String(),
+                  "lozinka": _passwordController.text,
+                  "lozinkaPotvrda": _passwordConfirmController.text,
+                  "spolId": spol,
                 };
 
-                await _korisnickiProvider.insert(order);
+                var x = await _korisnickiProvider.SignIn(order);
+                if (x != null) {
+                  Authorization.loggedUser = x;
+                  Authorization.username = _usernameController.text;
+                  Authorization.password = _passwordController.text;
 
-                // Authorization.username = _usernameController.text;
-                // Authorization.password = _passwordController.text;
-
-                // List<Klijent> loggedUser = await _korisnickiProvider.get();
-                // Authorization.loggedUser = loggedUser.first;
-
-                // Navigator.pushNamed(context, ProductListScreen.routeName);
-                // } catch (e) {
-                //   showDialog(
-                //       context: context,
-                //       builder: (BuildContext context) => AlertDialog(
-                //             title: Text("Error"),
-                //             content: Text(e.toString()),
-                //             actions: [
-                //               TextButton(
-                //                 child: Text("Ok"),
-                //                 onPressed: () => Navigator.pop(context),
-                //               )
-                //             ],
-                //           ));
-                // }
+                  Navigator.pushNamed(context, ProductListScreen.routeName);
+                }
               },
               child: Center(child: Text("Sign in")),
             ),
@@ -244,5 +275,14 @@ class _RegistracijaScreenState extends State<RegistracijaScreen> {
         ],
       )),
     );
+  }
+
+  String getDate() {
+    // ignore: unnecessary_null_comparison
+    if (selectedDate == null) {
+      return 'select date';
+    } else {
+      return DateFormat('MMM d, yyyy').format(selectedDate);
+    }
   }
 }

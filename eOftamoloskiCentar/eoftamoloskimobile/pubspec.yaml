@@ -40,6 +40,8 @@ dependencies:
   http: ^0.13.5
   json_serializable: ^6.5.2
   intl: ^0.17.0
+  http_auth: ^1.0.1
+  webview_flutter: ^3.0.4
 
 dev_dependencies:
   flutter_test:

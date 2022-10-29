@@ -127,13 +127,15 @@ class _TerminInsertScreenState extends State<TerminInsertScreen> {
         height: 40,
       ),
       Text("Type of medical service: "),
-      TextField(
-        controller: _vrstaPregledaController,
-        onSubmitted: (value) async {
-          setState(() {
-            vrstaPregleda = value;
-          });
-        },
+      Container(
+        padding: EdgeInsets.all(8),
+        decoration: BoxDecoration(
+            border: Border(bottom: BorderSide(color: Colors.grey))),
+        child: TextField(
+          controller: _vrstaPregledaController,
+          decoration: InputDecoration(
+              border: InputBorder.none, hintText: "Vrsta pregleda"),
+        ),
       ),
       Container(
         padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -179,10 +181,9 @@ class _TerminInsertScreenState extends State<TerminInsertScreen> {
     return TextButton(
       child: Text("Save"),
       onPressed: () async {
-        print("pregeledld:" + vrstaPregleda);
         Map order = {
           "datumTermina": dateTime.toIso8601String(),
-          "vrstaPregleda": vrstaPregleda,
+          "vrstaPregleda": _vrstaPregledaController.text,
           "klijentId": Authorization.loggedUser!.klijentId
         };
 

@@ -18,7 +18,6 @@ class eOftamoloskiDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _cartProvider = context.watch<CartProvider>();
-    print("called build drawer");
     return Drawer(
       child: ListView(
         children: [

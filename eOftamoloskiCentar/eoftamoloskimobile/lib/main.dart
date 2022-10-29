@@ -15,6 +15,7 @@ import 'package:eoftamoloskimobile/screens/cart/cart_screen.dart';
 import 'package:eoftamoloskimobile/screens/krosicnickiRacun/korisnickiRacunScreen.dart';
 import 'package:eoftamoloskimobile/screens/krosicnickiRacun/registracija.dart';
 import 'package:eoftamoloskimobile/screens/news/news_list_screen.dart';
+import 'package:eoftamoloskimobile/screens/payment/payment_screen.dart';
 import 'package:eoftamoloskimobile/screens/products/product_details_screen.dart';
 import 'package:eoftamoloskimobile/screens/products/product_list_screen.dart';
 import 'package:eoftamoloskimobile/screens/termini/terminInsert_screen.dart';

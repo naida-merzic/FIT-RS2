@@ -5,6 +5,7 @@ using eOftamoloskiCentar.Model.Requests;
 using eOftamoloskiCentar.Model.SearchObjects;
 using eOftamoloskiCentar.Services.ArtikalStateMachine;
 using eOftamoloskiCentar.Services.Database;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,8 @@ namespace eOftamoloskiCentar.Services
             : base(context, mapper)
         {
         }
-        public override Model.Klijent Insert(KorisnickiRacunInsertRequest insert)
+        [HttpPost]
+        public override Model.Klijent Insert([FromBody] KorisnickiRacunInsertRequest insert)
         {
 
             var salt = HashGenerator.GenerateSalt();

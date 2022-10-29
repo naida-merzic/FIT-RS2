@@ -14,6 +14,8 @@ KorisnickiRacun _$KorisnickiRacunFromJson(Map<String, dynamic> json) =>
       ..email = json['email'] as String?
       ..brojTelefona = json['brojTelefona'] as String?
       ..adresa = json['adresa'] as String?
+      ..lozinkaHash = json['lozinkaHash'] as String?
+      ..lozinkaSalt = json['lozinkaSalt'] as String?
       ..korisnickoIme = json['korisnickoIme'] as String?
       ..datumRodjenja = json['datumRodjenja'] == null
           ? null
@@ -27,6 +29,8 @@ Map<String, dynamic> _$KorisnickiRacunToJson(KorisnickiRacun instance) =>
       'email': instance.email,
       'brojTelefona': instance.brojTelefona,
       'adresa': instance.adresa,
+      'lozinkaHash': instance.lozinkaHash,
+      'lozinkaSalt': instance.lozinkaSalt,
       'korisnickoIme': instance.korisnickoIme,
       'datumRodjenja': instance.datumRodjenja?.toIso8601String(),
     };
