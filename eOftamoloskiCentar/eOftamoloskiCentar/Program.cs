@@ -52,6 +52,7 @@ builder.Services.AddTransient<IDojamService, DojamService>();
 
 
 
+
 //register state machine all states
 builder.Services.AddTransient<BaseState>();
 builder.Services.AddTransient<InitialArtikalState>();
@@ -89,7 +90,7 @@ app.MapControllers();
 using (var scope = app.Services.CreateScope())
 {
     var dataContext = scope.ServiceProvider.GetRequiredService<OftamoloskiCentarContext>();
-    //dataContext.Database.Migrate();
+    dataContext.Database.EnsureCreated();
 }
 
 app.Run();

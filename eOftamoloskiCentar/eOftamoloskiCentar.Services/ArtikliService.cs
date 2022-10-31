@@ -13,6 +13,8 @@ using Microsoft.ML;
 using Microsoft.ML.Data;
 using Microsoft.ML.Trainers;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
+using System.Reflection;
 
 namespace eOftamoloskiCentar.Services 
 {
@@ -109,97 +111,226 @@ namespace eOftamoloskiCentar.Services
 
         static object isLocked = new object();
         static MLContext mlContext = null;
-        static ITransformer model = null;
+        static ITransformer modeltr = null;
         
+        //public List<Model.Artikal> Recommend(int id)
+        //{
+        //    lock (isLocked)
+        //    {
+        //        if (mlContext == null)
+        //        {
+        //            mlContext = new MLContext();
+
+        //            var tmpData = Context.Racuns.Include("StavkaRacunas").ToList();
+
+        //            var data = new List<ProductEntry>();
+
+        //            foreach (var x in tmpData)
+        //            {
+        //                if (x.StavkaRacunas.Count > 1)
+        //                {
+        //                    var distinctItemId = x.StavkaRacunas.Select(y => y.ArtikalId).ToList();
+
+        //                    distinctItemId.ForEach(y =>
+        //                    {
+        //                        var relatedItems = x.StavkaRacunas.Where(z => z.ArtikalId != y).ToList();
+
+        //                        foreach (var z in relatedItems)
+        //                        {
+        //                            data.Add(new ProductEntry()
+        //                            {
+        //                                ProductID = (uint)y,
+        //                                CoPurchaseProductID = (uint)z.ArtikalId,
+        //                            });
+        //                        }
+        //                    });
+        //                }
+        //            }
+
+        //            var traindata = mlContext.Data.LoadFromEnumerable(data);
+
+
+        //            MatrixFactorizationTrainer.Options options = new MatrixFactorizationTrainer.Options();
+        //            options.MatrixColumnIndexColumnName = nameof(ProductEntry.ProductID);
+        //            options.MatrixRowIndexColumnName = nameof(ProductEntry.CoPurchaseProductID);
+        //            options.LabelColumnName = "Label";
+        //            options.LossFunction = MatrixFactorizationTrainer.LossFunctionType.SquareLossOneClass;
+        //            options.Alpha = 0.01;
+        //            options.Lambda = 0.025;
+        //            options.NumberOfIterations = 100;
+        //            options.C = 0.00001;
+
+        //            var est = mlContext.Recommendation().Trainers.MatrixFactorization(options);
+        //            IDataView  _traindata = traindata;
+        //            model = est.Fit(_traindata);
+        //        }
+        //    }
+
+        //    var allItems = Context.Artikals.Where(x => x.ArtikalId != id);
+
+
+        //    var predictionResult = new List<Tuple<Database.Artikal, float>>();
+
+        //    foreach (var item in allItems)
+        //    {
+        //        var predictionEngine = mlContext.Model.CreatePredictionEngine<ProductEntry, Copurchase_prediction>(model);
+        //        var prediction = predictionEngine.Predict(new ProductEntry()
+        //        {
+        //            ProductID = (uint)id,
+        //            CoPurchaseProductID = (uint)item.ArtikalId
+        //        });
+
+        //        predictionResult.Add(new Tuple<Database.Artikal, float>(item, prediction.Score));
+        //    }
+        //    var finalResult = predictionResult.OrderByDescending(x => x.Item2).Select(x => x.Item1).Take(3).ToList();
+
+        //    return Mapper.Map<List<Model.Artikal>>(finalResult);
+        //}
+
         public List<Model.Artikal> Recommend(int id)
         {
-            lock (isLocked)
+            if (mlContext == null)
             {
-                if (mlContext == null)
+                mlContext = new MLContext();
+
+                var tmpData = Context.Racuns.Include("StavkaRacunas").ToList();
+
+                var data = new List<RatingEntry>();
+
+                foreach (var x in tmpData)
                 {
-                    mlContext = new MLContext();
-
-                    var tmpData = Context.Racuns.Include("StavkaRacunas").ToList();
-
-                    var data = new List<ProductEntry>();
-
-                    foreach (var x in tmpData)
+                    if (x.StavkaRacunas.Count > 1)
                     {
-                        if (x.StavkaRacunas.Count > 1)
+                        var distinctItemId = x.StavkaRacunas.Select(y => y.ArtikalId).ToList();
+
+                        distinctItemId.ForEach(y =>
                         {
-                            var distinctItemId = x.StavkaRacunas.Select(y => y.ArtikalId).ToList();
+                            var relatedItems = x.StavkaRacunas.Where(z => z.ArtikalId != y).ToList();
 
-                            distinctItemId.ForEach(y =>
+                            foreach (var z in relatedItems)
                             {
-                                var relatedItems = x.StavkaRacunas.Where(z => z.ArtikalId != y).ToList();
-
-                                foreach (var z in relatedItems)
+                                data.Add(new RatingEntry()
                                 {
-                                    data.Add(new ProductEntry()
-                                    {
-                                        ProductID = (uint)y,
-                                        CoPurchaseProductID = (uint)z.ArtikalId,
-                                    });
-                                }
-                            });
-                        }
+                                    RatingId = (uint)y,
+                                    CoRatingId = (uint)z.ArtikalId,
+                                });
+                            }
+                        });
                     }
+                };
 
-                    var traindata = mlContext.Data.LoadFromEnumerable(data);
+                DataTable dataTable = new DataTable(typeof(RatingEntry).Name);
 
-
-                    MatrixFactorizationTrainer.Options options = new MatrixFactorizationTrainer.Options();
-                    options.MatrixColumnIndexColumnName = nameof(ProductEntry.ProductID);
-                    options.MatrixRowIndexColumnName = nameof(ProductEntry.CoPurchaseProductID);
-                    options.LabelColumnName = "Label";
-                    options.LossFunction = MatrixFactorizationTrainer.LossFunctionType.SquareLossOneClass;
-                    options.Alpha = 0.01;
-                    options.Lambda = 0.025;
-                    options.NumberOfIterations = 100;
-                    options.C = 0.00001;
-
-                    var est = mlContext.Recommendation().Trainers.MatrixFactorization(options);
-                    IDataView  _traindata = traindata;
-                    model = est.Fit(_traindata);
-                }
-            }
-
-            var allItems = Context.Artikals.Where(x => x.ArtikalId != id);
-
-
-            var predictionResult = new List<Tuple<Database.Artikal, float>>();
-
-            foreach (var item in allItems)
-            {
-                var predictionEngine = mlContext.Model.CreatePredictionEngine<ProductEntry, Copurchase_prediction>(model);
-                var prediction = predictionEngine.Predict(new ProductEntry()
+                PropertyInfo[] Props = typeof(RatingEntry).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+                foreach (PropertyInfo prop in Props)
                 {
-                    ProductID = (uint)id,
-                    CoPurchaseProductID = (uint)item.ArtikalId
-                });
+                    dataTable.Columns.Add(prop.Name);
+                }
+                foreach (var item in data)
+                {
+                    var values = new object[Props.Length];
+                    for (int i = 0; i < Props.Length; i++)
+                    {
+                        values[i] = Props[i].GetValue(item, null);
+                    }
+                    dataTable.Rows.Add(values);
+                }
+                string myTableAsString =
+                String.Join(Environment.NewLine, dataTable.Rows.Cast<DataRow>().
+                    Select(r => r.ItemArray).ToArray().
+                    Select(x => String.Join("\t", x.Cast<string>())));
 
-                predictionResult.Add(new Tuple<Database.Artikal, float>(item, prediction.Score));
+                /* StreamWriter myFile = new StreamWriter("fileName.txt");
+                 myFile.WriteLine(myFile);
+                 myFile.Close();*/
+
+                File.WriteAllTextAsync("WriteText.txt", myTableAsString);
+
+                var traindata = mlContext.Data.LoadFromTextFile(path: "C:/Users/User/Desktop/SeminarskiRS2/FIT-RS2/eOftamoloskiCentar/eOftamoloskiCentar/WriteText.txt", columns: new[]
+                                                                {
+                                                                    new TextLoader.Column("Label", DataKind.Single, 0),
+                                                                    new TextLoader.Column(name:nameof(RatingEntry.RatingId), dataKind:DataKind.UInt32, source: new [] { new TextLoader.Range(0) }, keyCount: new KeyCount(262111)),
+                                                                    new TextLoader.Column(name:nameof(RatingEntry.CoRatingId), dataKind:DataKind.UInt32, source: new [] { new TextLoader.Range(1) }, keyCount: new KeyCount(262111))
+                                                                },
+                                                      hasHeader: true,
+                                                      separatorChar: '\t');
+                //var traindata = mlContext.Data.LoadFromEnumerable(_Data);
+                //STEP 3: Your data is already encoded so all you need to do is specify options for MatrxiFactorizationTrainer with a few extra hyperparameters
+                //        LossFunction, Alpa, Lambda and a few others like K and C as shown below and call the trainer. 
+                MatrixFactorizationTrainer.Options options = new MatrixFactorizationTrainer.Options();
+                options.MatrixColumnIndexColumnName = nameof(RatingEntry.RatingId);
+                options.MatrixRowIndexColumnName = nameof(RatingEntry.CoRatingId);
+                options.LabelColumnName = "Label";
+                options.LossFunction = MatrixFactorizationTrainer.LossFunctionType.SquareLossOneClass;
+                options.Alpha = 0.01;
+                options.Lambda = 0.025;
+                // For better results use the following parameters
+                //options.K = 100;
+                //options.C = 0.00001;
+                //Step 4: Call the MatrixFactorization trainer by passing options.
+                var est = mlContext.Recommendation().Trainers.MatrixFactorization(options);
+
+                //STEP 5: Train the model fitting to the DataSet
+                //Please add Amazon0302.txt dataset from https://snap.stanford.edu/data/amazon0302.html to Data folder if FileNotFoundException is thrown.
+                modeltr = est.Fit(traindata);
+
+
+                var allItems = Context.Artikals.Where(x => x.ArtikalId != id);
+
+
+                var predictionResult = new List<Tuple<Database.Artikal, float>>();
+
+                foreach (var item in allItems)
+                {
+                    var predictionEngine = mlContext.Model.CreatePredictionEngine<RatingEntry, Copurchase_prediction>(modeltr);
+                    var prediction = predictionEngine.Predict(new RatingEntry()
+                    {
+                        RatingId = (uint)id,
+                        CoRatingId = (uint)item.ArtikalId
+                    });
+
+                    predictionResult.Add(new Tuple<Database.Artikal, float>(item, prediction.Score));
+                }
+                var finalResult = predictionResult.OrderByDescending(x => x.Item2).Select(x => x.Item1).Take(3).ToList();
+
+                return Mapper.Map<List<Model.Artikal>>(finalResult);
+
             }
-            var finalResult = predictionResult.OrderByDescending(x => x.Item2).Select(x => x.Item1).Take(3).ToList();
+            return null;
 
-            return Mapper.Map<List<Model.Artikal>>(finalResult);
         }
-
+    }
+    public class CoRating_prediction
+    {
+        public float Score { get; set; }
+    }
+    public class RatingEntry
+    {
+        [KeyType(count: 262111)]
+        public uint RatingId { get; set; }
+        [KeyType(count: 262111)]
+        public uint CoRatingId { get; set; }
+        //public float Label { get; set; }
 
     }
     public class Copurchase_prediction
     {
         public float Score { get; set; }
     }
-
-    public class ProductEntry
-    {
-        [KeyType(count: 10)]
-        public uint ProductID { get; set; }
-
-        [KeyType(count: 10)]
-        public uint CoPurchaseProductID { get; set; }
-
-        public float Label { get; set; }
-    }
 }
+    //public class Copurchase_prediction
+    //{
+    //    public float Score { get; set; }
+    //}
+
+    //public class ProductEntry
+    //{
+    //    [KeyType(count: 10)]
+    //    public uint ProductID { get; set; }
+
+    //    [KeyType(count: 10)]
+    //    public uint CoPurchaseProductID { get; set; }
+
+    //    public float Label { get; set; }
+    //}
+

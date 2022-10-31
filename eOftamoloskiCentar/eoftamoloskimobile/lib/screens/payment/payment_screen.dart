@@ -1,30 +1,30 @@
-import 'dart:core';
-import 'package:eoftamoloskimobile/main.dart';
-import 'package:eoftamoloskimobile/model/product.dart';
-import 'package:eoftamoloskimobile/model/stavkaRacuna.dart';
-import 'package:eoftamoloskimobile/providers/base_provider.dart';
-import 'package:eoftamoloskimobile/providers/product_provider.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 import 'dart:io';
 
+import 'package:eoftamoloskimobile/model/checkOrder.dart';
+import 'package:eoftamoloskimobile/utils/utils.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/container.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:provider/provider.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+
+import '../../main.dart';
+import '../../model/product.dart';
+import '../../model/stavkaRacuna.dart';
 import '../../providers/payment_provider.dart';
+import '../../providers/product_provider.dart';
 
-class Payment extends StatefulWidget {
+class PaymentScreen extends StatefulWidget {
   static const String routeName = "/payment";
-
+  final Racun? racun;
   final Function onFinish;
-  final List<StavkaRacuna> stavke;
-  Payment({required this.onFinish, required this.stavke});
+  PaymentScreen({required this.onFinish, required this.racun, super.key});
+
   @override
-  State<StatefulWidget> createState() {
-    return PaymentState();
-  }
+  State<PaymentScreen> createState() => _PaymentScreenState();
 }
 
-class PaymentState extends State<Payment> {
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+class _PaymentScreenState extends State<PaymentScreen> {
   late String checkoutUrl = "";
   late String executeUrl = "";
   late String accessToken = "";
@@ -33,19 +33,26 @@ class PaymentState extends State<Payment> {
   List items = [];
   String totalAmount = '0';
   String subTotalAmount = '0';
+  List<StavkaRacuna> stavke = [];
+  bool isEnableShipping = false;
+  bool isEnableAddress = false;
+  String returnURL = 'return.example.com';
+  String cancelURL = 'cancel.example.com';
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _productProvider = context.read<ProductProvider>();
 
+    _productProvider = context.read<ProductProvider>();
     getInitialValues();
+
     if (Platform.isAndroid) WebView.platform = AndroidWebView();
     Future.delayed(Duration.zero, () async {
       try {
         accessToken = (await service.getAccessToken())!;
-        final transactions = getOrderParams();
+        final transactions = await getOrderParams();
+
         final res =
             await service.createPaypalPayment(transactions, accessToken);
         if (res != null) {
@@ -70,53 +77,19 @@ class PaymentState extends State<Payment> {
     });
   }
 
-  getArtikalById(int id) async {
-    List<Product>? artikal = await _productProvider?.get(id);
-    return artikal!.first;
-  }
-
-  // you can change default currency according to your need
-  Map<dynamic, dynamic> defaultCurrency = {
-    "symbol": "EUR",
-    "decimalDigits": 2,
-    "symbolBeforeTheNumber": true,
-    "currency": "EUR"
-  };
-  bool isEnableShipping = false;
-  bool isEnableAddress = false;
-  String returnURL = 'return.example.com';
-  String cancelURL = 'cancel.example.com';
-
-  getInitialValues() async {
-    items = [
-      for (var stavka in widget.stavke)
-        {
-          "name": (await getArtikalById(stavka.artikalId!) as Product).naziv,
-          "quantity": stavka.kolicina,
-          "price": (await getArtikalById(stavka.artikalId!) as Product).cijena!,
-          "currency": defaultCurrency["currency"]
-        }
-    ];
-    double total = 0;
-    for (var stavka in widget.stavke) {
-      total += (await getArtikalById(stavka.artikalId!) as Product).cijena! *
-          stavka.kolicina!;
-    }
-    totalAmount = subTotalAmount = total.toString();
-  }
-
   Map<String, dynamic> getOrderParams() {
     // checkout invoice details
     String shippingCost = '0';
     int shippingDiscountCost = 0;
-    // String userFirstName = HttpService.klijent.ime!;
-    // String userLastName = HttpService.klijent.prezime!;
-    // String addressCity = HttpService.klijent.gradId.toString();
-    // String addressStreet = HttpService.klijent.adresa!;
-    // String addressZipCode = HttpService.klijent.adresa!;
-    // String addressCountry = 'Bosnia and Herzegowina';
-    // String addressState = HttpService.klijent.adresa!;
-    // String addressPhoneNumber = HttpService.klijent.telefon!;
+    String userFirstName = Authorization.loggedUser!.korisnickiRacun!.ime!;
+    String userLastName = Authorization.loggedUser!.korisnickiRacun!.prezime!;
+    String addressCity = "Mostar";
+    String addressStreet = "Marsala Tita";
+    String addressZipCode = "88000";
+    String addressCountry = 'Bosnia and Herzegowina';
+    String addressState = "HNK";
+    String addressPhoneNumber =
+        Authorization.loggedUser!.korisnickiRacun!.brojTelefona!;
     Map<String, dynamic> temp = {
       "intent": "sale",
       "payer": {"payment_method": "paypal"},
@@ -138,14 +111,14 @@ class PaymentState extends State<Payment> {
             "items": items,
             if (isEnableShipping && isEnableAddress)
               "shipping_address": {
-                // "recipient_name": userFirstName + " " + userLastName,
-                // "line1": addressStreet,
-                // "line2": "",
-                // "city": addressCity,
-                // "country_code": addressCountry,
-                // "postal_code": addressZipCode,
-                // "phone": addressPhoneNumber,
-                // "state": addressState
+                "recipient_name": userFirstName + " " + userLastName,
+                "line1": addressStreet,
+                "line2": "",
+                "city": addressCity,
+                "country_code": addressCountry,
+                "postal_code": addressZipCode,
+                "phone": addressPhoneNumber,
+                "state": addressState
               },
           }
         }
@@ -154,6 +127,21 @@ class PaymentState extends State<Payment> {
       "redirect_urls": {"return_url": returnURL, "cancel_url": cancelURL}
     };
     return temp;
+  }
+
+  Map<dynamic, dynamic> defaultCurrency = {
+    "symbol": "EUR",
+    "decimalDigits": 2,
+    "symbolBeforeTheNumber": true,
+    "currency": "EUR"
+  };
+  getArtikalById(int? id) async {
+    List<Product>? artikal = await _productProvider?.get({'artikalId': id});
+    return artikal!.first;
+  }
+
+  getInitialValues() async {
+    totalAmount = subTotalAmount = widget.racun!.iznos.toString();
   }
 
   @override
@@ -183,7 +171,7 @@ class PaymentState extends State<Payment> {
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                   backgroundColor: Colors.green,
                   duration: Duration(milliseconds: 1000),
-                  content: Text("Uspješna transakcija."),
+                  content: Text("Successful transaction."),
                 ));
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) => HomePage()));
@@ -191,8 +179,7 @@ class PaymentState extends State<Payment> {
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                   backgroundColor: Colors.redAccent,
                   duration: Duration(milliseconds: 1000),
-                  content: Text(
-                      "Greška prilikom plaćanja, pokušajte ponovo kasnije."),
+                  content: Text("Payment error, please try again later."),
                 ));
               }
               Navigator.of(context).pop();
@@ -206,7 +193,6 @@ class PaymentState extends State<Payment> {
       );
     } else {
       return Scaffold(
-        key: _scaffoldKey,
         appBar: AppBar(
           leading: IconButton(
               icon: Icon(Icons.arrow_back),
@@ -216,7 +202,10 @@ class PaymentState extends State<Payment> {
           backgroundColor: Colors.black12,
           elevation: 0.0,
         ),
-        body: Center(child: Container(child: CircularProgressIndicator())),
+        body: Center(
+            child: Container(
+          child: CircularProgressIndicator(),
+        )),
       );
     }
   }

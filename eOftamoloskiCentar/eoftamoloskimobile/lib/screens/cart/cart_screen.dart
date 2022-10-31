@@ -15,6 +15,7 @@ import 'package:provider/provider.dart';
 //import '../../providers/order_provider.dart';
 import '../../utils/utils.dart';
 import '../payment/payment_screen.dart';
+import '../products/product_list_screen.dart';
 
 class CartScreen extends StatefulWidget {
   static const String routeName = "/cart";
@@ -93,20 +94,19 @@ class _CartScreenState extends State<CartScreen> {
           "klijentId": Authorization.loggedUser!.klijentId
         };
 
-        await _orderProvider.insert(order);
-
+        var response = await _orderProvider.insert(order);
         _cartProvider.cart.items.clear();
         setState(() {});
 
-        List<StavkaRacuna> stavkice = items as List<StavkaRacuna>;
+        // Navigator.pushNamed(context, PaymentScreen.routeName,
+        //     arguments: response);
 
-        print("stavke : " + stavkice.length.toString());
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (BuildContext context) => Payment(
-                stavke: stavkice,
+            builder: (BuildContext context) => PaymentScreen(
+                racun: response,
                 onFinish: (number) async {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => HomePage()));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => ProductListScreen()));
                   setState(() {});
                 })));
       },
