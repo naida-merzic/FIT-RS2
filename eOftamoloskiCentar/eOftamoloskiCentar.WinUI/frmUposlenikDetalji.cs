@@ -66,9 +66,9 @@ namespace eOftamoloskiCentar.WinUI
                         LozinkaPotvrda = txtPasswordPotvrda.Text,
                         Status = chkStatus.Checked,
                         RoleList = roleIdList,
-                        Adresa="mostar",
-                        BrojTelefona=23432.ToString(),
-                        DatumRodjenja=DateTime.Now,
+                        Adresa=txtAdresa.Text,
+                        BrojTelefona=txtBrojTelefona.ToString(),
+                        DatumRodjenja=dtpDatumRodjenja.Value,
                         SpolId=1
                     };
 
@@ -84,15 +84,15 @@ namespace eOftamoloskiCentar.WinUI
                         Ime = txtIme.Text,
                         Prezime = txtPrezime.Text,
                         Email = txtEmail.Text,
+                        KorisnickoIme = txtUsername.Text,
                         Lozinka = txtPassword.Text,
                         LozinkaPotvrda = txtPasswordPotvrda.Text,
                         Status = chkStatus.Checked,
-                        Adresa="ghjk",
-                        DatumRodjenja=DateTime.Now,
-                        BrojTelefona=1234.ToString(),
-                        KorisnickoIme="hjkkll",
-                        SpolId=1,
-                        RoleList=roleIdList
+                        RoleList = roleIdList,
+                        Adresa = txtAdresa.Text,
+                        BrojTelefona = txtBrojTelefona.ToString(),
+                        DatumRodjenja = dtpDatumRodjenja.Value,
+                        SpolId = 1
                     };
                     if (txtPassword.Text != txtPasswordPotvrda.Text)
                     {

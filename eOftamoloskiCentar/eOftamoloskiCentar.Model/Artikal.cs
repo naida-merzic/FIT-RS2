@@ -19,6 +19,7 @@ namespace eOftamoloskiCentar.Model
         public byte[] Slika { get; set; }
 
 
+
         public VrstaArtikla VrstaArtikla { get; set; } 
 
         //public virtual ICollection<StavkaRacuna> StavkaRacunas { get; set; }

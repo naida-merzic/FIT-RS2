@@ -42,6 +42,19 @@ abstract class BaseProvider<T> with ChangeNotifier {
     }
   }
 
+  Future<List<T>> recom(int id, [dynamic search]) async {
+    var url = Uri.parse("$_baseUrl$_endpoint/$id/Recommend");
+    Map<String, String> headers = createHeaders();
+    var response = await http!.get(url, headers: headers);
+
+    if (isValidResponseCode(response)) {
+      var data = jsonDecode(response.body);
+      return data.map((x) => fromJson(x)).cast<T>().toList();
+    } else {
+      throw Exception("Exception... handle this gracefully");
+    }
+  }
+
   Future<dynamic> SignIn(dynamic body) async {
     var url = "$_baseUrl$_endpoint";
     var uri = Uri.parse(url);

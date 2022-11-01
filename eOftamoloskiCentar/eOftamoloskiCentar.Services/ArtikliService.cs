@@ -189,8 +189,7 @@ namespace eOftamoloskiCentar.Services
 
         public List<Model.Artikal> Recommend(int id)
         {
-            if (mlContext == null)
-            {
+            
                 mlContext = new MLContext();
 
                 var tmpData = Context.Racuns.Include("StavkaRacunas").ToList();
@@ -246,7 +245,10 @@ namespace eOftamoloskiCentar.Services
 
                 File.WriteAllTextAsync("WriteText.txt", myTableAsString);
 
-                var traindata = mlContext.Data.LoadFromTextFile(path: "C:/Users/User/Desktop/SeminarskiRS2/FIT-RS2/eOftamoloskiCentar/eOftamoloskiCentar/WriteText.txt", columns: new[]
+
+                var putanja1 = System.Environment.CurrentDirectory + @"\" + "WriteText.txt";
+
+                var traindata = mlContext.Data.LoadFromTextFile(path: putanja1, columns: new[]
                                                                 {
                                                                     new TextLoader.Column("Label", DataKind.Single, 0),
                                                                     new TextLoader.Column(name:nameof(RatingEntry.RatingId), dataKind:DataKind.UInt32, source: new [] { new TextLoader.Range(0) }, keyCount: new KeyCount(262111)),
@@ -292,11 +294,11 @@ namespace eOftamoloskiCentar.Services
                     predictionResult.Add(new Tuple<Database.Artikal, float>(item, prediction.Score));
                 }
                 var finalResult = predictionResult.OrderByDescending(x => x.Item2).Select(x => x.Item1).Take(3).ToList();
-
+            
+            if(finalResult!=null)
                 return Mapper.Map<List<Model.Artikal>>(finalResult);
-
-            }
             return null;
+
 
         }
     }

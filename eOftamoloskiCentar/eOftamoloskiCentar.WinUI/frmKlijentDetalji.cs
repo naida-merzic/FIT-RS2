@@ -40,8 +40,10 @@ namespace eOftamoloskiCentar.WinUI
             {
                 txtIme.Text = _model.KorisnickiRacun.Ime;
                 txtPrezime.Text = _model.KorisnickiRacun.Prezime;
-                //cmbSpol.SelectedValue = _model.SpolId.Value;
-                //potrebno termin ucitat
+                txtAdresa.Text = _model.KorisnickiRacun.Adresa;
+                txtBrojTelefona.Text = _model.KorisnickiRacun.BrojTelefona;
+                txtEmail.Text = _model.KorisnickiRacun.Email;
+                cmbSpol.SelectedItem = _model.SpolId;
             }
         }
 
@@ -56,14 +58,13 @@ namespace eOftamoloskiCentar.WinUI
                         Ime = txtIme.Text,
                         Prezime = txtPrezime.Text,
                         SpolId = Convert.ToInt32(cmbSpol.SelectedValue),
-                        //termine dodati
                         KorisnickoIme = txtUsername.Text,
                         Lozinka = txtPass.Text,
-                        Adresa = "mostar",
-                        Email = "mmmmm",
-                        LozinkaPotvrda=txtPass.Text,
-                        DatumRodjenja=DateTime.Now,
-                        BrojTelefona=45678.ToString()
+                        Adresa = txtAdresa.Text,
+                        Email = txtEmail.Text,
+                        DatumRodjenja = dtpDatumRodjenja.Value,
+                        BrojTelefona = txtBrojTelefona.Text.ToString(),
+                        LozinkaPotvrda = txtPass.Text
                     };
 
                     var user = await KlijentService.Post<Klijent>(insertRequest);
@@ -75,8 +76,14 @@ namespace eOftamoloskiCentar.WinUI
                     {
                         Ime = txtIme.Text,
                         Prezime = txtPrezime.Text,
-                        //SpolId = Convert.ToInt32(cmbSpol.SelectedValue),
-                        //termine dodati
+                        SpolId = Convert.ToInt32(cmbSpol.SelectedValue),
+                        KorisnickoIme = txtUsername.Text,
+                        Lozinka = txtPass.Text,
+                        Adresa = txtAdresa.Text,
+                        Email = txtEmail.Text,
+                        DatumRodjenja = dtpDatumRodjenja.Value,
+                        BrojTelefona = txtBrojTelefona.Text.ToString(),
+                        LozinkaPotvrda = txtPass.Text
                     };
 
                     _model = await KlijentService.Put<Klijent>(_model.KlijentId, updateRequest);

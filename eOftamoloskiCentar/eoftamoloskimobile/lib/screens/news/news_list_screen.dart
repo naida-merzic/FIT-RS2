@@ -47,7 +47,7 @@ class _NovostScreenState extends State<NovostScreen> {
             children: [
               _buildHeader(),
               _buildProductSearch(),
-              //SizedBox(height: 50),
+              SizedBox(height: 50),
               Container(
                 height: 200,
                 child: GridView(
@@ -71,7 +71,7 @@ class _NovostScreenState extends State<NovostScreen> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Text(
-        "Novosti",
+        "News",
         style: TextStyle(
             color: Colors.blueGrey, fontSize: 40, fontWeight: FontWeight.w600),
       ),
@@ -134,7 +134,14 @@ class _NovostScreenState extends State<NovostScreen> {
               //width: 200,
               child: Column(
                 children: [
-                  Text(x.naslov ?? ""),
+                  Text(x.naslov ?? "",
+                      style: TextStyle(
+                          color: Colors.blueGrey,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600)),
+                  SizedBox(
+                    height: 15,
+                  ),
                   Text(x.sadrzaj ?? ""),
                 ],
               ),

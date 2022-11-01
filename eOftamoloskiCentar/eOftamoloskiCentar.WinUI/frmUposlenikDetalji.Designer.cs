@@ -30,6 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtAdresa = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtPrezime = new System.Windows.Forms.TextBox();
@@ -37,6 +39,8 @@
             this.txtIme = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.dtpDatumRodjenja = new System.Windows.Forms.DateTimePicker();
+            this.label8 = new System.Windows.Forms.Label();
             this.txtPasswordPotvrda = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.txtPassword = new System.Windows.Forms.TextBox();
@@ -51,6 +55,8 @@
             this.errorProvider3 = new System.Windows.Forms.ErrorProvider(this.components);
             this.errorProvider4 = new System.Windows.Forms.ErrorProvider(this.components);
             this.errorProvider5 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.label9 = new System.Windows.Forms.Label();
+            this.txtBrojTelefona = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -62,6 +68,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.txtAdresa);
+            this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.txtEmail);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.txtPrezime);
@@ -75,9 +83,25 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Podaci";
             // 
+            // txtAdresa
+            // 
+            this.txtAdresa.Location = new System.Drawing.Point(197, 111);
+            this.txtAdresa.Name = "txtAdresa";
+            this.txtAdresa.Size = new System.Drawing.Size(244, 27);
+            this.txtAdresa.TabIndex = 7;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(16, 115);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(58, 20);
+            this.label7.TabIndex = 6;
+            this.label7.Text = "Adresa:";
+            // 
             // txtEmail
             // 
-            this.txtEmail.Location = new System.Drawing.Point(202, 103);
+            this.txtEmail.Location = new System.Drawing.Point(197, 80);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(244, 27);
             this.txtEmail.TabIndex = 5;
@@ -85,7 +109,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(16, 103);
+            this.label3.Location = new System.Drawing.Point(16, 85);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(49, 20);
             this.label3.TabIndex = 4;
@@ -93,7 +117,7 @@
             // 
             // txtPrezime
             // 
-            this.txtPrezime.Location = new System.Drawing.Point(202, 70);
+            this.txtPrezime.Location = new System.Drawing.Point(197, 47);
             this.txtPrezime.Name = "txtPrezime";
             this.txtPrezime.Size = new System.Drawing.Size(244, 27);
             this.txtPrezime.TabIndex = 3;
@@ -101,7 +125,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(16, 70);
+            this.label2.Location = new System.Drawing.Point(16, 51);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(65, 20);
             this.label2.TabIndex = 2;
@@ -109,7 +133,7 @@
             // 
             // txtIme
             // 
-            this.txtIme.Location = new System.Drawing.Point(202, 37);
+            this.txtIme.Location = new System.Drawing.Point(197, 15);
             this.txtIme.Name = "txtIme";
             this.txtIme.Size = new System.Drawing.Size(244, 27);
             this.txtIme.TabIndex = 1;
@@ -118,7 +142,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 37);
+            this.label1.Location = new System.Drawing.Point(16, 25);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(37, 20);
             this.label1.TabIndex = 0;
@@ -126,6 +150,10 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.txtBrojTelefona);
+            this.groupBox2.Controls.Add(this.label9);
+            this.groupBox2.Controls.Add(this.dtpDatumRodjenja);
+            this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.txtPasswordPotvrda);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.txtPassword);
@@ -134,14 +162,30 @@
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Location = new System.Drawing.Point(25, 191);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(462, 162);
+            this.groupBox2.Size = new System.Drawing.Size(462, 190);
             this.groupBox2.TabIndex = 16;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Podaci";
             // 
+            // dtpDatumRodjenja
+            // 
+            this.dtpDatumRodjenja.Location = new System.Drawing.Point(194, 119);
+            this.dtpDatumRodjenja.Name = "dtpDatumRodjenja";
+            this.dtpDatumRodjenja.Size = new System.Drawing.Size(250, 27);
+            this.dtpDatumRodjenja.TabIndex = 8;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(16, 123);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(116, 20);
+            this.label8.TabIndex = 7;
+            this.label8.Text = "Datum rodjenja:";
+            // 
             // txtPasswordPotvrda
             // 
-            this.txtPasswordPotvrda.Location = new System.Drawing.Point(202, 103);
+            this.txtPasswordPotvrda.Location = new System.Drawing.Point(197, 84);
             this.txtPasswordPotvrda.Name = "txtPasswordPotvrda";
             this.txtPasswordPotvrda.PasswordChar = '*';
             this.txtPasswordPotvrda.Size = new System.Drawing.Size(244, 27);
@@ -151,7 +195,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(16, 103);
+            this.label4.Location = new System.Drawing.Point(16, 92);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(99, 20);
             this.label4.TabIndex = 4;
@@ -159,7 +203,7 @@
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(202, 70);
+            this.txtPassword.Location = new System.Drawing.Point(197, 50);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(244, 27);
@@ -169,7 +213,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(16, 70);
+            this.label5.Location = new System.Drawing.Point(16, 56);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(73, 20);
             this.label5.TabIndex = 2;
@@ -177,7 +221,7 @@
             // 
             // txtUsername
             // 
-            this.txtUsername.Location = new System.Drawing.Point(202, 37);
+            this.txtUsername.Location = new System.Drawing.Point(197, 17);
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(244, 27);
             this.txtUsername.TabIndex = 1;
@@ -186,7 +230,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(16, 37);
+            this.label6.Location = new System.Drawing.Point(16, 23);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(78, 20);
             this.label6.TabIndex = 0;
@@ -240,6 +284,23 @@
             // 
             this.errorProvider5.ContainerControl = this;
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(15, 157);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(98, 20);
+            this.label9.TabIndex = 9;
+            this.label9.Text = "Broj telefona:";
+            // 
+            // txtBrojTelefona
+            // 
+            this.txtBrojTelefona.Location = new System.Drawing.Point(194, 150);
+            this.txtBrojTelefona.Name = "txtBrojTelefona";
+            this.txtBrojTelefona.PasswordChar = '*';
+            this.txtBrojTelefona.Size = new System.Drawing.Size(250, 27);
+            this.txtBrojTelefona.TabIndex = 10;
+            // 
             // frmUposlenikDetalji
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -291,5 +352,11 @@
         private ErrorProvider errorProvider3;
         private ErrorProvider errorProvider4;
         private ErrorProvider errorProvider5;
+        private TextBox txtAdresa;
+        private Label label7;
+        private Label label8;
+        private DateTimePicker dtpDatumRodjenja;
+        private TextBox txtBrojTelefona;
+        private Label label9;
     }
 }

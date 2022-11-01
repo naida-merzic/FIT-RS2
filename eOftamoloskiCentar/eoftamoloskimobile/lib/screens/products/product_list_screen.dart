@@ -45,10 +45,9 @@ class _ProductListScreenState extends State<ProductListScreen> {
 
   Future loadData() async {
     var tempData = await _productProvider?.get();
-    var tempDataRecom = await _productProvider?.get();
+
     setState(() {
       data = tempData!;
-      dataRecomm = tempDataRecom!;
     });
   }
 
@@ -72,9 +71,20 @@ class _ProductListScreenState extends State<ProductListScreen> {
                       crossAxisSpacing: 20,
                       mainAxisSpacing: 30),
                   scrollDirection: Axis.horizontal,
-                  children: _buildProductCardList(data),
+                  children: _buildProductCardList(data, false),
                 ),
               ),
+              SizedBox(
+                height: 15,
+              ),
+              Text(
+                "Recommended articles:",
+                style: TextStyle(
+                    color: Colors.blueGrey,
+                    fontSize: 25,
+                    fontWeight: FontWeight.w600),
+              ),
+              SizedBox(height: 15),
               Container(
                 height: 200,
                 child: GridView(
@@ -84,7 +94,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                       crossAxisSpacing: 20,
                       mainAxisSpacing: 30),
                   scrollDirection: Axis.horizontal,
-                  children: _buildProductCardList(dataRecomm),
+                  children: _buildProductCardList(dataRecomm, true),
                 ),
               )
             ],
@@ -98,7 +108,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Text(
-        "Artikli",
+        "Articles",
         style: TextStyle(
             color: Colors.blueGrey, fontSize: 40, fontWeight: FontWeight.w600),
       ),
@@ -151,8 +161,11 @@ class _ProductListScreenState extends State<ProductListScreen> {
     );
   }
 
-  List<Widget> _buildProductCardList(dataX) {
-    if (data.length == 0) {
+  List<Widget> _buildProductCardList(dataX, rec) {
+    if (rec == true && dataX.length == 0) {
+      return [Text("No recommended articles")];
+    }
+    if (rec == false && dataX.length == 0) {
       return [Text("Loading...")];
     }
     List<Widget> list = dataX
@@ -182,8 +195,21 @@ class _ProductListScreenState extends State<ProductListScreen> {
                     children: [
                       IconButton(
                         icon: Icon(Icons.shopping_cart),
-                        onPressed: () {
+                        onPressed: () async {
                           _cartProvider?.addToCart(x);
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            backgroundColor: Colors.green,
+                            duration: Duration(milliseconds: 1000),
+                            content: Text("Successful added to cart."),
+                          ));
+                          Product _x = x;
+                          var id = _x.artikalId;
+                          var tempDataRecom =
+                              await _productProvider?.recom(id!);
+                          setState(() {
+                            dataRecomm = tempDataRecom! as List<Product>;
+                          });
                         },
                       ),
                       IconButton(
@@ -195,6 +221,12 @@ class _ProductListScreenState extends State<ProductListScreen> {
                             "klijentId": Authorization.loggedUser!.klijentId
                           };
                           _dojamProvider?.insert(order);
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            backgroundColor: Colors.yellow,
+                            duration: Duration(milliseconds: 1000),
+                            content: Text("You liked this article."),
+                          ));
                         },
                       ),
                       IconButton(
@@ -206,6 +238,12 @@ class _ProductListScreenState extends State<ProductListScreen> {
                             "klijentId": Authorization.loggedUser!.klijentId
                           };
                           _dojamProvider?.insert(order);
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            backgroundColor: Colors.yellow,
+                            duration: Duration(milliseconds: 1000),
+                            content: Text("You disliked this article."),
+                          ));
                         },
                       )
                     ],

@@ -27,7 +27,8 @@ namespace eOftamoloskiCentar.WinUI.ReportDefinitions
         private void frmKlijentiRpt_Load(object sender, EventArgs e)
         {
 
-            reportViewer1.LocalReport.ReportPath = "C:/Users/User/Desktop/SeminarskiRS2/FIT-RS2/eOftamoloskiCentar/eOftamoloskiCentar.WinUI/ReportDefinitions/KlijentiReport.rdlc";
+            reportViewer1.LocalReport.ReportEmbeddedResource = "eOftamoloskiCentar.WinUI.ReportDefinitions.KlijentiReport.rdlc";
+           // "C:/Users/User/Desktop/SeminarskiRS2/FIT-RS2/eOftamoloskiCentar/eOftamoloskiCentar.WinUI/ReportDefinitions/KlijentiReport.rdlc";
 
             string ime = "//";
             string prezime = "//";
@@ -52,7 +53,7 @@ namespace eOftamoloskiCentar.WinUI.ReportDefinitions
             var temp = _klijenti;
             foreach (var item in temp)
             {
-                item.Spol.Naziv = item.Spol.Naziv;
+                item.Naziv = item.Spol.Naziv;
             }
             rds.Value = temp;
 

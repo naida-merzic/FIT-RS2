@@ -40,6 +40,17 @@
             this.errorProvider2 = new System.Windows.Forms.ErrorProvider(this.components);
             this.txtUsername = new System.Windows.Forms.TextBox();
             this.txtPass = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txtAdresa = new System.Windows.Forms.TextBox();
+            this.txtBrojTelefona = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.txtEmail = new System.Windows.Forms.TextBox();
+            this.dtpDatumRodjenja = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider2)).BeginInit();
             this.SuspendLayout();
@@ -47,7 +58,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(46, 48);
+            this.label1.Location = new System.Drawing.Point(28, 28);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(86, 20);
             this.label1.TabIndex = 0;
@@ -56,7 +67,7 @@
             // cmbSpol
             // 
             this.cmbSpol.FormattingEnabled = true;
-            this.cmbSpol.Location = new System.Drawing.Point(207, 199);
+            this.cmbSpol.Location = new System.Drawing.Point(207, 84);
             this.cmbSpol.Name = "cmbSpol";
             this.cmbSpol.Size = new System.Drawing.Size(145, 28);
             this.cmbSpol.TabIndex = 5;
@@ -64,7 +75,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(46, 207);
+            this.label4.Location = new System.Drawing.Point(28, 85);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(39, 20);
             this.label4.TabIndex = 7;
@@ -72,9 +83,9 @@
             // 
             // btnSacuvaj
             // 
-            this.btnSacuvaj.Location = new System.Drawing.Point(46, 281);
+            this.btnSacuvaj.Location = new System.Drawing.Point(28, 309);
             this.btnSacuvaj.Name = "btnSacuvaj";
-            this.btnSacuvaj.Size = new System.Drawing.Size(532, 29);
+            this.btnSacuvaj.Size = new System.Drawing.Size(549, 29);
             this.btnSacuvaj.TabIndex = 8;
             this.btnSacuvaj.Text = "Sacuvaj";
             this.btnSacuvaj.UseVisualStyleBackColor = true;
@@ -82,7 +93,7 @@
             // 
             // txtIme
             // 
-            this.txtIme.Location = new System.Drawing.Point(208, 52);
+            this.txtIme.Location = new System.Drawing.Point(207, 21);
             this.txtIme.Name = "txtIme";
             this.txtIme.Size = new System.Drawing.Size(370, 27);
             this.txtIme.TabIndex = 2;
@@ -90,7 +101,7 @@
             // 
             // txtPrezime
             // 
-            this.txtPrezime.Location = new System.Drawing.Point(208, 96);
+            this.txtPrezime.Location = new System.Drawing.Point(207, 52);
             this.txtPrezime.Name = "txtPrezime";
             this.txtPrezime.Size = new System.Drawing.Size(370, 27);
             this.txtPrezime.TabIndex = 3;
@@ -99,7 +110,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(46, 103);
+            this.label2.Location = new System.Drawing.Point(28, 55);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(114, 20);
             this.label2.TabIndex = 1;
@@ -115,23 +126,124 @@
             // 
             // txtUsername
             // 
-            this.txtUsername.Location = new System.Drawing.Point(207, 141);
+            this.txtUsername.Location = new System.Drawing.Point(207, 174);
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(145, 27);
             this.txtUsername.TabIndex = 9;
             // 
             // txtPass
             // 
-            this.txtPass.Location = new System.Drawing.Point(358, 141);
+            this.txtPass.Location = new System.Drawing.Point(207, 204);
             this.txtPass.Name = "txtPass";
             this.txtPass.Size = new System.Drawing.Size(145, 27);
             this.txtPass.TabIndex = 10;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(28, 114);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(55, 20);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "Adresa";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(28, 141);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(95, 20);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "Broj telefona";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(28, 170);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(106, 20);
+            this.label6.TabIndex = 13;
+            this.label6.Text = "Korisnicko ime";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(28, 203);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(70, 20);
+            this.label7.TabIndex = 14;
+            this.label7.Text = "Password";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(28, 232);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(0, 20);
+            this.label8.TabIndex = 15;
+            // 
+            // txtAdresa
+            // 
+            this.txtAdresa.Location = new System.Drawing.Point(207, 114);
+            this.txtAdresa.Name = "txtAdresa";
+            this.txtAdresa.Size = new System.Drawing.Size(370, 27);
+            this.txtAdresa.TabIndex = 16;
+            // 
+            // txtBrojTelefona
+            // 
+            this.txtBrojTelefona.Location = new System.Drawing.Point(207, 145);
+            this.txtBrojTelefona.Name = "txtBrojTelefona";
+            this.txtBrojTelefona.Size = new System.Drawing.Size(370, 27);
+            this.txtBrojTelefona.TabIndex = 17;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(28, 242);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(46, 20);
+            this.label9.TabIndex = 18;
+            this.label9.Text = "Email";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(26, 279);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(113, 20);
+            this.label10.TabIndex = 19;
+            this.label10.Text = "Datum rodjenja";
+            // 
+            // txtEmail
+            // 
+            this.txtEmail.Location = new System.Drawing.Point(207, 239);
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.Size = new System.Drawing.Size(145, 27);
+            this.txtEmail.TabIndex = 20;
+            // 
+            // dtpDatumRodjenja
+            // 
+            this.dtpDatumRodjenja.Location = new System.Drawing.Point(207, 276);
+            this.dtpDatumRodjenja.Name = "dtpDatumRodjenja";
+            this.dtpDatumRodjenja.Size = new System.Drawing.Size(370, 27);
+            this.dtpDatumRodjenja.TabIndex = 21;
             // 
             // frmKlijentDetalji
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(630, 368);
+            this.Controls.Add(this.dtpDatumRodjenja);
+            this.Controls.Add(this.txtEmail);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.txtBrojTelefona);
+            this.Controls.Add(this.txtAdresa);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.txtPass);
             this.Controls.Add(this.txtUsername);
             this.Controls.Add(this.btnSacuvaj);
@@ -164,5 +276,16 @@
         private ErrorProvider errorProvider2;
         private TextBox txtPass;
         private TextBox txtUsername;
+        private DateTimePicker dtpDatumRodjenja;
+        private TextBox txtEmail;
+        private Label label10;
+        private Label label9;
+        private TextBox txtBrojTelefona;
+        private TextBox txtAdresa;
+        private Label label8;
+        private Label label7;
+        private Label label6;
+        private Label label5;
+        private Label label3;
     }
 }
