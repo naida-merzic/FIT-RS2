@@ -14,6 +14,7 @@ namespace eOftamoloskiCentar.Controllers
         {
         }
         //[Authorize("Admin")]
+        [AllowAnonymous]
         public override Termin Insert([FromBody] TerminInsertRequest insert)
         {
             return base.Insert(insert);

@@ -61,9 +61,6 @@ class _RegistracijaScreenState extends State<RegistracijaScreen> {
         Provider.of<KorisnickiRacunProvider>(context, listen: false);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Flutter RoxExample"),
-      ),
       body: SingleChildScrollView(
           child: Column(
         children: [
@@ -148,6 +145,10 @@ class _RegistracijaScreenState extends State<RegistracijaScreen> {
                     decoration: BoxDecoration(
                         border: Border(bottom: BorderSide(color: Colors.grey))),
                     child: TextField(
+                      obscureText: true,
+                      enableSuggestions: false,
+                      autocorrect: false,
+                      obscuringCharacter: "*",
                       controller: _passwordController,
                       decoration: InputDecoration(
                           border: InputBorder.none, hintText: "Password"),
@@ -158,6 +159,10 @@ class _RegistracijaScreenState extends State<RegistracijaScreen> {
                     decoration: BoxDecoration(
                         border: Border(bottom: BorderSide(color: Colors.grey))),
                     child: TextField(
+                      obscureText: true,
+                      enableSuggestions: false,
+                      autocorrect: false,
+                      obscuringCharacter: "*",
                       controller: _passwordConfirmController,
                       decoration: InputDecoration(
                           border: InputBorder.none,
@@ -227,9 +232,10 @@ class _RegistracijaScreenState extends State<RegistracijaScreen> {
                           child: Text(
                             "Other",
                             style: TextStyle(fontSize: 16, color: Colors.black),
-                          ))
+                          )),
                     ],
-                  )
+                  ),
+                  SizedBox(height: 15),
                 ]),
               )),
           SizedBox(height: 2),
@@ -245,27 +251,52 @@ class _RegistracijaScreenState extends State<RegistracijaScreen> {
                 ])),
             child: InkWell(
               onTap: () async {
-                // try {
-                Map order = {
-                  "ime": _firstNameController.text,
-                  "prezime": _lastNameController.text,
-                  "email": _emailController.text,
-                  "brojTelefona": _phoneController.text,
-                  "adresa": _adressController.text,
-                  "korisnickoIme": _usernameController.text,
-                  "datumRodjenja": selectedDate.toIso8601String(),
-                  "lozinka": _passwordController.text,
-                  "lozinkaPotvrda": _passwordConfirmController.text,
-                  "spolId": spol,
-                };
+                if (_firstNameController.text.isEmpty ||
+                    _lastNameController.text.isEmpty ||
+                    _emailController.text.isEmpty ||
+                    _phoneController.text.isEmpty ||
+                    _adressController.text.isEmpty ||
+                    _usernameController.text.isEmpty ||
+                    selectedDate.toIso8601String().isEmpty ||
+                    _passwordController.text.isEmpty ||
+                    _passwordConfirmController.text.isEmpty ||
+                    spol.toString().isEmpty) {
+                  showAlertDialog(context, "All fields are required!");
+                } else if (_passwordController.text !=
+                    _passwordConfirmController.text) {
+                  showAlertDialog(context, "Password need to match");
+                } else if (RegExp(
+                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                        .hasMatch(_emailController.text) ==
+                    false) {
+                  showAlertDialog(context, "Incorrect email format");
+                } else if (RegExp(r"^(?:[+0]9)?[0-9]{10}$")
+                        .hasMatch(_phoneController.text) ==
+                    false) {
+                  showAlertDialog(context, "Incorrect phone format");
+                } else {
+                  // try {
+                  Map order = {
+                    "ime": _firstNameController.text,
+                    "prezime": _lastNameController.text,
+                    "email": _emailController.text,
+                    "brojTelefona": _phoneController.text,
+                    "adresa": _adressController.text,
+                    "korisnickoIme": _usernameController.text,
+                    "datumRodjenja": selectedDate.toIso8601String(),
+                    "lozinka": _passwordController.text,
+                    "lozinkaPotvrda": _passwordConfirmController.text,
+                    "spolId": spol,
+                  };
 
-                var x = await _korisnickiProvider.SignIn(order);
-                if (x != null) {
-                  Authorization.loggedUser = x;
-                  Authorization.username = _usernameController.text;
-                  Authorization.password = _passwordController.text;
+                  var x = await _korisnickiProvider.SignIn(order);
+                  if (x != null) {
+                    Authorization.loggedUser = x;
+                    Authorization.username = _usernameController.text;
+                    Authorization.password = _passwordController.text;
 
-                  Navigator.pushNamed(context, ProductListScreen.routeName);
+                    Navigator.pushNamed(context, ProductListScreen.routeName);
+                  }
                 }
               },
               child: Center(child: Text("Sign in")),
@@ -277,12 +308,49 @@ class _RegistracijaScreenState extends State<RegistracijaScreen> {
     );
   }
 
+  showAlertDialog(BuildContext context, String text) {
+    // set up the button
+    Widget okButton = TextButton(
+      child: Text("OK"),
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      content: Text(text),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   String getDate() {
     // ignore: unnecessary_null_comparison
     if (selectedDate == null) {
       return 'select date';
     } else {
       return DateFormat('MMM d, yyyy').format(selectedDate);
+    }
+  }
+
+  String getrGender() {
+    // ignore: unnecessary_null_comparison
+    if (spol == 1) {
+      return "Selected gender :  Male";
+    } else if (spol == 2) {
+      return "Selected gender :  Female";
+    } else {
+      return "Selected gender :  Other";
     }
   }
 }

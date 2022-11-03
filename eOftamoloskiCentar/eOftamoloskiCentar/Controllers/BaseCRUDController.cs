@@ -10,7 +10,6 @@ namespace eOftamoloskiCentar.Controllers
         public BaseCRUDController(ICRUDService<T, TSearch, TInsert, TUpdate> service) : base(service)
         {
         }
-        [Authorize(Roles = "Admin")]
         [HttpPost]
         public virtual T Insert([FromBody] TInsert insert)
         {
@@ -18,7 +17,6 @@ namespace eOftamoloskiCentar.Controllers
 
             return result;
         }
-        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public virtual T Update(int id, [FromBody] TUpdate update)
         {

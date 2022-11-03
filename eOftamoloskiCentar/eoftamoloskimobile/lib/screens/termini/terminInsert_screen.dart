@@ -4,6 +4,7 @@ import 'package:eoftamoloskimobile/model/termin.dart';
 import 'package:eoftamoloskimobile/providers/cart_provider.dart';
 import 'package:eoftamoloskimobile/providers/checkOrder_provider.dart';
 import 'package:eoftamoloskimobile/providers/termin_provider.dart';
+import 'package:eoftamoloskimobile/screens/termini/termin_Screen.dart';
 import 'package:eoftamoloskimobile/widgets/eoftamoloski_drawer.dart';
 import 'package:eoftamoloskimobile/widgets/master_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -181,14 +182,55 @@ class _TerminInsertScreenState extends State<TerminInsertScreen> {
     return TextButton(
       child: Text("Save"),
       onPressed: () async {
-        Map order = {
-          "datumTermina": dateTime.toIso8601String(),
-          "vrstaPregleda": _vrstaPregledaController.text,
-          "klijentId": Authorization.loggedUser!.klijentId
-        };
+        if (_vrstaPregledaController.text.isEmpty == true) {
+          showAlertDialog(context);
+        } else {
+          Map order = {
+            "datumTermina": dateTime.toIso8601String(),
+            "vrstaPregleda": _vrstaPregledaController.text,
+            "klijentId": Authorization.loggedUser!.klijentId
+          };
 
-        await _terminProvider.insert(order);
+          var x = await _terminProvider.insert(order);
+          if (x != null) {
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              backgroundColor: Colors.green,
+              duration: Duration(milliseconds: 1000),
+              content: Text("You successfully add new appointment."),
+            ));
+            Navigator.pushNamed(
+              context,
+              "${TerminScreen.routeName}",
+            ).timeout(const Duration(seconds: 10));
+          }
+        }
         setState(() {});
+      },
+    );
+  }
+
+  showAlertDialog(BuildContext context) {
+    // set up the button
+    Widget okButton = TextButton(
+      child: Text("OK"),
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      content: Text("Required field - type of appointment"),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
       },
     );
   }

@@ -52,7 +52,7 @@ class _TerminScreenState extends State<TerminScreen> {
           _buildHeader(),
           Expanded(
             child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal, child: _tablica()),
+                scrollDirection: Axis.vertical, child: _tablica()),
           ),
           _buildAppointmentButton()
         ],
@@ -74,9 +74,9 @@ class _TerminScreenState extends State<TerminScreen> {
   Widget _tablica() {
     return DataTable(
         columns: [
-          DataColumn(label: Text("Vrsta pregleda")),
-          DataColumn(label: Text("Datum")),
-          DataColumn(label: Text("Vrijeme")),
+          DataColumn(label: Text("Type of appointment")),
+          DataColumn(label: Text("Date")),
+          DataColumn(label: Text("Time")),
         ],
         rows: data
             .map((e) => DataRow(cells: [

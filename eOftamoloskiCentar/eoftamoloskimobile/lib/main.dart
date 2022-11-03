@@ -41,9 +41,10 @@ void main() => runApp(MultiProvider(
         child: MaterialApp(
           debugShowCheckedModeBanner: true,
           theme: ThemeData(
+            scaffoldBackgroundColor: Color.fromARGB(255, 255, 255, 255),
             // Define the default brightness and colors.
             brightness: Brightness.light,
-            primaryColor: Colors.deepPurple,
+            primaryColor: Color.fromARGB(255, 87, 10, 182),
             textButtonTheme: TextButtonThemeData(
                 style: TextButton.styleFrom(
                     foregroundColor: Colors.deepPurple,
@@ -107,9 +108,6 @@ class HomePage extends StatelessWidget {
         Provider.of<KorisnickiRacunProvider>(context, listen: false);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Flutter RoxExample"),
-      ),
       body: SingleChildScrollView(
           child: Column(
         children: [
@@ -172,6 +170,10 @@ class HomePage extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.all(8),
                     child: TextField(
+                      obscureText: true,
+                      enableSuggestions: false,
+                      autocorrect: false,
+                      obscuringCharacter: "*",
                       controller: _passwordController,
                       decoration: InputDecoration(
                           border: InputBorder.none, hintText: "Password"),
@@ -236,8 +238,6 @@ class HomePage extends StatelessWidget {
               child: Center(child: Text("Sign in")),
             ),
           ),
-          SizedBox(height: 40),
-          Text("Forgot password?"),
           SizedBox(height: 40),
         ],
       )),

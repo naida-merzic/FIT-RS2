@@ -6,7 +6,6 @@ namespace eOftamoloskiCentar.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    [Authorize]
 
     public class BaseController<T, TSearch> : ControllerBase where T : class where TSearch : class
     {
@@ -16,7 +15,6 @@ namespace eOftamoloskiCentar.Controllers
         {
             _service = service;
         }
-        [Authorize(Roles = "Admin")]
         [HttpGet]
         public virtual IEnumerable<T> Get([FromQuery]TSearch search = null)
         {
