@@ -7,5 +7,6 @@ namespace eOftamoloskiCentar.Model.SearchObjects
     public class DijagnozaSearchObject : BaseSearchObject
     {
         public string Naziv { get; set; }
+        public int KlijentId { get; set; }
     }
 }

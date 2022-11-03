@@ -34,11 +34,12 @@
             this.txtPrezime = new System.Windows.Forms.TextBox();
             this.btnTrazi = new System.Windows.Forms.Button();
             this.dgvKlijenti = new System.Windows.Forms.DataGridView();
+            this.btnIzvjestaj = new System.Windows.Forms.Button();
             this.Ime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Prezime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Naziv = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Akcija = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.btnIzvjestaj = new System.Windows.Forms.Button();
+            this.Dijagnoze = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvKlijenti)).BeginInit();
             this.SuspendLayout();
             // 
@@ -91,7 +92,8 @@
             this.Ime,
             this.Prezime,
             this.Naziv,
-            this.Akcija});
+            this.Akcija,
+            this.Dijagnoze});
             this.dgvKlijenti.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvKlijenti.Location = new System.Drawing.Point(43, 146);
             this.dgvKlijenti.Name = "dgvKlijenti";
@@ -101,6 +103,16 @@
             this.dgvKlijenti.Size = new System.Drawing.Size(726, 241);
             this.dgvKlijenti.TabIndex = 5;
             this.dgvKlijenti.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvKlijenti_CellContentClick);
+            // 
+            // btnIzvjestaj
+            // 
+            this.btnIzvjestaj.Location = new System.Drawing.Point(607, 393);
+            this.btnIzvjestaj.Name = "btnIzvjestaj";
+            this.btnIzvjestaj.Size = new System.Drawing.Size(162, 29);
+            this.btnIzvjestaj.TabIndex = 6;
+            this.btnIzvjestaj.Text = "Kreiraj izvjestaj";
+            this.btnIzvjestaj.UseVisualStyleBackColor = true;
+            this.btnIzvjestaj.Click += new System.EventHandler(this.btnIzvjestaj_Click);
             // 
             // Ime
             // 
@@ -136,15 +148,14 @@
             this.Akcija.UseColumnTextForButtonValue = true;
             this.Akcija.Width = 125;
             // 
-            // btnIzvjestaj
+            // Dijagnoze
             // 
-            this.btnIzvjestaj.Location = new System.Drawing.Point(607, 393);
-            this.btnIzvjestaj.Name = "btnIzvjestaj";
-            this.btnIzvjestaj.Size = new System.Drawing.Size(162, 29);
-            this.btnIzvjestaj.TabIndex = 6;
-            this.btnIzvjestaj.Text = "Kreiraj izvjestaj";
-            this.btnIzvjestaj.UseVisualStyleBackColor = true;
-            this.btnIzvjestaj.Click += new System.EventHandler(this.btnIzvjestaj_Click);
+            this.Dijagnoze.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Dijagnoze.HeaderText = "Dijagnoze";
+            this.Dijagnoze.MinimumWidth = 6;
+            this.Dijagnoze.Name = "Dijagnoze";
+            this.Dijagnoze.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Dijagnoze.UseColumnTextForButtonValue = true;
             // 
             // frmKlijenti
             // 
@@ -160,6 +171,7 @@
             this.Controls.Add(this.label1);
             this.Name = "frmKlijenti";
             this.Text = "frmKlijenti";
+            this.Load += new System.EventHandler(this.frmKlijenti_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvKlijenti)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -174,10 +186,11 @@
         private TextBox txtPrezime;
         private Button btnTrazi;
         private DataGridView dgvKlijenti;
+        private Button btnIzvjestaj;
         private DataGridViewTextBoxColumn Ime;
         private DataGridViewTextBoxColumn Prezime;
         private DataGridViewTextBoxColumn Naziv;
         private DataGridViewButtonColumn Akcija;
-        private Button btnIzvjestaj;
+        private DataGridViewButtonColumn Dijagnoze;
     }
 }

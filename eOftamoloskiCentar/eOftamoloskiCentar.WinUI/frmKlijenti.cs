@@ -46,23 +46,33 @@ namespace eOftamoloskiCentar.WinUI
             if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
                 e.RowIndex >= 0)
             {
-                try
+                if (e.ColumnIndex == 3)
+                {
+                    try
+                    {
+                        var _model = dgvKlijenti.SelectedRows[0].DataBoundItem as Klijent;
+                        var N = await KlijentService.Delete<Klijent>(_model.KlijentId);
+                        MessageBox.Show("Successfully deleted.");
+                        //this.Hide();
+                        //frmNewsSearch frm = new frmNewsSearch();
+                        //frm.MdiParent = frmHome.ActiveForm;
+                        //frm.Show();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Deleting was not successful.");
+                        //this.Hide();
+                        //frmNewsSearch frm = new frmNewsSearch();
+                        //frm.MdiParent = frmHome.ActiveForm;
+                        //frm.Show();
+                    }
+                }
+                else
                 {
                     var _model = dgvKlijenti.SelectedRows[0].DataBoundItem as Klijent;
-                    var N = await KlijentService.Delete<Klijent>(_model.KlijentId);
-                    MessageBox.Show("Successfully deleted.");
-                    //this.Hide();
-                    //frmNewsSearch frm = new frmNewsSearch();
-                    //frm.MdiParent = frmHome.ActiveForm;
-                    //frm.Show();
-                }
-                catch
-                {
-                    MessageBox.Show("Deleting was not successful.");
-                    //this.Hide();
-                    //frmNewsSearch frm = new frmNewsSearch();
-                    //frm.MdiParent = frmHome.ActiveForm;
-                    //frm.Show();
+
+                    frmDijagnoze frm = new frmDijagnoze(_model.KlijentId);
+                    frm.ShowDialog();
                 }
             }
             else
@@ -78,6 +88,11 @@ namespace eOftamoloskiCentar.WinUI
         {
             frmKlijentiRpt frm = new frmKlijentiRpt(ReportKlijent, ReportKlijentSearchObject);
             frm.Show();
+        }
+
+        private void frmKlijenti_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

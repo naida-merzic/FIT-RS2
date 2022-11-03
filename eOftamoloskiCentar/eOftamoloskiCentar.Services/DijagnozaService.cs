@@ -24,6 +24,10 @@ namespace eOftamoloskiCentar.Services
             {
                 filteredQuery = filteredQuery.Where(x => x.Naziv == search.Naziv);
             }
+            if (search.KlijentId != 0)
+            {
+                filteredQuery = filteredQuery.Where(x => x.KlijentId == search.KlijentId);
+            }
             return filteredQuery;
         }
     }
