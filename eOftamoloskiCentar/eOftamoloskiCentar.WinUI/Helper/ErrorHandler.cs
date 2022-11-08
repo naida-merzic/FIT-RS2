@@ -28,6 +28,8 @@ namespace eOftamoloskiCentar.WinUI.Helper
                 valid = false;
             else if (control is CheckedListBox)
                 valid = false;
+            else if (control is CheckBox)
+                valid = false;
 
             if (!valid)
             {
@@ -39,8 +41,28 @@ namespace eOftamoloskiCentar.WinUI.Helper
             return true;
         }
 
-        
-        public static bool CheckFormatOfEmail(Control control, ErrorProvider err, string message = txtfield)
+        public static bool CheckCLB(CheckedListBox control, ErrorProvider err, string message = "Check role!")
+        {
+            if (control.CheckedItems.Count <=0)
+            {
+                err.SetError(control, message);
+                return false;
+            }
+            err.Clear();
+            return true;
+        }
+        public static bool checkPass(Control control, Control control1, ErrorProvider err, string message = FormatChecker)
+        {
+            if (control.Text != control1.Text)
+            {
+                err.SetError(control, message);
+                return false;
+            }
+            err.Clear();
+            return true;
+        }
+
+        public static bool CheckFormatOfEmail(Control control, ErrorProvider err, string message = FormatChecker)
         {
             string emailCheck = @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$";
             if (!Regex.IsMatch(control.Text, emailCheck))
@@ -52,7 +74,7 @@ namespace eOftamoloskiCentar.WinUI.Helper
             return true;
         }
         
-        public static bool PhoneCheck(Control control, ErrorProvider err, string message = txtfield)
+        public static bool PhoneCheck(Control control, ErrorProvider err, string message = FormatChecker)
         {
             string phoneCheck = "^(?:[+0]9)?[0-9]{9,10}$";
             if (!Regex.IsMatch(control.Text, phoneCheck))

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using eOftamoloskiCentar.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,7 +14,8 @@ namespace eOftamoloskiCentar.WinUI
     public partial class mdiMain : Form
     {
         private int childFormNumber = 0;
-
+        APIService _UposleniciService = new APIService("Uposlenik");
+        //APIService _UposleniciService = new APIService("Uposlenik");
         public mdiMain()
         {
             InitializeComponent();
@@ -95,9 +97,17 @@ namespace eOftamoloskiCentar.WinUI
             }
         }
 
-        private void mdiMain_Load(object sender, EventArgs e)
+        private async void mdiMain_Load(object sender, EventArgs e)
         {
+            var allusers = await _UposleniciService.Get<List<Uposlenik>>();
 
+            var logeduser_type = allusers.Where(u => u.KorisnickoIme == APIService.Username).Select(x=>x.UposlenikRolas).FirstOrDefault();
+
+            foreach (var item in logeduser_type)
+            {
+                if (item.RolaId != 2)
+                    noviUposlenikToolStripMenuItem.Enabled = false;
+            }
         }
 
         private void noviUposlenikToolStripMenuItem_Click(object sender, EventArgs e)

@@ -39,6 +39,8 @@
             this.txtIme = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtBrojTelefona = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.dtpDatumRodjenja = new System.Windows.Forms.DateTimePicker();
             this.label8 = new System.Windows.Forms.Label();
             this.txtPasswordPotvrda = new System.Windows.Forms.TextBox();
@@ -55,8 +57,8 @@
             this.errorProvider3 = new System.Windows.Forms.ErrorProvider(this.components);
             this.errorProvider4 = new System.Windows.Forms.ErrorProvider(this.components);
             this.errorProvider5 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.label9 = new System.Windows.Forms.Label();
-            this.txtBrojTelefona = new System.Windows.Forms.TextBox();
+            this.cmbSpol = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -137,7 +139,6 @@
             this.txtIme.Name = "txtIme";
             this.txtIme.Size = new System.Drawing.Size(244, 27);
             this.txtIme.TabIndex = 1;
-            this.txtIme.Validating += new System.ComponentModel.CancelEventHandler(this.txtIme_Validating);
             // 
             // label1
             // 
@@ -167,6 +168,22 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Podaci";
             // 
+            // txtBrojTelefona
+            // 
+            this.txtBrojTelefona.Location = new System.Drawing.Point(194, 150);
+            this.txtBrojTelefona.Name = "txtBrojTelefona";
+            this.txtBrojTelefona.Size = new System.Drawing.Size(250, 27);
+            this.txtBrojTelefona.TabIndex = 10;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(15, 157);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(98, 20);
+            this.label9.TabIndex = 9;
+            this.label9.Text = "Broj telefona:";
+            // 
             // dtpDatumRodjenja
             // 
             this.dtpDatumRodjenja.Location = new System.Drawing.Point(194, 119);
@@ -190,7 +207,6 @@
             this.txtPasswordPotvrda.PasswordChar = '*';
             this.txtPasswordPotvrda.Size = new System.Drawing.Size(244, 27);
             this.txtPasswordPotvrda.TabIndex = 5;
-            this.txtPasswordPotvrda.Validating += new System.ComponentModel.CancelEventHandler(this.txtPasswordPotvrda_Validating);
             // 
             // label4
             // 
@@ -208,7 +224,6 @@
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(244, 27);
             this.txtPassword.TabIndex = 3;
-            this.txtPassword.Validating += new System.ComponentModel.CancelEventHandler(this.txtPassword_Validating);
             // 
             // label5
             // 
@@ -225,7 +240,6 @@
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(244, 27);
             this.txtUsername.TabIndex = 1;
-            this.txtUsername.Validating += new System.ComponentModel.CancelEventHandler(this.txtUsername_Validating_1);
             // 
             // label6
             // 
@@ -239,7 +253,7 @@
             // chkStatus
             // 
             this.chkStatus.AutoSize = true;
-            this.chkStatus.Location = new System.Drawing.Point(195, 390);
+            this.chkStatus.Location = new System.Drawing.Point(195, 438);
             this.chkStatus.Name = "chkStatus";
             this.chkStatus.Size = new System.Drawing.Size(71, 24);
             this.chkStatus.TabIndex = 19;
@@ -249,7 +263,7 @@
             // clbRole
             // 
             this.clbRole.FormattingEnabled = true;
-            this.clbRole.Location = new System.Drawing.Point(25, 387);
+            this.clbRole.Location = new System.Drawing.Point(25, 435);
             this.clbRole.Name = "clbRole";
             this.clbRole.Size = new System.Drawing.Size(150, 114);
             this.clbRole.TabIndex = 18;
@@ -284,28 +298,30 @@
             // 
             this.errorProvider5.ContainerControl = this;
             // 
-            // label9
+            // cmbSpol
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(15, 157);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(98, 20);
-            this.label9.TabIndex = 9;
-            this.label9.Text = "Broj telefona:";
+            this.cmbSpol.FormattingEnabled = true;
+            this.cmbSpol.Location = new System.Drawing.Point(219, 387);
+            this.cmbSpol.Name = "cmbSpol";
+            this.cmbSpol.Size = new System.Drawing.Size(151, 28);
+            this.cmbSpol.TabIndex = 20;
             // 
-            // txtBrojTelefona
+            // label10
             // 
-            this.txtBrojTelefona.Location = new System.Drawing.Point(194, 150);
-            this.txtBrojTelefona.Name = "txtBrojTelefona";
-            this.txtBrojTelefona.PasswordChar = '*';
-            this.txtBrojTelefona.Size = new System.Drawing.Size(250, 27);
-            this.txtBrojTelefona.TabIndex = 10;
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(42, 395);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(42, 20);
+            this.label10.TabIndex = 11;
+            this.label10.Text = "Spol:";
             // 
             // frmUposlenikDetalji
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(523, 600);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.cmbSpol);
             this.Controls.Add(this.chkStatus);
             this.Controls.Add(this.clbRole);
             this.Controls.Add(this.btnSave);
@@ -358,5 +374,7 @@
         private DateTimePicker dtpDatumRodjenja;
         private TextBox txtBrojTelefona;
         private Label label9;
+        private Label label10;
+        private ComboBox cmbSpol;
     }
 }
