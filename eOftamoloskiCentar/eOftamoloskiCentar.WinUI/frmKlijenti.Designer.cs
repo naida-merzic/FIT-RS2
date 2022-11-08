@@ -155,6 +155,7 @@
             this.Dijagnoze.MinimumWidth = 6;
             this.Dijagnoze.Name = "Dijagnoze";
             this.Dijagnoze.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Dijagnoze.Text = "Dijagnoze";
             this.Dijagnoze.UseColumnTextForButtonValue = true;
             // 
             // frmKlijenti

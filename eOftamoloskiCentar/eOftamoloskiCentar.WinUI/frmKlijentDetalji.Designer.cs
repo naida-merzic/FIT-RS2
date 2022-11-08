@@ -51,6 +51,8 @@
             this.label10 = new System.Windows.Forms.Label();
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.dtpDatumRodjenja = new System.Windows.Forms.DateTimePicker();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider2)).BeginInit();
             this.SuspendLayout();
@@ -97,7 +99,6 @@
             this.txtIme.Name = "txtIme";
             this.txtIme.Size = new System.Drawing.Size(370, 27);
             this.txtIme.TabIndex = 2;
-            this.txtIme.Validating += new System.ComponentModel.CancelEventHandler(this.txtIme_Validating);
             // 
             // txtPrezime
             // 
@@ -105,7 +106,6 @@
             this.txtPrezime.Name = "txtPrezime";
             this.txtPrezime.Size = new System.Drawing.Size(370, 27);
             this.txtPrezime.TabIndex = 3;
-            this.txtPrezime.Validating += new System.ComponentModel.CancelEventHandler(this.txtPrezime_Validating);
             // 
             // label2
             // 
@@ -135,6 +135,7 @@
             // 
             this.txtPass.Location = new System.Drawing.Point(207, 204);
             this.txtPass.Name = "txtPass";
+            this.txtPass.PasswordChar = '*';
             this.txtPass.Size = new System.Drawing.Size(145, 27);
             this.txtPass.TabIndex = 10;
             // 
@@ -228,11 +229,31 @@
             this.dtpDatumRodjenja.Size = new System.Drawing.Size(370, 27);
             this.dtpDatumRodjenja.TabIndex = 21;
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(583, 148);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(156, 20);
+            this.label11.TabIndex = 22;
+            this.label11.Text = "primjer: 060 111 22 33";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(358, 242);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(172, 20);
+            this.label12.TabIndex = 23;
+            this.label12.Text = "primjer: test@gmail.com";
+            // 
             // frmKlijentDetalji
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(630, 368);
+            this.ClientSize = new System.Drawing.Size(739, 368);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.label11);
             this.Controls.Add(this.dtpDatumRodjenja);
             this.Controls.Add(this.txtEmail);
             this.Controls.Add(this.label10);
@@ -287,5 +308,7 @@
         private Label label6;
         private Label label5;
         private Label label3;
+        private Label label12;
+        private Label label11;
     }
 }

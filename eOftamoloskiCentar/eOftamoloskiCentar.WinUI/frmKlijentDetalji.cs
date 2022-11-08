@@ -1,5 +1,6 @@
 ﻿using eOftamoloskiCentar.Model;
 using eOftamoloskiCentar.Model.Requests;
+using eOftamoloskiCentar.WinUI.Helper;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -46,80 +47,93 @@ namespace eOftamoloskiCentar.WinUI
                 cmbSpol.SelectedItem = _model.SpolId;
             }
         }
+        private bool ErrorCheck()
+        {
+            if (!ErrorHandler.RequiredFiled(txtIme, errorProvider1) || !ErrorHandler.RequiredFiled(txtPrezime, errorProvider1)
+                    || !ErrorHandler.RequiredFiled(txtAdresa, errorProvider1) || !ErrorHandler.RequiredFiled(txtPass, errorProvider1)
+                    || !ErrorHandler.RequiredFiled(txtUsername, errorProvider1) || !ErrorHandler.RequiredFiled(txtBrojTelefona, errorProvider1)
+                    || !ErrorHandler.RequiredFiled(txtEmail, errorProvider1) || !ErrorHandler.CheckFormatOfEmail(txtEmail, errorProvider1)
+                    || !ErrorHandler.PhoneCheck(txtBrojTelefona, errorProvider1))
+                return false;
+            return true;
+        }
 
-        private async void btnSacuvaj_Click(object sender, EventArgs e)
+            private async void btnSacuvaj_Click(object sender, EventArgs e)
         {
             if (ValidateChildren())
             {
-                if (_model == null)
+                if (ErrorCheck())
                 {
-                    KorisnickiRacunInsertRequest insertRequest = new KorisnickiRacunInsertRequest()
+                    if (_model == null)
                     {
-                        Ime = txtIme.Text,
-                        Prezime = txtPrezime.Text,
-                        SpolId = Convert.ToInt32(cmbSpol.SelectedValue),
-                        KorisnickoIme = txtUsername.Text,
-                        Lozinka = txtPass.Text,
-                        Adresa = txtAdresa.Text,
-                        Email = txtEmail.Text,
-                        DatumRodjenja = dtpDatumRodjenja.Value,
-                        BrojTelefona = txtBrojTelefona.Text.ToString(),
-                        LozinkaPotvrda = txtPass.Text
-                    };
+                        KorisnickiRacunInsertRequest insertRequest = new KorisnickiRacunInsertRequest()
+                        {
+                            Ime = txtIme.Text,
+                            Prezime = txtPrezime.Text,
+                            SpolId = Convert.ToInt32(cmbSpol.SelectedValue),
+                            KorisnickoIme = txtUsername.Text,
+                            Lozinka = txtPass.Text,
+                            Adresa = txtAdresa.Text,
+                            Email = txtEmail.Text,
+                            DatumRodjenja = dtpDatumRodjenja.Value,
+                            BrojTelefona = txtBrojTelefona.Text.ToString(),
+                            LozinkaPotvrda = txtPass.Text
+                        };
 
-                    var user = await KlijentService.Post<Klijent>(insertRequest);
-                    MessageBox.Show("Successfully added.");
-                }
-                else
-                {
-                    KorisnickiRacunInsertRequest updateRequest = new KorisnickiRacunInsertRequest()
+                        var user = await KlijentService.Post<Klijent>(insertRequest);
+                        MessageBox.Show("Successfully added.");
+                    }
+                    else
                     {
-                        Ime = txtIme.Text,
-                        Prezime = txtPrezime.Text,
-                        SpolId = Convert.ToInt32(cmbSpol.SelectedValue),
-                        KorisnickoIme = txtUsername.Text,
-                        Lozinka = txtPass.Text,
-                        Adresa = txtAdresa.Text,
-                        Email = txtEmail.Text,
-                        DatumRodjenja = dtpDatumRodjenja.Value,
-                        BrojTelefona = txtBrojTelefona.Text.ToString(),
-                        LozinkaPotvrda = txtPass.Text
-                    };
+                        KorisnickiRacunInsertRequest updateRequest = new KorisnickiRacunInsertRequest()
+                        {
+                            Ime = txtIme.Text,
+                            Prezime = txtPrezime.Text,
+                            SpolId = Convert.ToInt32(cmbSpol.SelectedValue),
+                            KorisnickoIme = txtUsername.Text,
+                            Lozinka = txtPass.Text,
+                            Adresa = txtAdresa.Text,
+                            Email = txtEmail.Text,
+                            DatumRodjenja = dtpDatumRodjenja.Value,
+                            BrojTelefona = txtBrojTelefona.Text.ToString(),
+                            LozinkaPotvrda = txtPass.Text
+                        };
 
-                    _model = await KlijentService.Put<Klijent>(_model.KlijentId, updateRequest);
-                    MessageBox.Show("Successfully updated.");
+                        _model = await KlijentService.Put<Klijent>(_model.KlijentId, updateRequest);
+                        MessageBox.Show("Successfully updated.");
+                    }
                 }
             }
         }
 
-        private void txtIme_Validating(object sender, CancelEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txtIme.Text))
-            {
-                e.Cancel = true;
-                txtIme.Focus();
-                errorProvider1.SetError(txtIme, "Name should not be left blank!");
-            }
-            else
-            {
-                e.Cancel = false;
+        //private void txtIme_Validating(object sender, CancelEventArgs e)
+        //{
+        //    if (string.IsNullOrWhiteSpace(txtIme.Text))
+        //    {
+        //        e.Cancel = true;
+        //        txtIme.Focus();
+        //        errorProvider1.SetError(txtIme, "Name should not be left blank!");
+        //    }
+        //    else
+        //    {
+        //        e.Cancel = false;
 
-            }
-        }
+        //    }
+        //}
 
-        private void txtPrezime_Validating(object sender, CancelEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txtPrezime.Text))
-            {
-                e.Cancel = true;
-                txtPrezime.Focus();
-                errorProvider2.SetError(txtPrezime, "Surname should not be left blank!");
-            }
-            else
-            {
-                e.Cancel = false;
+        //private void txtPrezime_Validating(object sender, CancelEventArgs e)
+        //{
+        //    if (string.IsNullOrWhiteSpace(txtPrezime.Text))
+        //    {
+        //        e.Cancel = true;
+        //        txtPrezime.Focus();
+        //        errorProvider2.SetError(txtPrezime, "Surname should not be left blank!");
+        //    }
+        //    else
+        //    {
+        //        e.Cancel = false;
 
-            }
-        }
+        //    }
+        //}
     }
 }
