@@ -1,4 +1,5 @@
-﻿using System;
+﻿using eOftamoloskiCentar.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -26,7 +27,11 @@ namespace eOftamoloskiCentar.WinUI
 
             try
             {
-                var result = await _api.Get<dynamic>();
+                var result = await _api.Get<List<Uposlenik>>();
+                var uposlenik = result.Where(x => x.KorisnickoIme == APIService.Username).FirstOrDefault();
+
+                if (uposlenik == null)
+                    throw new Exception();
 
                 mdiMain frm = new mdiMain();
                 frm.Show();

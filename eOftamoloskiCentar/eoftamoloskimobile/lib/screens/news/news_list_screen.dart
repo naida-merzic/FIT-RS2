@@ -47,16 +47,16 @@ class _NovostScreenState extends State<NovostScreen> {
             children: [
               _buildHeader(),
               _buildProductSearch(),
-              SizedBox(height: 50),
+              SizedBox(height: 5),
               Container(
-                height: 200,
+                height: 400,
                 child: GridView(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 1,
+                      crossAxisCount: 2,
                       childAspectRatio: 4 / 3,
-                      crossAxisSpacing: 20,
-                      mainAxisSpacing: 30),
-                  scrollDirection: Axis.horizontal,
+                      crossAxisSpacing: 5,
+                      mainAxisSpacing: 5),
+                  scrollDirection: Axis.vertical,
                   children: _buildProductCardList(),
                 ),
               )
@@ -92,12 +92,6 @@ class _NovostScreenState extends State<NovostScreen> {
                   data = tmpData!;
                 });
               },
-              /*onChanged: (value) async {
-                var tmpData = await _productProvider?.get({'naziv': value});
-                setState(() {
-                  data = tmpData!;
-                });
-              },*/
               decoration: InputDecoration(
                   hintText: "Search",
                   prefixIcon: Icon(Icons.search),
@@ -129,21 +123,27 @@ class _NovostScreenState extends State<NovostScreen> {
       return [Text("Loading...")];
     }
     List<Widget> list = data
-        .map((x) => Container(
-              //height: 200,
-              //width: 200,
-              child: Column(
-                children: [
-                  Text(x.naslov ?? "",
-                      style: TextStyle(
-                          color: Colors.blueGrey,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600)),
-                  SizedBox(
-                    height: 15,
+        .map((x) => Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                decoration:
+                    BoxDecoration(color: Color.fromARGB(255, 220, 228, 245)),
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Column(
+                    children: [
+                      Text(x.naslov ?? "",
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 41, 83, 105),
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600)),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Text(x.sadrzaj ?? ""),
+                    ],
                   ),
-                  Text(x.sadrzaj ?? ""),
-                ],
+                ),
               ),
             ))
         .cast<Widget>()

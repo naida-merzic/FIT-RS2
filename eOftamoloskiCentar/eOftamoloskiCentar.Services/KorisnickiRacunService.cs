@@ -26,7 +26,7 @@ namespace eOftamoloskiCentar.Services
         public AuthKorisnickiRacun Login(AuthenticationRequest request)
         {
             var user = _context.KorisnickiRacuns.Include("Uposleniks.UposlenikRolas.Rola").Include("Klijents").FirstOrDefault(x => x.KorisnickoIme == request.KorisnickoIme);
-
+            
             if (user == null)
             {
                 throw new UserException("Pogrešno korisničko ime ili lozinka");

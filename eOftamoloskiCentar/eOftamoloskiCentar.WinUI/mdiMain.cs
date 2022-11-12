@@ -14,8 +14,8 @@ namespace eOftamoloskiCentar.WinUI
     public partial class mdiMain : Form
     {
         private int childFormNumber = 0;
+        APIService _KorrRacunService = new APIService("KorisnickiRacun");
         APIService _UposleniciService = new APIService("Uposlenik");
-        //APIService _UposleniciService = new APIService("Uposlenik");
         public mdiMain()
         {
             InitializeComponent();
@@ -99,13 +99,22 @@ namespace eOftamoloskiCentar.WinUI
 
         private async void mdiMain_Load(object sender, EventArgs e)
         {
-            var allusers = await _UposleniciService.Get<List<Uposlenik>>();
+            //var allusers = await _KorrRacunService.Get<List<KorisnickiRacun>>();
+            var alluposlenik = await _UposleniciService.Get<List<Uposlenik>>();
+            var uposlenik = alluposlenik.Where(x => x.KorisnickoIme == APIService.Username).FirstOrDefault();
 
-            var logeduser_type = allusers.Where(u => u.KorisnickoIme == APIService.Username).Select(x=>x.UposlenikRolas).FirstOrDefault();
-
-            foreach (var item in logeduser_type)
+            bool admin = false;
+            if (uposlenik != null)
             {
-                if (item.RolaId != 2)
+                foreach (var item in uposlenik!.UposlenikRolas)
+                {
+                    if (item.Rola.Naziv == "Admin")
+                    {
+                        admin = true;
+                        break;
+                    }
+                }
+                if (admin == false)
                     noviUposlenikToolStripMenuItem.Enabled = false;
             }
         }

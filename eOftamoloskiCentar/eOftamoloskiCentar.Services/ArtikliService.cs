@@ -234,6 +234,9 @@ namespace eOftamoloskiCentar.Services
                     }
                     dataTable.Rows.Add(values);
                 }
+
+                if(dataTable.Rows.Count == 0)
+                    return null;
                 string myTableAsString =
                 String.Join(Environment.NewLine, dataTable.Rows.Cast<DataRow>().
                     Select(r => r.ItemArray).ToArray().

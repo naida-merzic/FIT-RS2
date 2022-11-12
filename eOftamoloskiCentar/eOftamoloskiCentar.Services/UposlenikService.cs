@@ -177,10 +177,10 @@ namespace eOftamoloskiCentar.Services
         }
         public override IQueryable<Database.Uposlenik> AddInclude(IQueryable<Database.Uposlenik> query, UposlenikSearchObject search = null)
         {
-            if (search?.IncludeRoles == true)
-            {
+            //if (search?.IncludeRoles == true)
+            //{
                 query = query.Include("UposlenikRolas.Rola").Include(x=>x.KorisnickiRacun);
-            }
+            //}
             return query;
         }
         //public Model.Uposlenik Login(string username, string password)
