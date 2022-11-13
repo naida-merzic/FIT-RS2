@@ -82,9 +82,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               ? Text("No image")
               : imageFromBase64String(_product!.slika!),
         ),
-        SizedBox(height: 35),
+        SizedBox(height: 15),
         Text(
-          _product!.cijena.toString() + " KM",
+          _product!.cijena.toString() + "€",
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 35),
@@ -92,24 +92,48 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           _product!.opis.toString(),
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
+        SizedBox(
+          height: 15,
+        ),
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             IconButton(
               icon: Icon(Icons.star),
-              onPressed: () {},
+              onPressed: () {
+                Map order = {
+                  "isLiked": true,
+                  "artikalId": _product?.artikalId,
+                  "klijentId": Authorization.loggedUser!.klijentId
+                };
+                _dojamProvider?.insert(order);
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  backgroundColor: Colors.yellow,
+                  duration: Duration(milliseconds: 1000),
+                  content: Text("You liked this article."),
+                ));
+              },
             ),
-            Text(_dojmoviLiked.length.toString())
-          ],
-        ),
-        Row(
-          children: [
+            Text(_dojmoviLiked.length.toString()),
             IconButton(
               icon: Icon(Icons.heart_broken),
-              onPressed: () {},
+              onPressed: () {
+                Map order = {
+                  "isLiked": false,
+                  "artikalId": _product?.artikalId,
+                  "klijentId": Authorization.loggedUser!.klijentId
+                };
+                _dojamProvider?.insert(order);
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  backgroundColor: Colors.yellow,
+                  duration: Duration(milliseconds: 1000),
+                  content: Text("You disliked this article."),
+                ));
+              },
             ),
             Text(_dojmoviDisliked.length.toString())
           ],
-        )
+        ),
       ],
     );
   }

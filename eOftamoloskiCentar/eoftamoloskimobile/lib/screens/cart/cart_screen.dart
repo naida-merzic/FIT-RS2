@@ -29,6 +29,8 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
   late CartProvider _cartProvider;
   late CheckOrderProvider _orderProvider;
+  double total = 0;
+  bool active = true;
 
   @override
   void initState() {
@@ -42,6 +44,14 @@ class _CartScreenState extends State<CartScreen> {
     super.didChangeDependencies();
     _cartProvider = context.watch<CartProvider>();
     _orderProvider = context.read<CheckOrderProvider>();
+
+    for (var item in _cartProvider.cart.items) {
+      total += double.parse(item.count.toString()) *
+          double.parse(item.product.cijena.toString());
+    }
+    if (total == 0) {
+      active = false;
+    }
   }
 
   @override
@@ -50,7 +60,22 @@ class _CartScreenState extends State<CartScreen> {
       child: Column(
         children: [
           Expanded(child: _buildProductCardList()),
-          _buildBuyButton(),
+          SizedBox(
+            height: 15,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Total : " + total.toString() + " €",
+                  style: TextStyle(fontSize: 18),
+                ),
+                _buildBuyButton(),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -79,37 +104,43 @@ class _CartScreenState extends State<CartScreen> {
   Widget _buildBuyButton() {
     return TextButton(
       child: Text("Buy"),
-      onPressed: () async {
-        List<Map> items = [];
-        _cartProvider.cart.items.forEach((item) {
-          items.add(
-            {
-              "artikalId": item.product.artikalId,
-              "kolicina": item.count,
-            },
-          );
-        });
-        Map order = {
-          "items": items,
-          "klijentId": Authorization.loggedUser!.klijentId
-        };
+      style: TextButton.styleFrom(
+          backgroundColor: Color.fromARGB(255, 168, 204, 235),
+          foregroundColor: Colors.black),
+      onPressed: active
+          ? () async {
+              total = 0;
+              List<Map> items = [];
+              _cartProvider.cart.items.forEach((item) {
+                items.add(
+                  {
+                    "artikalId": item.product.artikalId,
+                    "kolicina": item.count,
+                  },
+                );
+              });
+              Map order = {
+                "items": items,
+                "klijentId": Authorization.loggedUser!.klijentId
+              };
 
-        var response = await _orderProvider.insert(order);
-        _cartProvider.cart.items.clear();
-        setState(() {});
+              var response = await _orderProvider.insert(order);
+              _cartProvider.cart.items.clear();
+              setState(() {});
 
-        // Navigator.pushNamed(context, PaymentScreen.routeName,
-        //     arguments: response);
+              // Navigator.pushNamed(context, PaymentScreen.routeName,
+              //     arguments: response);
 
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (BuildContext context) => PaymentScreen(
-                racun: response,
-                onFinish: (number) async {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => ProductListScreen()));
-                  setState(() {});
-                })));
-      },
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) => PaymentScreen(
+                      racun: response,
+                      onFinish: (number) async {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => ProductListScreen()));
+                        setState(() {});
+                      })));
+            }
+          : null,
     );
   }
 }

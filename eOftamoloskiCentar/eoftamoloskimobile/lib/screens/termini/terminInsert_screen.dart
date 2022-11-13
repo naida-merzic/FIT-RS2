@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:eoftamoloskimobile/model/cart.dart';
 import 'package:eoftamoloskimobile/model/checkOrder.dart';
 import 'package:eoftamoloskimobile/model/termin.dart';
@@ -122,49 +124,56 @@ class _TerminInsertScreenState extends State<TerminInsertScreen> {
   @override
   Widget build(BuildContext context) {
     return MasterScreenWidget(
-        child: Column(children: [
-      _buildHeader(),
-      SizedBox(
-        height: 40,
-      ),
-      Text("Type of medical service: "),
-      Container(
-        padding: EdgeInsets.all(8),
-        decoration: BoxDecoration(
-            border: Border(bottom: BorderSide(color: Colors.grey))),
-        child: TextField(
-          controller: _vrstaPregledaController,
-          decoration: InputDecoration(
-              border: InputBorder.none, hintText: "Vrsta pregleda"),
+        child: SingleChildScrollView(
+      child: Column(children: [
+        _buildHeader(),
+        SizedBox(
+          height: 40,
         ),
-      ),
-      Container(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
-        width: double.infinity,
-        child: ElevatedButton(
-          onPressed: () {
-            _selectDate(context);
-            showDate = true;
-          },
-          child: const Text('Date Picker'),
+        Text("Type of medical service: "),
+        Container(
+          padding: EdgeInsets.all(8),
+          decoration: BoxDecoration(
+              border: Border(bottom: BorderSide(color: Colors.grey))),
+          child: TextField(
+            controller: _vrstaPregledaController,
+            decoration: InputDecoration(
+                border: InputBorder.none, hintText: "Vrsta pregleda"),
+          ),
         ),
-      ),
-      showDate ? Center(child: Text(getDate())) : const SizedBox(),
-      Container(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
-        width: double.infinity,
-        child: ElevatedButton(
-          onPressed: () {
-            _selectTime(context);
-            showTime = true;
-          },
-          child: const Text('Timer Picker'),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          width: double.infinity,
+          child: ElevatedButton(
+            onPressed: () {
+              _selectDate(context);
+              showDate = true;
+            },
+            child: const Text('Date Picker'),
+          ),
         ),
-      ),
-      showTime ? Center(child: Text(getTime(selectedTime))) : const SizedBox(),
-      // _dateTimePicker(),
-      _buildAppointmentButton(),
-    ]));
+        showDate ? Center(child: Text(getDate())) : const SizedBox(),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          width: double.infinity,
+          child: ElevatedButton(
+            onPressed: () {
+              _selectTime(context);
+              showTime = true;
+            },
+            child: const Text('Timer Picker'),
+          ),
+        ),
+        showTime
+            ? Center(child: Text(getTime(selectedTime)))
+            : const SizedBox(),
+        // _dateTimePicker(),
+        SizedBox(
+          height: 35,
+        ),
+        _buildAppointmentButton(),
+      ]),
+    ));
   }
 
   Widget _buildHeader() {
@@ -181,6 +190,9 @@ class _TerminInsertScreenState extends State<TerminInsertScreen> {
   Widget _buildAppointmentButton() {
     return TextButton(
       child: Text("Save"),
+      style: TextButton.styleFrom(
+          backgroundColor: Color.fromARGB(255, 168, 204, 235),
+          foregroundColor: Colors.black),
       onPressed: () async {
         if (_vrstaPregledaController.text.isEmpty == true) {
           showAlertDialog(context);

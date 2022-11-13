@@ -150,10 +150,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
       return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).backgroundColor,
-          leading: GestureDetector(
-            child: Icon(Icons.arrow_back_ios),
-            onTap: () => Navigator.pop(context),
-          ),
+          // leading: GestureDetector(
+          //   child: Icon(Icons.arrow_back_ios),
+          //   onTap: () => Navigator.pop(context),
+          // ),
         ),
         body: WebView(
           initialUrl: checkoutUrl,
@@ -194,11 +194,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
     } else {
       return Scaffold(
         appBar: AppBar(
-          leading: IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () {
-                Navigator.of(context).pop();
-              }),
+          // leading: IconButton(
+          //     icon: Icon(Icons.arrow_back),
+          //     onPressed: () {
+          //       Navigator.of(context).pop();
+          //     }),
           backgroundColor: Colors.black12,
           elevation: 0.0,
         ),

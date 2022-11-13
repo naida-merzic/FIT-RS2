@@ -54,7 +54,10 @@ class _TerminScreenState extends State<TerminScreen> {
             child: SingleChildScrollView(
                 scrollDirection: Axis.vertical, child: _tablica()),
           ),
-          _buildAppointmentButton()
+          _buildAppointmentButton(),
+          SizedBox(
+            height: 15,
+          )
         ],
       ),
     );
@@ -96,6 +99,9 @@ class _TerminScreenState extends State<TerminScreen> {
   Widget _buildAppointmentButton() {
     return TextButton(
       child: Text("Add new appointment"),
+      style: TextButton.styleFrom(
+          backgroundColor: Color.fromARGB(255, 168, 204, 235),
+          foregroundColor: Colors.black),
       onPressed: () async {
         Navigator.pushNamed(
           context,
