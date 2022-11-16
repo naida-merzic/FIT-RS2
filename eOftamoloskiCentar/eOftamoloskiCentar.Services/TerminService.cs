@@ -56,7 +56,7 @@ namespace eOftamoloskiCentar.Services
                     || x.Klijent.KorisnickiRacun.Prezime.Contains(search.Ime));
             }
 
-            if (search?.KlijentId != 0)
+            if (search?.KlijentId != null && search?.KlijentId != 0)
             {
                 filteredQuery = filteredQuery.Where(x => x.Klijent.KlijentId == search.KlijentId);
             }
