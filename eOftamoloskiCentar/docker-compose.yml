@@ -21,7 +21,7 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      - ConnectionStrings:DefaultConnection=Server=eoftamoloski-sql,1433;Database=NaidaTest;User=sa;Password=QWElkj132!;ConnectRetryCount=0
+      - ConnectionStrings:DefaultConnection=Server=eoftamoloski-sql,1433;Database=NaidaTestTestt;User=sa;Password=QWElkj132!;ConnectRetryCount=0
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - 5192:5192

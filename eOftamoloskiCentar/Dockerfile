@@ -13,5 +13,6 @@ RUN dotnet publish "eOftamoloskiCentar/eOftamoloskiCentar.csproj" -c Release -o 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
+ADD /Images img/
 
 ENTRYPOINT ["dotnet", "eOftamoloskiCentar.dll"]
