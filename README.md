@@ -1,5 +1,5 @@
 # FIT-RS2
-##Oftamoloski centar
+## Oftamoloski centar
 
 # Credentials
 
