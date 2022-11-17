@@ -47,7 +47,10 @@ namespace eOftamoloskiCentar.WinUI
                 txtEmail.Text = _model.Email;
                 txtUsername.Text = _model.KorisnickoIme;
                 chkStatus.Checked = (bool)_model.Status;//GetValueOrDefault(false);
+                txtBrojTelefona.Text = (string)_model.BrojTelefona;
+                txtAdresa.Text = _model.Adresa;
 
+                clbRole.Enabled = false;
             }
         }
         private async Task LoadRoles()
@@ -79,9 +82,9 @@ namespace eOftamoloskiCentar.WinUI
                             Status = chkStatus.Checked,
                             RoleList = roleIdList,
                             Adresa = txtAdresa.Text,
-                            BrojTelefona = txtBrojTelefona.ToString(),
+                            BrojTelefona = txtBrojTelefona.Text,
                             DatumRodjenja = dtpDatumRodjenja.Value,
-                            SpolId = 1
+                            SpolId = (int)cmbSpol.SelectedValue
                         };
                       
 
@@ -92,6 +95,8 @@ namespace eOftamoloskiCentar.WinUI
                     {
                         MessageBox.Show("Role list cannot be changed through edit mode!" +
                             "If you want to change the role list please delete the user and make new one with new roles!" + "Press OK and continue editing...");
+                        var roleList1 =_model.UposlenikRolas.Where(x=>x.UposlenikId == _model.UposlenikId).ToList();
+                        var roleIdList1 = roleList1.Select(x => x.RolaId).ToList();
                         KorisnickiRacunInsertRequest updateRequest = new KorisnickiRacunInsertRequest()
                         {
                             Ime = txtIme.Text,
@@ -101,11 +106,11 @@ namespace eOftamoloskiCentar.WinUI
                             Lozinka = txtPassword.Text,
                             LozinkaPotvrda = txtPasswordPotvrda.Text,
                             Status = chkStatus.Checked,
-                            RoleList = roleIdList,
+                            RoleList = roleIdList1,
                             Adresa = txtAdresa.Text,
-                            BrojTelefona = txtBrojTelefona.ToString(),
+                            BrojTelefona = txtBrojTelefona.Text,
                             DatumRodjenja = dtpDatumRodjenja.Value,
-                            SpolId = 1
+                            SpolId = (int)cmbSpol.SelectedValue
                         };
                        
                         _model = await UposlenikService.Put<Uposlenik>(_model.UposlenikId, updateRequest);
@@ -124,7 +129,6 @@ namespace eOftamoloskiCentar.WinUI
                     || !ErrorHandler.RequiredFiled(dtpDatumRodjenja, errorProvider1) || !ErrorHandler.RequiredFiled(cmbSpol, errorProvider1)
                     || !ErrorHandler.CheckFormatOfEmail(txtEmail, errorProvider1) || !ErrorHandler.PhoneCheck(txtBrojTelefona, errorProvider1)
                     || !ErrorHandler.checkPass(txtPassword, txtPasswordPotvrda, errorProvider1, "Password and confirmation must be the same")
-                    || !ErrorHandler.CheckCLB(clbRole, errorProvider1)
                     )
                 return false;
             return true;

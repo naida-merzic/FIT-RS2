@@ -45,6 +45,7 @@ namespace eOftamoloskiCentar.WinUI
                 txtBrojTelefona.Text = _model.KorisnickiRacun.BrojTelefona;
                 txtEmail.Text = _model.KorisnickiRacun.Email;
                 cmbSpol.SelectedItem = _model.SpolId;
+                txtUsername.Text = _model.KorisnickoIme;
             }
         }
         private bool ErrorCheck()

@@ -24,7 +24,8 @@ namespace eOftamoloskiCentar.Controllers
 
             return result;
         }
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
+        [AllowAnonymous]
         [HttpDelete("{id}")]
         public virtual T Delete(int id)
         {

@@ -14,6 +14,7 @@ namespace eOftamoloskiCentar.WinUI
 {
     public partial class frmArtikalDetalji : Form
     {
+        public APIService UposlenikService { get; set; } = new APIService("Uposlenik");
         public APIService ArtikliService { get; set; } = new APIService("Artikli");
         public APIService VrstaArtikla { get; set; } = new APIService("VrstaArtikla");
 
@@ -35,6 +36,24 @@ namespace eOftamoloskiCentar.WinUI
         private async void frmArtikalDetalji_Load(object sender, EventArgs e)
         {
             await LoadVrstaArtikla();
+
+            var alluposlenik = await UposlenikService.Get<List<Uposlenik>>();
+            var uposlenik = alluposlenik.Where(x => x.KorisnickoIme == APIService.Username).FirstOrDefault();
+
+            bool admin = false;
+            if (uposlenik != null)
+            {
+                foreach (var item in uposlenik!.UposlenikRolas)
+                {
+                    if (item.Rola.Naziv == "Admin")
+                    {
+                        admin = true;
+                        break;
+                    }
+                }
+                if (admin == false)
+                    btnObrisi.Visible = false;
+            }
 
             if (_model != null)
             {

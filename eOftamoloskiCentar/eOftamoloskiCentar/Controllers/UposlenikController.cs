@@ -18,7 +18,6 @@ namespace eOftamoloskiCentar.Controllers
         {
             return base.Insert(insert);
         }
-        [Authorize("Admin")]
         public override Uposlenik Update(int id, [FromBody] KorisnickiRacunInsertRequest update)
         {
             return base.Update(id, update);

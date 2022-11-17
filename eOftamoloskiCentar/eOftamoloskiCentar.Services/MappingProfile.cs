@@ -39,9 +39,9 @@ namespace eOftamoloskiCentar.Services
             CreateMap<DijagnozaUpsertRequest, Database.Dijagnoza>();
             CreateMap<VrstaArtiklaUpsertRequest, Database.VrstaArtikla>();
             CreateMap<UposlenikInsertRequest, Database.Uposlenik>();
-            CreateMap<UposlenikUpdateRequest, Database.Uposlenik>();
             CreateMap<KorisnickiRacunInsertRequest, Database.Klijent>();
             CreateMap<KlijentUpdateRequest, Database.Klijent>();
+            CreateMap<UposlenikUpdateRequest, Database.Uposlenik>();
             CreateMap<SpolUpsertRequest, Database.Spol>();
             CreateMap<TerminInsertRequest, Database.Termin>();
             CreateMap<TerminUpdateRequest, Database.Termin>();
@@ -52,6 +52,7 @@ namespace eOftamoloskiCentar.Services
 
             CreateMap<Database.KorisnickiRacun, KorisnickiRacunInsertRequest>().ReverseMap();
             CreateMap<Database.KorisnickiRacun, KlijentUpdateRequest>().ReverseMap();
+            CreateMap<Database.KorisnickiRacun, UposlenikUpdateRequest>().ReverseMap();
             CreateMap<Database.KorisnickiRacun, AuthKorisnickiRacun>().ReverseMap();
             CreateMap<Database.Klijent, KlijentInsertRequest>().ReverseMap();
             CreateMap<Model.Klijent, Database.KorisnickiRacun>().ReverseMap();

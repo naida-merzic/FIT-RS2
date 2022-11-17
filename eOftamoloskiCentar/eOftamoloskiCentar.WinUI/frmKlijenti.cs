@@ -16,6 +16,8 @@ namespace eOftamoloskiCentar.WinUI
     public partial class frmKlijenti : Form
     {
         public APIService KlijentService { get; set; } = new APIService("Klijent");
+        public APIService UposlenikService { get; set; } = new APIService("Uposlenik");
+
         List<Klijent> ReportKlijent;
         KlijentSearchObject ReportKlijentSearchObject;
 
@@ -90,9 +92,25 @@ namespace eOftamoloskiCentar.WinUI
             frm.Show();
         }
 
-        private void frmKlijenti_Load(object sender, EventArgs e)
+        private async void frmKlijenti_Load(object sender, EventArgs e)
         {
+            var alluposlenik = await UposlenikService.Get<List<Uposlenik>>();
+            var uposlenik = alluposlenik.Where(x => x.KorisnickoIme == APIService.Username).FirstOrDefault();
 
+            bool admin = false;
+            if (uposlenik != null)
+            {
+                foreach (var item in uposlenik!.UposlenikRolas)
+                {
+                    if (item.Rola.Naziv == "Admin")
+                    {
+                        admin = true;
+                        break;
+                    }
+                }
+                if (admin == false)
+                    dgvKlijenti.Columns[3].Visible = false;
+            }
         }
     }
 }

@@ -128,6 +128,7 @@
             this.Controls.Add(this.dgvNovosti);
             this.Name = "frmNovosti";
             this.Text = "frmNovosti";
+            this.Load += new System.EventHandler(this.frmNovosti_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvNovosti)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

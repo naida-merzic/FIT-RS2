@@ -23,9 +23,25 @@ namespace eOftamoloskiCentar.WinUI
             dgvUposlenici.AutoGenerateColumns = false;
         }
 
-        private void frmUposlenici_Load(object sender, EventArgs e)
+        private async void frmUposlenici_Load(object sender, EventArgs e)
         {
+            var alluposlenik = await UposlenikService.Get<List<Uposlenik>>();
+            var uposlenik = alluposlenik.Where(x => x.KorisnickoIme == APIService.Username).FirstOrDefault();
 
+            bool admin = false;
+            if (uposlenik != null)
+            {
+                foreach (var item in uposlenik!.UposlenikRolas)
+                {
+                    if (item.Rola.Naziv == "Admin")
+                    {
+                        admin = true;
+                        break;
+                    }
+                }
+                if (admin == false)
+                    dgvUposlenici.Columns[3].Visible = false;
+            }
         }
 
         private async void btnPrikazi_Click(object sender, EventArgs e)
