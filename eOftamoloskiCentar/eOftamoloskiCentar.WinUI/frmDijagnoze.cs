@@ -1,5 +1,7 @@
 ﻿using eOftamoloskiCentar.Model;
+using eOftamoloskiCentar.Model.Requests;
 using eOftamoloskiCentar.Model.SearchObjects;
+using eOftamoloskiCentar.WinUI.Helper;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -39,6 +41,41 @@ namespace eOftamoloskiCentar.WinUI
         private void frmDijagnoze_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private async void btnSaveDijagnoza_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (ErrorCheck())
+                {
+                    DijagnozaUpsertRequest novaDijag = new DijagnozaUpsertRequest
+                    {
+                        Naziv = txtNaziv.Text,
+                        Sadrzaj = txtSadrzaj.Text,
+                        KlijentId = _id
+                        
+                    };
+
+                    if (novaDijag != null)
+                    {
+                        var dijagnoza = await DijagnozaService.Post<DijagnozaUpsertRequest>(novaDijag);
+                        MessageBox.Show("Successfully added.");
+                        await LoadDijagnoze();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        private bool ErrorCheck()
+        {
+            if (!ErrorHandler.RequiredFiled(txtNaziv, errorProvider1) || !ErrorHandler.RequiredFiled(txtSadrzaj, errorProvider1))
+                return false;
+            return true;
         }
     }
 }

@@ -8,5 +8,6 @@ namespace eOftamoloskiCentar.Model.Requests
     {
         public string Naziv { get; set; }
         public string Sadrzaj { get; set; }
+        public int KlijentId { get; set; }
     }
 }
