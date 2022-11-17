@@ -1,5 +1,5 @@
-# FIT-RS2
-## Oftamoloski centar
+# FIT-Razvoj softvera II
+Aplikacija za rad oftamoloskog centra
 
 # Credentials
 
