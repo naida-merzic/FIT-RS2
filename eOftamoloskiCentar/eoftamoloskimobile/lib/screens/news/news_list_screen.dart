@@ -125,23 +125,25 @@ class _NovostScreenState extends State<NovostScreen> {
     List<Widget> list = data
         .map((x) => Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Container(
-                decoration:
-                    BoxDecoration(color: Color.fromARGB(255, 220, 228, 245)),
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Column(
-                    children: [
-                      Text(x.naslov ?? "",
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 41, 83, 105),
-                              fontSize: 20,
-                              fontWeight: FontWeight.w600)),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      Text(x.sadrzaj ?? ""),
-                    ],
+              child: SingleChildScrollView(
+                child: Container(
+                  decoration:
+                      BoxDecoration(color: Color.fromARGB(255, 220, 228, 245)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Column(
+                      children: [
+                        Text(x.naslov ?? "",
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 41, 83, 105),
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600)),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Text(x.sadrzaj ?? ""),
+                      ],
+                    ),
                   ),
                 ),
               ),
