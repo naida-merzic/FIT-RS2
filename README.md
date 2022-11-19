@@ -13,6 +13,10 @@ Aplikacija za rad oftamoloskog centra
 ### Mobile user:
   username: mobile                                                                                                                                                     
   password: user
+  
+### Paypal creds:
+  email: sb-oma8v22039301@personal.example.com
+  password: naidaSandbox
 
 # Flutter
   flutter pub get                                                                                                                                                       
