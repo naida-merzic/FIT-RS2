@@ -15,7 +15,7 @@ Aplikacija za rad oftamoloskog centra
   password: user
   
 ### Paypal creds:
-  email: sb-oma8v22039301@personal.example.com
+  email: sb-oma8v22039301@personal.example.com                                                                                                                         
   password: naidaSandbox
 
 # Flutter
