@@ -171,21 +171,22 @@ namespace eOftamoloskiCentar.Services
                 /* StreamWriter myFile = new StreamWriter("fileName.txt");
                  myFile.WriteLine(myFile);
                  myFile.Close();*/
+                File.WriteAllTextAsync("img/WriteText.txt", myTableAsString);
 
-                File.WriteAllTextAsync("WriteText.txt", myTableAsString);
 
+                var putanja1 = System.Environment.CurrentDirectory + @"\img\" + "WriteText.txt";
+            if (putanja1 == null)
+                throw new Exception("Nema putanje");
 
-                var putanja1 = System.Environment.CurrentDirectory + @"\" + "WriteText.txt";
-
-                var traindata = mlContext.Data.LoadFromTextFile(path: putanja1, columns: new[]
-                                                                {
-                                                                    new TextLoader.Column("Label", DataKind.Single, 0),
-                                                                    new TextLoader.Column(name:nameof(RatingEntry.RatingId), dataKind:DataKind.UInt32, source: new [] { new TextLoader.Range(0) }, keyCount: new KeyCount(262111)),
-                                                                    new TextLoader.Column(name:nameof(RatingEntry.CoRatingId), dataKind:DataKind.UInt32, source: new [] { new TextLoader.Range(1) }, keyCount: new KeyCount(262111))
-                                                                },
-                                                      hasHeader: true,
-                                                      separatorChar: '\t');
-                //var traindata = mlContext.Data.LoadFromEnumerable(_Data);
+                //var traindata = mlContext.Data.LoadFromTextFile(path: putanja1, columns: new[]
+                //                                                {
+                //                                                    new TextLoader.Column("Label", DataKind.Single, 0),
+                //                                                    new TextLoader.Column(name:nameof(RatingEntry.RatingId), dataKind:DataKind.UInt32, source: new [] { new TextLoader.Range(0) }, keyCount: new KeyCount(262111)),
+                //                                                    new TextLoader.Column(name:nameof(RatingEntry.CoRatingId), dataKind:DataKind.UInt32, source: new [] { new TextLoader.Range(1) }, keyCount: new KeyCount(262111))
+                //                                                },
+                //                                      hasHeader: true,
+                //                                      separatorChar: '\t');
+                var traindata = mlContext.Data.LoadFromEnumerable(data);
                 //STEP 3: Your data is already encoded so all you need to do is specify options for MatrxiFactorizationTrainer with a few extra hyperparameters
                 //        LossFunction, Alpa, Lambda and a few others like K and C as shown below and call the trainer. 
                 MatrixFactorizationTrainer.Options options = new MatrixFactorizationTrainer.Options();
@@ -241,7 +242,7 @@ namespace eOftamoloskiCentar.Services
         public uint RatingId { get; set; }
         [KeyType(count: 262111)]
         public uint CoRatingId { get; set; }
-        //public float Label { get; set; }
+        public float Label { get; set; }
 
     }
     public class Copurchase_prediction
