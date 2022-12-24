@@ -46,7 +46,6 @@ namespace eOftamoloskiCentar.Services
 
             return GetById(id);
         }
-        //PAZITI I OGRANICITI DA NE MOZE IZBRISATI ARTIKAL KOJI JE VEC NA RACUNU STAVKA RACUNA
         public override Model.Artikal Delete(int id)
         {
             foreach (var item in Context.StavkaRacunas)
