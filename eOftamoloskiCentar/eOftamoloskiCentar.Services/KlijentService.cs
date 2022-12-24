@@ -82,6 +82,13 @@ namespace eOftamoloskiCentar.Services
                     Context.Termins.Remove(item);
                 }
             }
+            foreach (var item in Context.Dijagnozas)
+            {
+                if (id == item.KlijentId)
+                {
+                    Context.Dijagnozas.Remove(item);
+                }
+            }
 
             var temp = Context.Racuns.Include(x => x.StavkaRacunas);
 

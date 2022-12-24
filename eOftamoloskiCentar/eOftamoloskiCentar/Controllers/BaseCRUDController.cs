@@ -11,6 +11,8 @@ namespace eOftamoloskiCentar.Controllers
         {
         }
         [HttpPost]
+        [Authorize(Roles = "Admin,BasicUser")]
+
         public virtual T Insert([FromBody] TInsert insert)
         {
             var result = ((ICRUDService<T, TSearch, TInsert, TUpdate>)this._service).Insert(insert);
@@ -18,14 +20,16 @@ namespace eOftamoloskiCentar.Controllers
             return result;
         }
         [HttpPut("{id}")]
+
+        [Authorize(Roles = "Admin,BasicUser")]
+
         public virtual T Update(int id, [FromBody] TUpdate update)
         {
             var result = ((ICRUDService<T, TSearch, TInsert, TUpdate>)this._service).Update(id, update);
 
             return result;
         }
-        //[Authorize(Roles = "Admin")]
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin,BasicUser")]
         [HttpDelete("{id}")]
         public virtual T Delete(int id)
         {

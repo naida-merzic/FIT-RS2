@@ -14,6 +14,8 @@ namespace eOftamoloskiCentar.Controllers
             : base(service)
         {
         }
+        [Authorize(Roles = "Admin")]
+
         public override Uposlenik Insert([FromBody] KorisnickiRacunInsertRequest insert)
         {
             return base.Insert(insert);
@@ -21,6 +23,12 @@ namespace eOftamoloskiCentar.Controllers
         public override Uposlenik Update(int id, [FromBody] KorisnickiRacunInsertRequest update)
         {
             return base.Update(id, update);
+        }
+        [Authorize(Roles = "Admin")]
+
+        public override Uposlenik Delete(int id)
+        {
+            return base.Delete(id);
         }
     }
 }

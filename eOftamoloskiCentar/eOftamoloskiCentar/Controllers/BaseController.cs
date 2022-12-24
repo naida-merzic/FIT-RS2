@@ -16,12 +16,16 @@ namespace eOftamoloskiCentar.Controllers
             _service = service;
         }
         [HttpGet]
+        [Authorize(Roles = "Admin,BasicUser")]
+
         public virtual IEnumerable<T> Get([FromQuery]TSearch search = null)
         {
             return _service.Get(search);
         }
 
         [HttpGet("{Id}")]
+        [Authorize(Roles = "Admin,BasicUser")]
+
         public virtual T GetById(int Id)
         {
             return _service.GetById(Id);

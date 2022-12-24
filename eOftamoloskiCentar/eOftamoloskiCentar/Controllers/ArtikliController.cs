@@ -17,6 +17,8 @@ namespace eOftamoloskiCentar.Controllers
         }
 
         [HttpPut("{id}/Activate")]
+        [Authorize(Roles = "Admin,BasicUser")]
+
         public Model.Artikal Activate(int id)
         {
             var result = ArtikliService.Activate(id);
@@ -24,6 +26,8 @@ namespace eOftamoloskiCentar.Controllers
             return result;
         }
         [HttpPut("{id}/AllowedActions")]
+        [Authorize(Roles = "Admin,BasicUser")]
+
         public List<string> AllowedActions(int id)
         {
             var result = ArtikliService.AllowedActions(id);
@@ -32,7 +36,8 @@ namespace eOftamoloskiCentar.Controllers
         }
 
         [HttpGet("{id}/Recommend")]
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin,BasicUser")]
+
         public List<Artikal> Recommend(int id)
         {
             var result = ArtikliService.Recommend(id);

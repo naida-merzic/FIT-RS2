@@ -15,13 +15,14 @@ namespace eOftamoloskiCentar.Controllers
         {
             this.service = service;
         }
-        //[Authorize("Admin")]
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin,BasicUser")]
+
         public override Klijent Insert([FromBody] KorisnickiRacunInsertRequest insert)
         {
             return base.Insert(insert);
         }
-        //[Authorize("Admin")]
+        [Authorize(Roles = "Admin,BasicUser")]
+
         public override Klijent Update(int id, [FromBody] KorisnickiRacunInsertRequest update)
         {
             return base.Update(id, update);

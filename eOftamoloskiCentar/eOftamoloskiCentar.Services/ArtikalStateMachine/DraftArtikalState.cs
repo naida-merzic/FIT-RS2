@@ -24,15 +24,12 @@ namespace eOftamoloskiCentar.Services.ArtikalStateMachine
             CurrentEntity.StateMachine = "draft";
 
             Context.SaveChanges();
-
-            //update data by calling EF...
         }
 
         public override void Activate()
         {
             CurrentEntity.StateMachine = "active";
             Context.SaveChanges();
-            //update data by calling EF...
         }
         public override List<string> AllowedActions()
         {
