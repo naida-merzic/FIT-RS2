@@ -21,6 +21,8 @@ namespace eOftamoloskiCentar.WinUI
         {
             InitializeComponent();
             dgvNovosti.AutoGenerateColumns = false;
+            loadDgvData();
+
 
         }
 
@@ -40,6 +42,8 @@ namespace eOftamoloskiCentar.WinUI
                     //frmNewsSearch frm = new frmNewsSearch();
                     //frm.MdiParent = frmHome.ActiveForm;
                     //frm.Show();
+                    loadDgvData();
+
                 }
                 catch
                 {
@@ -60,6 +64,11 @@ namespace eOftamoloskiCentar.WinUI
         }
 
         private async void btnTrazi_Click(object sender, EventArgs e)
+        {
+            loadDgvData();
+
+        }
+        private async void loadDgvData()
         {
             var searchObject = new NovostSearchObject();
             searchObject.Naslov = txtNaslov.Text;

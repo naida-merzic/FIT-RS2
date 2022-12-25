@@ -26,14 +26,6 @@ namespace eOftamoloskiCentar.WinUI
             InitializeComponent();
             _model = model;
         }
-        //private async Task LoadSpolovi()
-        //{
-        //    var spoloviList = await SpolService.Get<List<Spol>>();
-
-        //    cmbSpolovi.DataSource = spoloviList;
-        //    cmbSpolovi.DisplayMember = "Naziv";
-        //    cmbSpolovi.ValueMember = "SpolId";
-        //}
         private async Task LoadKlijenti()
         {
             var klijentiList = await KlijentService.Get<List<Klijent>>();
@@ -45,19 +37,15 @@ namespace eOftamoloskiCentar.WinUI
 
         private async void frmTerminDetalji_Load(object sender, EventArgs e)
         {
-            //await LoadSpolovi();
             await LoadKlijenti();
 
             if (_model != null)
             {
-                //txtIme.Text = _model.Klijent.Ime;
-                //txtPrezime.Text = _model.Klijent.Prezime;
                 dtpDatum.Format = DateTimePickerFormat.Custom;
                 dtpDatum.CustomFormat = "HH:mm tt";
                 dtpDatum.Value = _model.DatumTermina;
                 txtVrsta.Text = _model.VrstaPregleda;
 
-                //cmbSpolovi.SelectedValue = _mod.Value;
             }
         }
 
@@ -67,13 +55,6 @@ namespace eOftamoloskiCentar.WinUI
             {
                 if (_model == null)
                 {
-                    //KlijentInsertRequest klijentInsert = new KlijentInsertRequest()
-                    //{
-                    //    Ime = txtIme.Text,
-                    //    Prezime = txtPrezime.Text,
-                    //    SpolId = Convert.ToInt32(cmbSpolovi.SelectedValue)
-                    //};
-                    //var klijent = await KlijentService.Post<Klijent>(klijentInsert);
 
                     TerminInsertRequest insertRequest = new TerminInsertRequest()
                     {
@@ -92,8 +73,6 @@ namespace eOftamoloskiCentar.WinUI
                         DatumTermina = dtpDatum.Value,//Convert.ToDateTime("txtDatum.Text"),
                         VrstaPregleda = txtVrsta.Text,
                         KlijentId = klijentID,//klijent.KlijentId,
-                        //Ime = txtIme.Text,
-                        //Prezime = txtPrezime.Text,
                     };
 
                     _model = await TerminService.Put<Termin>(_model.TerminId, updateRequest);

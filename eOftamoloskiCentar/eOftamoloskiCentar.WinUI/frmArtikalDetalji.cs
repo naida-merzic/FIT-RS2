@@ -121,18 +121,10 @@ namespace eOftamoloskiCentar.WinUI
             {
                 var N = await ArtikliService.Delete<Artikal>(_model.ArtikalId);
                 MessageBox.Show("Successfully deleted.");
-                //this.Hide();
-                //frmNewsSearch frm = new frmNewsSearch();
-                //frm.MdiParent = frmHome.ActiveForm;
-                //frm.Show();
             }
             catch
             {
                 MessageBox.Show("Deleting was not successful.");
-                //this.Hide();
-                //frmNewsSearch frm = new frmNewsSearch();
-                //frm.MdiParent = frmHome.ActiveForm;
-                //frm.Show();
             }
         }
 

@@ -15,25 +15,27 @@ namespace eOftamoloskiCentar.WinUI
     public partial class frmArtikli : Form
     {
         public APIService ArtikalService { get; set; } = new APIService("Artikli");
+        protected List<Artikal> tempList = new List<Artikal>();
+
         public frmArtikli()
         {
             InitializeComponent();
             dgvArtikli.AutoGenerateColumns = false;
+            loadDgvData();
         }
 
         private async void btnPrikazi_Click(object sender, EventArgs e)
         {
-            //var list = await ArtikalService.Get<List<Artikal>>();
-            //var entity = await ArtikalService.GetById<Artikal>(3);
-            //entity.Naziv = "Updated with product WinUI";
-            //var update = await ArtikalService.Put<Artikal>(entity.ArtikalId, entity);
-
+            loadDgvData();
+        }
+        private async void loadDgvData()
+        {
             var searchObject = new ArtikalSearchObject();
             searchObject.Naziv = txtNaziv.Text;
 
-            var list = await ArtikalService.Get<List<Artikal>>(searchObject);
+            tempList = await ArtikalService.Get<List<Artikal>>(searchObject);
 
-            dgvArtikli.DataSource = list;
+            dgvArtikli.DataSource = tempList;
         }
 
         private void dgvArtikli_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -42,6 +44,8 @@ namespace eOftamoloskiCentar.WinUI
 
             frmArtikalDetalji frm = new frmArtikalDetalji(item);
             frm.ShowDialog();
+            loadDgvData();
+
         }
 
         private void frmArtikli_Load(object sender, EventArgs e)

@@ -25,9 +25,15 @@ namespace eOftamoloskiCentar.WinUI
         {
             InitializeComponent();
             dgvKlijenti.AutoGenerateColumns = false;
+            loadDgvData();
+
         }
 
         private async void btnTrazi_Click(object sender, EventArgs e)
+        {
+            loadDgvData();
+        }
+        private async void loadDgvData()
         {
             var searchObject = new KlijentSearchObject();
             searchObject.Ime = txtIme.Text;
@@ -35,10 +41,9 @@ namespace eOftamoloskiCentar.WinUI
             ReportKlijentSearchObject = searchObject;
 
             var list = await KlijentService.Get<List<Klijent>>(searchObject);
-            ReportKlijent=list; 
+            ReportKlijent = list;
 
             dgvKlijenti.DataSource = list;
-
         }
 
         private async void dgvKlijenti_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -55,18 +60,12 @@ namespace eOftamoloskiCentar.WinUI
                         var _model = dgvKlijenti.SelectedRows[0].DataBoundItem as Klijent;
                         var N = await KlijentService.Delete<Klijent>(_model.KlijentId);
                         MessageBox.Show("Successfully deleted.");
-                        //this.Hide();
-                        //frmNewsSearch frm = new frmNewsSearch();
-                        //frm.MdiParent = frmHome.ActiveForm;
-                        //frm.Show();
+                        loadDgvData();
+
                     }
                     catch
                     {
                         MessageBox.Show("Deleting was not successful.");
-                        //this.Hide();
-                        //frmNewsSearch frm = new frmNewsSearch();
-                        //frm.MdiParent = frmHome.ActiveForm;
-                        //frm.Show();
                     }
                 }
                 else

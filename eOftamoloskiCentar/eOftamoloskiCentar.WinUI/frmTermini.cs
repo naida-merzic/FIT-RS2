@@ -21,9 +21,15 @@ namespace eOftamoloskiCentar.WinUI
         {
             InitializeComponent();
             dgvTermini.AutoGenerateColumns = false;
+            loadDgvData();
+
         }
 
         private async void btnTrazi_Click(object sender, EventArgs e)
+        {
+            loadDgvData();
+        }
+        private async void loadDgvData()
         {
             var searchObject = new TerminSearchObject();
             searchObject.VrstaPregleda = txtVrsta.Text;
@@ -33,6 +39,7 @@ namespace eOftamoloskiCentar.WinUI
 
             dgvTermini.DataSource = list;
         }
+
 
         private async void dgvTermini_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -46,18 +53,14 @@ namespace eOftamoloskiCentar.WinUI
                     var _model = dgvTermini.SelectedRows[0].DataBoundItem as Termin;
                     var N = await TerminService.Delete<Termin>(_model.TerminId);
                     MessageBox.Show("Successfully deleted.");
-                    //this.Hide();
-                    //frmNewsSearch frm = new frmNewsSearch();
-                    //frm.MdiParent = frmHome.ActiveForm;
-                    //frm.Show();
+                    loadDgvData();
+
+
                 }
                 catch
                 {
                     MessageBox.Show("Deleting was not successful.");
-                    //this.Hide();
-                    //frmNewsSearch frm = new frmNewsSearch();
-                    //frm.MdiParent = frmHome.ActiveForm;
-                    //frm.Show();
+                    
                 }
             }
             else

@@ -133,63 +133,7 @@ namespace eOftamoloskiCentar.WinUI
                 return false;
             return true;
         }
-        /*
-        private void txtIme_Validating(object sender, CancelEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txtIme.Text))
-            {
-                e.Cancel = true;
-                txtIme.Focus();
-                errorProvider1.SetError(txtIme, "Name should not be left blank!");
-            }
-            else
-            {
-                e.Cancel = false;
-
-            }
-        }
-
-        private void txtUsername_Validating_1(object sender, CancelEventArgs e)
-        {
-            if ((txtUsername.Text).Length < 4)
-            {
-                e.Cancel = true;
-                txtIme.Focus();
-                errorProvider2.SetError(txtUsername, "Username should not be smaller than 4 charachter!");
-            }
-            else
-            {
-                e.Cancel = false;
-            }
-        }
-
-        private void txtPassword_Validating(object sender, CancelEventArgs e)
-        {
-            if (txtPassword.Text == "")
-            {
-                e.Cancel = true;
-                txtPassword.Focus();
-                errorProvider3.SetError(txtPassword, "Please enter password!");
-            }
-            else
-            {
-                e.Cancel = false;
-            }
-        }
-
-        private void txtPasswordPotvrda_Validating(object sender, CancelEventArgs e)
-        {
-            if (txtPassword.Text != txtPasswordPotvrda.Text)
-            {
-                e.Cancel = true;
-                txtPasswordPotvrda.Focus();
-                errorProvider4.SetError(txtPasswordPotvrda, "Password confirmation must match Password field");
-            }
-            else
-            {
-                e.Cancel = false;
-            }
-        }*/
+        
     }
 }
 
