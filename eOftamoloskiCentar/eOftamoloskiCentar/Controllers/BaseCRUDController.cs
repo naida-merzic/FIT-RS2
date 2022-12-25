@@ -11,7 +11,7 @@ namespace eOftamoloskiCentar.Controllers
         {
         }
         [HttpPost]
-        [Authorize(Roles = "Admin,BasicUser")]
+        [Authorize]
 
         public virtual T Insert([FromBody] TInsert insert)
         {
@@ -21,7 +21,8 @@ namespace eOftamoloskiCentar.Controllers
         }
         [HttpPut("{id}")]
 
-        [Authorize(Roles = "Admin,BasicUser")]
+
+        [Authorize]
 
         public virtual T Update(int id, [FromBody] TUpdate update)
         {

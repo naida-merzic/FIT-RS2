@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace eOftamoloskiCentar.Controllers
 {
+    [Authorize]
+
     public class RacunController : BaseCRUDController<Model.Racun, BaseSearchObject, RacunInsertRequest, RacunUpdateRequest>
     {
         public RacunController(IRacunService service)
@@ -14,7 +16,6 @@ namespace eOftamoloskiCentar.Controllers
         {
         }
 
-        [Authorize]
         public override Racun Insert([FromBody] RacunInsertRequest insert)
         {
             return base.Insert(insert);

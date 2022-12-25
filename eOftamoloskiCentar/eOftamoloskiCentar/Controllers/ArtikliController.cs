@@ -44,6 +44,25 @@ namespace eOftamoloskiCentar.Controllers
 
             return result;
         }
+        [Authorize(Roles = "Admin, BasicUser")]
+
+        public override Artikal Insert([FromBody] ArtikalInsertRequest insert)
+        {
+            return base.Insert(insert);
+        }
+
+        [Authorize(Roles = "Admin, BasicUser")]
+
+        public override Artikal Update(int id, [FromBody] ArtikalUpdateRequest update)
+        {
+            return base.Update(id, update);
+        }
+        [Authorize(Roles = "Admin,BasicUser")]
+
+        public override Artikal Delete(int id)
+        {
+            return base.Delete(id);
+        }
     }
 }   
     

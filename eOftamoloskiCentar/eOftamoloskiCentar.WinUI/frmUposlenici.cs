@@ -15,12 +15,14 @@ namespace eOftamoloskiCentar.WinUI
     public partial class frmUposlenici : Form
     {
         public APIService UposlenikService { get; set; } = new APIService("Uposlenik");
+        protected List<Uposlenik> tempList = new List<Uposlenik>();
 
 
         public frmUposlenici()
         {
             InitializeComponent();
             dgvUposlenici.AutoGenerateColumns = false;
+            loadDgvData();
         }
 
         private async void frmUposlenici_Load(object sender, EventArgs e)
@@ -46,14 +48,20 @@ namespace eOftamoloskiCentar.WinUI
 
         private async void btnPrikazi_Click(object sender, EventArgs e)
         {
+            loadDgvData();
+
+        }
+
+        private async void loadDgvData()
+        {
             var searchObject = new UposlenikSearchObject();
             searchObject.Ime = txtIme.Text;
             searchObject.Prezime = txtPrezime.Text;
             searchObject.IncludeRoles = true;
 
-            var list = await UposlenikService.Get<List<Uposlenik>>(searchObject);
+            tempList = await UposlenikService.Get<List<Uposlenik>>(searchObject);
 
-            dgvUposlenici.DataSource = list;
+            dgvUposlenici.DataSource = tempList;
         }
 
         private async void dgvUposlenici_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -67,20 +75,19 @@ namespace eOftamoloskiCentar.WinUI
                 try
                 {
                     var _model = dgvUposlenici.SelectedRows[0].DataBoundItem as Uposlenik;
+                    var uposlenik = tempList.Where(x => x.KorisnickoIme == APIService.Username).FirstOrDefault();
+                    if (uposlenik != null)
+                    {
+                        if (_model.UposlenikId == uposlenik.UposlenikId)
+                            throw new UserException("You are not able to delete user account that you already logged in with.");
+                    }
                     var N = await UposlenikService.Delete<Uposlenik>(_model.UposlenikId);
                     MessageBox.Show("Successfully deleted.");
-                    //this.Hide();
-                    //frmNewsSearch frm = new frmNewsSearch();
-                    //frm.MdiParent = frmHome.ActiveForm;
-                    //frm.Show();
+                    loadDgvData();
                 }
-                catch
+                catch (UserException ex)
                 {
-                    MessageBox.Show("Deleting was not successful.");
-                    //this.Hide();
-                    //frmNewsSearch frm = new frmNewsSearch();
-                    //frm.MdiParent = frmHome.ActiveForm;
-                    //frm.Show();
+                    MessageBox.Show(ex == null ? "Deleting was not successful." : ex.Message);
                 }
             }
             else
