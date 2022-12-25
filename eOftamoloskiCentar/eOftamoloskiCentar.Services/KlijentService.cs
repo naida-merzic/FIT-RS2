@@ -139,7 +139,7 @@ namespace eOftamoloskiCentar.Services
 
             if (!string.IsNullOrWhiteSpace(search?.Ime))
             {
-                filteredQuery = filteredQuery.Where(x => x.KorisnickiRacun.Ime == search.Ime);
+                filteredQuery = filteredQuery.Where(x => x.KorisnickiRacun.Ime.StartsWith(search.Ime));
             }
 
             if (!string.IsNullOrWhiteSpace(search?.Prezime))

@@ -16,7 +16,7 @@ namespace eOftamoloskiCentar.Controllers
             _service = service;
         }
         [HttpGet]
-        [Authorize(Roles = "Admin,BasicUser")]
+        [Authorize]
 
         public virtual IEnumerable<T> Get([FromQuery]TSearch search = null)
         {
@@ -24,7 +24,7 @@ namespace eOftamoloskiCentar.Controllers
         }
 
         [HttpGet("{Id}")]
-        [Authorize(Roles = "Admin,BasicUser")]
+        [Authorize]
 
         public virtual T GetById(int Id)
         {

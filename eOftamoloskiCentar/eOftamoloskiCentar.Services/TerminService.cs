@@ -47,7 +47,7 @@ namespace eOftamoloskiCentar.Services
 
             if (!string.IsNullOrWhiteSpace(search?.VrstaPregleda))
             {
-                filteredQuery = filteredQuery.Where(x => x.VrstaPregleda == search.VrstaPregleda);
+                filteredQuery = filteredQuery.Where(x => x.VrstaPregleda.StartsWith(search.VrstaPregleda));
             }
 
             if (!string.IsNullOrWhiteSpace(search?.Ime))

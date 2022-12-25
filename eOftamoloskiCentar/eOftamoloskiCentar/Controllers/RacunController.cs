@@ -3,6 +3,7 @@ using eOftamoloskiCentar.Model;
 using eOftamoloskiCentar.Model.Requests;
 using eOftamoloskiCentar.Model.SearchObjects;
 using eOftamoloskiCentar.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace eOftamoloskiCentar.Controllers
 {
@@ -11,6 +12,12 @@ namespace eOftamoloskiCentar.Controllers
         public RacunController(IRacunService service)
             : base(service)
         {
+        }
+
+        [Authorize]
+        public override Racun Insert([FromBody] RacunInsertRequest insert)
+        {
+            return base.Insert(insert);
         }
     }
 }

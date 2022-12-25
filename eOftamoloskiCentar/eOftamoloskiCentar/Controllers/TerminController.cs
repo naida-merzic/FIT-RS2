@@ -13,7 +13,7 @@ namespace eOftamoloskiCentar.Controllers
             : base(service)
         {
         }
-        [Authorize(Roles = "Admin,BasicUser")]
+        [Authorize]
         public override Termin Insert([FromBody] TerminInsertRequest insert)
         {
             return base.Insert(insert);

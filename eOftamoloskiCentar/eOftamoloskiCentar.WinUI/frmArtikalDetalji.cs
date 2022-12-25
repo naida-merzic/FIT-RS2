@@ -39,7 +39,8 @@ namespace eOftamoloskiCentar.WinUI
 
             var alluposlenik = await UposlenikService.Get<List<Uposlenik>>();
             var uposlenik = alluposlenik.Where(x => x.KorisnickoIme == APIService.Username).FirstOrDefault();
-
+            btnObrisi.Enabled = false;
+            
             bool admin = false;
             if (uposlenik != null)
             {
@@ -67,6 +68,7 @@ namespace eOftamoloskiCentar.WinUI
                     pbSlika.SizeMode = PictureBoxSizeMode.StretchImage;
                     pbSlika.Image = Helper.ImageConverterFunction.FromByteToImage(_model.Slika);
                 }
+                btnObrisi.Enabled = true;
             }
         }
 
@@ -164,11 +166,28 @@ namespace eOftamoloskiCentar.WinUI
 
         private void txtCijena_Validating(object sender, CancelEventArgs e)
         {
+            string text = txtCijena.Text;
+            bool isString = false;
+
+            foreach (char letter in text)
+            {
+                if (char.IsLetter(letter))
+                {
+                    isString = true;
+                    break;
+                }
+            }
             if ((txtCijena.Text) == "")
             {
                 e.Cancel = true;
                 txtCijena.Focus();
                 errorProvider3.SetError(txtCijena, "Cijena mora biti unesena!");
+            }
+            else if (isString)
+            {
+                e.Cancel = true;
+                txtCijena.Focus();
+                errorProvider3.SetError(txtCijena, "Cijena mora biti int!");
             }
             else
             {

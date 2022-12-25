@@ -27,6 +27,10 @@ namespace eOftamoloskiCentar.Model
         public string KorisnickoIme { get; set; }
         public string DatumRodjenja { get; set; }
 
+        public string FullName
+        {
+            get { return Ime + " " + Prezime; }
+        }
 
     }
 }
