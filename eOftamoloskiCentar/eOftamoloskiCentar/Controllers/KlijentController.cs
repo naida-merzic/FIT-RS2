@@ -17,7 +17,7 @@ namespace eOftamoloskiCentar.Controllers
         {
             this.service = service;
         }
-
+        [AllowAnonymous]
         public override Klijent Insert([FromBody] KorisnickiRacunInsertRequest insert)
         {
             return base.Insert(insert);

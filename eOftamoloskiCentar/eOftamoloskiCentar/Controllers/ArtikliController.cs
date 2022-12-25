@@ -36,7 +36,7 @@ namespace eOftamoloskiCentar.Controllers
         }
 
         [HttpGet("{id}/Recommend")]
-        [Authorize(Roles = "Admin,BasicUser")]
+        [Authorize]
 
         public List<Artikal> Recommend(int id)
         {
